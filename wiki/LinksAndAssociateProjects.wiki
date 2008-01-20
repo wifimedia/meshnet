@@ -1,6 +1,17 @@
 #summary Links
 
-== Links to Related Projects ==
+== Associated organizations ==
+  * [http://www.orangenetworking.org Orange Networking]
+  * [http://cs.unc.edu UNC-Chapel Hill Computer Science]
+
+== Software we use ==
+  * B.A.T.M.A.N - Better Approach to Mobile Ad-hoc Networking
+  * RO.B.IN - Routing BATMAN Inside
+  * OpenWRT
+
+== Hardware we use ==
+  * Meraki Mini
+  * Fon La Fonera
 
 == We're not to be confused with these fine groups: ==
   * [http://moment.cs.ucsb.edu/meshnet/ Meshnet at UC Santa Barbara]
