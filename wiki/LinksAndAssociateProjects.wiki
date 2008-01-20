@@ -1,0 +1,8 @@
+#summary Links
+
+== Links to Related Projects ==
+
+== We're not to be confused with these fine groups: ==
+  * [http://moment.cs.ucsb.edu/meshnet/ Meshnet at UC Santa Barbara]
+  * [http://pgransee.googlepages.com/meshnetwireless The Thoughts of Peter Gransee]
+  * [http://images.google.com/images?q=mesh+net Anything on this page]
