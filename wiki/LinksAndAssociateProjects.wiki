@@ -3,6 +3,7 @@
 == Associated organizations ==
   * [http://www.orangenetworking.org Orange Networking]
   * [http://cs.unc.edu UNC-Chapel Hill Computer Science]
+  * [http://www.cs.unc.edu/~pozefsky/COMP523_S08/ Dr. Pozefsky's Software Engineering Course]
 
 == Software we use ==
   * B.A.T.M.A.N - Better Approach to Mobile Ad-hoc Networking
