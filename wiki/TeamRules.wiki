@@ -22,3 +22,5 @@ Team rules:
 6. Tasks are due at 11.59pm on the day they are due, unless otherwise specified.
 
 7. We will have brief weekly progress reports from each member at our weekly meetings. We will also have bi-weekly code reviews. 
+
+We need to eventually come up with style guidelines for code, especially comments.
