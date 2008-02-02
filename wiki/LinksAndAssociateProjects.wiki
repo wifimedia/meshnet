@@ -14,6 +14,9 @@
   * Meraki Mini
   * Fon La Fonera
 
+== Mesh related projects ==
+  * [http://dogonrails.net/access_nodes/new Dog On Rails] [http://code.google.com/p/dogonrails Dog On Rails Google Code page]
+
 == We're not to be confused with these fine groups: ==
   * [http://moment.cs.ucsb.edu/meshnet/ Meshnet at UC Santa Barbara]
   * [http://pgransee.googlepages.com/meshnetwireless The Thoughts of Peter Gransee]
