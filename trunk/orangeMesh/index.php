@@ -1,8 +1,8 @@
-<?php	
-	/* Name: export.php
-	 * Purpose: exports information for selected network
+<?php
+	/* Name: index.php
+	 * Purpose: main page for dashboard.
 	 * Written By: Shaddi Hasan
-	 * Last Modified: March 8, 2008
+	 * Last Modified: March 13, 2008 12.30pm
 	 * 
 	 * (c) 2008 Orange Networking.
 	 *  
@@ -22,15 +22,13 @@
      * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
 	 * 
 	 */
-
-function export($type){
-	echo "$destDBhost<br>";
-	echo "called<BR>";
-}
-
-function send($itemToSend){
-	
-}
-
-function 
-?>
+ ?>
+<html><head></head>
+	<body>
+		<a href=create.php\>Create Network</a>
+		<br>
+		<a href=selectnetwork.php\>Select Network</a>
+		<br>
+		<a href=dashboard.php\>Configure Dashboard</a>
+	</body>
+</html>
