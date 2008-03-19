@@ -1,8 +1,8 @@
 <?php
-/* Name: index.php
- * Purpose: main page for dashboard.
+/* Name: edit.php
+ * Purpose: edit network settings.
  * Written By: Shaddi Hasan
- * Last Modified: March 16, 2008
+ * Last Modified: March 19, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -15,7 +15,7 @@
  * General Public license, but also requires that if you extend this code and
  * use it on a publicly accessible server, you must make available the 
  * complete source source code, including your extensions.
- * 
+ *
  * OrangeMesh is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -23,17 +23,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
- * 
  */
- ?>
-<html><head></head>
-	<body>
-		<a href="create.php">Create Network</a>
-		<br>
-		<a href="login.php?rd=edit">Edit Network</a>
-		<br>
-		<a href="selectnetwork.php">Select Network</a>
-		<br>
-		<a href="dashboard.php">Configure Dashboard</a>
-	</body>
-</html>
+session_start();
+
+//this is obviously not complete.
+echo $_SESSION["loginName"]."<br>";
+echo $_SESSION["netid"];
+?>

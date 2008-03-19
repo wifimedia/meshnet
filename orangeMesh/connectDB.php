@@ -1,8 +1,8 @@
 <?php
-/* Name: index.php
- * Purpose: main page for dashboard.
+/* Name: connectDB.php
+ * Purpose: manages database connection.
  * Written By: Shaddi Hasan
- * Last Modified: March 16, 2008
+ * Last Modified: March 14, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -25,15 +25,19 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
- ?>
-<html><head></head>
-	<body>
-		<a href="create.php">Create Network</a>
-		<br>
-		<a href="login.php?rd=edit">Edit Network</a>
-		<br>
-		<a href="selectnetwork.php">Select Network</a>
-		<br>
-		<a href="dashboard.php">Configure Dashboard</a>
-	</body>
-</html>
+
+//define the database configuration stuff
+$dbHost = "localhost";
+$dbUser = "orangemesh";
+$dbPass = "default";
+$dbName = "orangemesh";
+$dbTable;
+
+function setTable($table){
+	global $dbTable;
+	$dbTable = $table;
+}
+
+//create connection to db
+$conn = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName) or die("Error connecting to database: ".$dbHost);
+?>
