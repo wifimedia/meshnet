@@ -1,11 +1,11 @@
 <?php
-/* Name: index.php
- * Purpose: main page for dashboard.
- * Written By: Shaddi Hasan
+/* Name: logout.php
+ * Purpose: logs user out of dashboard.
+ * Written By: Mike Burmeister-Brown, Shaddi Hasan
  * Last Modified: March 19, 2008
  * 
- * (c) 2008 Orange Networking.
- *  
+ * (c) 2008 Open Mesh, Inc. and Orange Networking.
+ * 
  * This file is part of OrangeMesh.
  *
  * OrangeMesh is free software: you can redistribute it and/or modify
@@ -23,8 +23,11 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
- * 
  */
-
- include 'menu.php';
- ?>
+session_start();
+// Unset all of the session variables to force new login
+$_SESSION = array();
+//$_SESSION['realm'] = ''; 
+	
+Header("Location: index.php");
+?>

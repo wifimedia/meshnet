@@ -1,11 +1,11 @@
 <?php
-/* Name: index.php
- * Purpose: main page for dashboard.
- * Written By: Shaddi Hasan
+/* Name: menu.php
+ * Purpose: main menu for dashboard.
+ * Written By: Mike Burmeister-Brown, Shaddi Hasan
  * Last Modified: March 19, 2008
  * 
- * (c) 2008 Orange Networking.
- *  
+ * (c) 2008 Open Mesh, Inc. and Orange Networking.
+ * 
  * This file is part of OrangeMesh.
  *
  * OrangeMesh is free software: you can redistribute it and/or modify
@@ -23,8 +23,26 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
- * 
  */
+?>
 
- include 'menu.php';
- ?>
+<div id="menu">
+<ul id="nav">
+<li id="home" class="first"><a href="index.php">Home</a></li>
+<li id="create"><a href="create.php">Add Network</a></li>
+<li id="edit"><a href="edit.php">Edit Network</a></li>
+<li id="view"><a href="view.php">Network Status</a></li>
+<li id="logout"><a href="logout.php">Log Out</a></li>
+<?php
+/* if ($_SERVER["SERVER_NAME"] == "www.open-mesh.com" || $_SERVER["SERVER_NAME"] == "open-mesh.com")
+ * echo <<<END
+ * <li id="contact"><a href="supportform.php">Contact</a></li>
+ * <li id="contact"><a href="store">Store</a></li>
+ * <li id="Docs"><a href="wiki/doku.php?id=open-mesh">Mesh Network HowTo</a></li>
+ * END;
+ */
+?>
+</ul>
+<p>
+</div>
+
