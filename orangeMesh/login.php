@@ -28,6 +28,7 @@
 $rd_page = $_GET['rd'];
 session_start();
 
+include 'menu.php';
 if(isset($_POST["login"])){
 	//setup connection
 	require 'connectDB.php';
@@ -47,9 +48,10 @@ if(isset($_POST["login"])){
     	// A matching row was found - the user is authenticated. 
     	$auth = true;	//MIKE - is there a purpose for this?
     	$resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    	$_SESSION['netid'] = $resArray['netid'];
+    	$_SESSION['netid'] = $resArray['id'];
    		$_SESSION['registered'] = true;
     	$_SESSION['loginName'] = $net_name;
+    	$_SESSION["password"] = $password;
 	 	unset($_SESSION['read_only']);	//MIKE - purpose?
 	 	echo "<h1>Success!</h1>";
     	echo "<meta http-equiv=\"Refresh\" content=\"0;url=$rd_page.php\">"; 
@@ -84,7 +86,7 @@ Login to manage your network.<br>
 <form method="POST" action='<?php echo "login.php?rd=$rd_page"; ?>' name="login">
 	<?php if (isset($_SESSION['login_error'])) echo "Account or Password not recognized.  Please try again.<br>";?>
 	Network Name <input name="net_name"><br>
-	Password <input name="password"><br>
+	Password <input name="password" type="password"><br>
   	<input name="login" value="Login" type="submit">
   	<input name="reset" value="Reset" type="reset"><br>
   	<input name="rd" id="rd" type=hidden value=<?php print $rd_page?>>
