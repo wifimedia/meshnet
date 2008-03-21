@@ -2,7 +2,7 @@
 /* Name: connectDB.php
  * Purpose: manages database connection.
  * Written By: Shaddi Hasan
- * Last Modified: March 14, 2008
+ * Last Modified: March 20, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -32,6 +32,19 @@ $dbUser = "orangemesh";
 $dbPass = "default";
 $dbName = "orangemesh";
 $dbTable;
+$network_fields = array('id','net_name','display_name','password','email1','email2',
+				'net_location','ap1_essid','ap1_key','ap2_enable','ap2_essid',
+				'ap2_key','node_pwd','splash_enable','splash_redirect_url',
+				'splash_idle_timeout','splash_force_timeout','throttling_enable',
+				'download_limit','upload_limit','network_clients','network_bytes',
+				'access_control_list','lan_block','ap1_isolate','ap2_isolate',
+				'test_firmware_enable','migration_enable');
+
+$node_fields = array('id','netid','name','description','ip_addr','mac_addr','latitude',
+				'longitude','gateway','uptime','build','memfree','memlow','time',
+				'neighbors','nearest_gw','gw_metric','gw_route','clients','clients_hi',
+				'bytes_down','bytes_up','owner_name','owner_email','owner_phone',
+				'owner_address','approval_status');
 
 function setTable($table){
 	global $dbTable;

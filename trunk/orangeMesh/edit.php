@@ -64,6 +64,7 @@ $migration_enable = $resArray['migration_enable'];
 
 //check if the user just updated the network
 $updated = $_SESSION['updated'];
+unset($_SESSION['updated']);
 
 //setup the menu
 include 'menu.php';
@@ -81,68 +82,81 @@ function isChecked($field){
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <meta content="text/html; charset=ISO-8859-1"
- http-equiv="content-type">
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Edit Network</title>
 </head>
 <body>
-<?if ($updated=='true') echo "Network successfully updated"; ?>
-<?echo $display_name ?><br>
-<form method="POST" action="c_edit.php"
- name="editNetwork"><b>Network Account Settings</b><br>
-Network Name <input readonly="readonly" name="net_name"
- value=<?echo $net_name ?>><br>
-Display name <input name="display_name" value=<?echo $display_name?>><br>
-  <a href="changePass.php?netid=$netid" target="_blank">Change
-Password</a><br>
-Primary Email Address&nbsp;<input name="email1"
- value=<?echo $email1?>><br>
-  <br>
-  <b>Network Notifications</b><br>
-Notification Emails: <input name="email2"
- value=<?echo $email1.','.$email2?>><br>
-Enable/Disable/Configure notifications...<br>
-  <br>
-  <b>Access Point 1 (Public)</b><br>
-Network Name <input name="ap1_essid" value=<?echo $ap1_essid?>><br>
-Network&nbsp; Key <input name="ap1_key" value=<?echo $ap1_key?>><br>
-Download Limit <input name="download_limit"
- value=<?echo $download_limit?>><br>
-Upload Limit <input name="upload_limit" value=<?echo $upload_limit?>><br>
-Whitelist&nbsp;<textarea cols="20" rows="4"
- name="access_control_list"><?echo $access_control_list?></textarea><br>
-  <b><br>
-Splash Page<br>
-  </b>Enable<input name="splash_enable"
- value=<?echo $splash_enable?> type="checkbox"><br>
-Configure Splash Page (somehow...)<br>
-Splash Redirect URL <input name="splash_redirect_url"
- value=<?echo $splash_redirect_url?>><br>
-Idle Splash Page Timeout <input name="splash_idle_timeout"
- value=<?echo $splash_idle_timeout?>><br>
-Require Splash Page Timeout <input name="splash_force_timeout"
- value=<?echo $splash_force_timeout?>><br>
-  <br>
-  <b>Access Point 2 (Private)</b><br>
-Enable <input <?echo isChecked($ap2_enable) ?> name="ap2_enable"
- value=<?echo $ap2_enable ?> type="checkbox"><br>
-Network Name <input name="ap2_essid" value=<?echo $ap2_essid ?>><br>
-Network Key <input name="ap2_key" value=<?echo $ap2_key ?>><br>
-  <br>
-  <b>Advanced Settings<br>
-  </b>Root Password for Nodes <input name="node_pwd" value=<?echo $node_pwd?>><br>
-LAN Block <input <?echo isChecked($lan_block) ?>name="lan_block" value=<?echo $lan_block?>
- type="checkbox"><br>
-AP1 Isolation <input <?echo isChecked($ap1_isolate) ?>name="ap1_isolate" value=<?echo $ap1_isolate?>
- type="checkbox"><br>
-AP2 Isolation <input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=<?echo $ap2_isolate?>
- type="checkbox"><br>
-Enable Migration (will revert to off in one hour) <input name="migration_enable" value=<?echo $migration_enable?>
- type="checkbox"><br>
- <br>
- <br>
- <input name="save" value="Save Settings" type="submit">
+<?if ($updated=='true') echo "Network successfully updated!<br>"; ?>
+<h1><?echo $display_name ?></h1>
+<form method="POST" action="c_edit.php" name="editNetwork">
+	<b>Network Account Settings</b>
+	<br>
+	Network Name <input readonly="readonly" name="net_name" value=<?echo $net_name ?>>
+	<br>
+	Display name <input name="display_name" value=<?echo $display_name?>>
+	<br>
+  	<a href="changePass.php?netid=$netid" target="_blank">Change Password</a>
+  	<br>
+	Primary Email Address&nbsp;<input name="email1" value=<?echo $email1?>>
+	<br>
+  	<br>
+  	<b>Network Notifications</b>
+  	<br>
+	Notification Emails: <input name="email2" value=<?echo $email1.','.$email2?>>
+	<br>
+	Enable/Disable/Configure notifications...
+	<br>
+ 	<br>
+  	<b>Access Point 1 (Public)</b>
+  	<br>
+	Network Name <input name="ap1_essid" value=<?echo $ap1_essid?>>
+	<br>
+	Network Key <input name="ap1_key" value=<?echo $ap1_key?>>
+	<br>
+	Download Limit <input name="download_limit" value=<?echo $download_limit?>>
+	<br>
+	Upload Limit <input name="upload_limit" value=<?echo $upload_limit?>>
+	<br>
+	Whitelist&nbsp;<textarea cols="20" rows="4" name="access_control_list"><?echo $access_control_list?></textarea>
+	<br>
+	<br>
+	<b>Splash Page</b>
+	<br>
+  	Enable<input name="splash_enable" value=<?echo $splash_enable?> type="checkbox">
+  	<br>
+	Configure Splash Page (somehow...)
+	<br>
+	Splash Redirect URL <input name="splash_redirect_url" value=<?echo $splash_redirect_url?>>
+	<br>
+	Idle Splash Page Timeout <input name="splash_idle_timeout"  value=<?echo $splash_idle_timeout?>>
+	<br>
+	Require Splash Page Timeout <input name="splash_force_timeout" value=<?echo $splash_force_timeout?>>
+	<br>
+  	<br>
+  	<b>Access Point 2 (Private)</b>
+  	<br>
+	Enable <input <?echo isChecked($ap2_enable) ?> name="ap2_enable" value=<?echo $ap2_enable ?> type="checkbox">
+	<br>
+	Network Name <input name="ap2_essid" value=<?echo $ap2_essid ?>>
+	<br>
+	Network Key <input name="ap2_key" value=<?echo $ap2_key ?>>
+	<br>
+  	<br>
+  	<b>Advanced Settings</b>
+  	<br>
+  	Root Password for Nodes <input name="node_pwd" value=<?echo $node_pwd?>>
+  	<br>
+	LAN Block <input <?echo isChecked($lan_block) ?>name="lan_block" value=<?echo $lan_block?> type="checkbox">
+	<br>
+	AP1 Isolation <input <?echo isChecked($ap1_isolate) ?>name="ap1_isolate" value=<?echo $ap1_isolate?> type="checkbox">
+ 	<br>
+	AP2 Isolation <input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=<?echo $ap2_isolate?> type="checkbox">
+ 	<br>
+	Enable Migration (will revert to off in one hour) <input name="migration_enable" value=<?echo $migration_enable?> type="checkbox">
+ 	<br>
+ 	<br>
+ 	<br>
+ 	<input name="save" value="Save Settings" type="submit">
 </form>
-<br>
 </body>
 </html>

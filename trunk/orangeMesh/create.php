@@ -75,39 +75,10 @@
 
 <?
 	} else{
-		function insert($table,$fields,$values){
-			global $conn;	//the db connection
-			
-			//convert the fields array into a comma-seperated list
-			$fields = implode(",",$fields);
-			
-			//seperate the values array into a comma/' seperated list
-			$values = implode("','",$values);
-			
-			//generate sql query
-			$result = "INSERT INTO ".$table;
-			$result .= " (".$fields.") ";
-			$result .= "VALUES('".$values."')";
-			
-			//echo $result."<br>";
-			
-			//execute the query
-			mysqli_query($conn,$result) or die("Error executing query: ".mysqli_error($conn));
-		}
 		
-		//get the values we ask for from post
-		//TODO: sanitize. provide an error result if the input is not good.
-		function getValuesFromPOST($fields){
-			foreach ($fields as $f){
-				echo $f.": ";
-				$val = $_POST[$f];
-				echo $val."<br>";
-				$values[]=$_POST[$f];
-			}
-			return $values;
-		}
-		
-		
+		//get the toolbox
+		include 'toolbox.php';
+				
 		//setup database connection
 		require 'connectDB.php';
 		setTable('network');

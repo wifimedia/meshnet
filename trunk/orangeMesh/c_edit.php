@@ -27,5 +27,34 @@
 
 session_start();
 
-echo $_POST['ap2_enable'];
+//setup db connection
+require 'connectDB.php';
+setTable("network");
+
+//get the network id we're working with
+$id = $_SESSION['netid'];
+
+//generate string of values to update in dashboard
+foreach ($network_fields as $f){
+	//if the originating form didn't sent a value for this field, skip it
+	if(!isset($_POST[$f])){continue;}
+	
+	//add the field to the result array: "field = 'value'"
+	$result[]=$f." = "."'".$_POST[$f]."'";
+}
+
+//turn result array into result string
+$result = implode(", ",$result);
+
+//create query string using result string
+$query = "UPDATE ".$dbTable." SET ".$result." WHERE id='".$id."'";
+
+//execute query
+mysqli_query($conn,$query) or die("Error executing query: ".mysqli_error($conn));
+
+mysqli_close($conn);
+
+//if we got here, everything went ok
+$_SESSION["updated"] = 'true';
+echo '<HTML><HEAD><META HTTP-EQUIV="refresh" CONTENT="0; URL=edit.php"></HEAD></HTML>';
 ?>

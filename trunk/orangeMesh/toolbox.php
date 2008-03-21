@@ -1,8 +1,8 @@
 <?php
-/* Name: index.php
- * Purpose: main page for dashboard.
+/* Name: toolbox.php
+ * Purpose: general utility functions for the dashboard.
  * Written By: Shaddi Hasan
- * Last Modified: March 19, 2008
+ * Last Modified: March 20, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -15,7 +15,7 @@
  * General Public license, but also requires that if you extend this code and
  * use it on a publicly accessible server, you must make available the 
  * complete source source code, including your extensions.
- * 
+ *
  * OrangeMesh is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -23,12 +23,38 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
- * 
  */
 
- include 'menu.php';
- ?>
- <h1>Welcome to OrangeMesh!</h1><br>
-Feel free to poke around and see the features we're working on. However, you should know this is a development server. We try to keep the software on this up-to-date with our latest development builds. Sometimes that means we have to clear out the database, so don't expect any changes you make here to be permanent.<br><br>
-Thanks for supporting OrangeMesh! See our <a href="http://meshnet.googlecode.com">project page</a> for more information.
- 
+//insert values corresponding to fields into the table
+function insert($table,$fields,$values){
+	global $conn;	//the db connection
+	
+	//convert the fields array into a comma-seperated list
+	$fields = implode(",",$fields);
+	
+	//seperate the values array into a comma/' seperated list
+	$values = implode("','",$values);
+	
+	//generate sql query
+	$query = "INSERT INTO ".$table;
+	$query .= " (".$fields.") ";
+	$query .= "VALUES('".$values."')";
+	
+	//echo $result."<br>";
+	
+	//execute the query
+	mysqli_query($conn,$query) or die("Error executing query: ".mysqli_error($conn));
+}
+
+//get the values we ask for from post
+//TODO: sanitize. provide an error result if the input is not good.
+function getValuesFromPOST($fields){
+	foreach ($fields as $f){
+		echo $f.": ";
+		$val = $_POST[$f];
+		echo $val."<br>";
+		$values[]=$_POST[$f];
+	}
+	return $values;
+}
+?>
