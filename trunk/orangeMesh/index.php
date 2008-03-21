@@ -3,7 +3,7 @@
  * Purpose: main page for dashboard.
  * Written By: Shaddi Hasan
  * Last Modified: March 19, 2008
- * LOL!!!!
+ * 
  * (c) 2008 Orange Networking.
  *  
  * This file is part of OrangeMesh.
