@@ -33,15 +33,6 @@
 <li id="edit"><a href="edit.php">Edit Network</a></li>
 <li id="view"><a href="view.php">Network Status</a></li>
 <li id="logout"><a href="logout.php">Log Out</a></li>
-<?php
-/* if ($_SERVER["SERVER_NAME"] == "www.open-mesh.com" || $_SERVER["SERVER_NAME"] == "open-mesh.com")
- * echo <<<END
- * <li id="contact"><a href="supportform.php">Contact</a></li>
- * <li id="contact"><a href="store">Store</a></li>
- * <li id="Docs"><a href="wiki/doku.php?id=open-mesh">Mesh Network HowTo</a></li>
- * END;
- */
-?>
 </ul>
 <p>
 </div>
