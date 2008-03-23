@@ -2,7 +2,7 @@
 /* Name: logout.php
  * Purpose: logs user out of dashboard.
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
- * Last Modified: March 19, 2008
+ * Last Modified: March 22, 2008
  * 
  * (c) 2008 Open Mesh, Inc. and Orange Networking.
  * 
@@ -29,5 +29,5 @@ session_start();
 $_SESSION = array();
 //$_SESSION['realm'] = ''; 
 	
-Header("Location: index.php");
+Header("Location: ../index.php");
 ?>

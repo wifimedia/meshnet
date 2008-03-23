@@ -2,7 +2,7 @@
 /* Name: create.php
  * Purpose: create a new network in the dashboard.
  * Written By: Shaddi Hasan
- * Last Modified: March 16, 2008
+ * Last Modified: March 22, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -24,14 +24,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
-	include 'menu.php';
+	include '../lib/menu.php';
 	if(!isset($_POST['create'])){
  ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <? include("validateInput.js");?>
+  <? include("../lib/validateInput.js");?>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Create Network</title>
 </head>
@@ -69,7 +69,7 @@
 		</tr>
 	</table>
 	</form>
-	Problem? Check the <a href="help/help.php">help,</a> then <a href="mailto:shasan@email.unc.edu">notify us.</a>
+	Problem? Check the <a href="../help/help.php">help,</a> then <a href="mailto:shasan@email.unc.edu">notify us.</a>
 	</body>
 </html>
 
@@ -77,10 +77,10 @@
 	} else{
 		
 		//get the toolbox
-		include 'toolbox.php';
+		include '../lib/toolbox.php';
 				
 		//setup database connection
-		require 'connectDB.php';
+		require '../lib/connectDB.php';
 		setTable('network');
 		
 		//the fields we want to insert into the database
