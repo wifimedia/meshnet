@@ -28,7 +28,7 @@
 session_start();
 
 //setup db connection
-require 'connectDB.php';
+require '../lib/connectDB.php';
 setTable("network");
 
 //get the network id we're working with

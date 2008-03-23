@@ -28,10 +28,10 @@
 $rd_page = $_GET['rd'];
 session_start();
 
-include 'menu.php';
+include '../lib/menu.php';
 if(isset($_POST["login"])){
 	//setup connection
-	require 'connectDB.php';
+	require '../lib/connectDB.php';
 	setTable('network');
 	
 	//generate query

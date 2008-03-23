@@ -26,10 +26,10 @@
  */
 session_start();
 if (!isset($_SESSION['registered'])) 
-	header("Location: login.php?rd=edit");
+	header("Location: ../entry/login.php?rd=../net_settings/edit");
 
 //set up database connection
-require 'connectDB.php';
+require '../lib/connectDB.php';
 setTable('network');
 
 //select the network from the database and get the values
@@ -67,7 +67,7 @@ $updated = $_SESSION['updated'];
 unset($_SESSION['updated']);
 
 //setup the menu
-include 'menu.php';
+include '../lib/menu.php';
 
 //determines the value of a boolean in the db
 //probably should be located in a different file.

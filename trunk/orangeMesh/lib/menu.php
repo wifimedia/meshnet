@@ -2,7 +2,7 @@
 /* Name: menu.php
  * Purpose: main menu for dashboard.
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
- * Last Modified: March 19, 2008
+ * Last Modified: March 22, 2008
  * 
  * (c) 2008 Open Mesh, Inc. and Orange Networking.
  * 
@@ -24,16 +24,34 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
-?>
 
+$uri = $_SERVER['REQUEST_URI']; 
+
+//if we're not on the index page
+if(strpos($uri,'index.php') == false){
+?>
 <div id="menu">
 <ul id="nav">
-<li id="home" class="first"><a href="index.php">Home</a></li>
-<li id="create"><a href="create.php">Add Network</a></li>
-<li id="edit"><a href="edit.php">Edit Network</a></li>
-<li id="view"><a href="view.php">Network Status</a></li>
-<li id="logout"><a href="logout.php">Log Out</a></li>
+<li id="home" class="first"><a href="../index.php">Home</a></li>
+<li id="create"><a href="../entry/create.php">Add Network</a></li>
+<li id="edit"><a href="../net_settings/edit.php">Edit Network</a></li>
+<li id="view"><a href="../status/view.php">Network Status</a></li>
+<li id="logout"><a href="../entry/logout.php">Log Out</a></li>
 </ul>
 <p>
 </div>
-
+<?
+} else {
+	//we're on the index page
+?>
+	<div id="menu">
+	<ul id="nav">
+	<li id="home" class="first"><a href="index.php">Home</a></li>
+	<li id="create"><a href="entry/create.php">Add Network</a></li>
+	<li id="edit"><a href="net_settings/edit.php">Edit Network</a></li>
+	<li id="view"><a href="status/view.php">Network Status</a></li>
+	<li id="logout"><a href="entry/logout.php">Log Out</a></li>
+	</ul>
+	<p>
+	</div>
+<? } ?>
