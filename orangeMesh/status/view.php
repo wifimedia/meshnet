@@ -1,6 +1,10 @@
 <?php 
 
-include '../lib/menu.php';
-?>
+session_start();
+if (!isset($_SESSION['netid'])) 
+	header("Location: ../entry/select.php");
 
-Blinken lights? It's all good.
+include '../lib/menu.php';
+
+$_SESSION['netid']
+?>
