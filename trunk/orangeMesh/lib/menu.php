@@ -2,7 +2,13 @@
 /* Name: menu.php
  * Purpose: main menu for dashboard.
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
- * Last Modified: March 22, 2008
+ * Last Modified: March 26, 2008
+ * 
+ * Variable Summary
+ * Globals: on_index
+ * GET: -none-
+ * POST: -none-
+ * SESSION: user_type
  * 
  * (c) 2008 Open Mesh, Inc. and Orange Networking.
  * 
@@ -24,34 +30,74 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
+session_start();
 
-$uri = $_SERVER['REQUEST_URI']; 
+//get the user type
+$utype = $_SESSION['user_type'];
 
-//if we're not on the index page
-if(strpos($uri,'index.php') == false){
-?>
-<div id="menu">
-<ul id="nav">
-<li id="home" class="first"><a href="../index.php">Home</a></li>
-<li id="create"><a href="../entry/create.php">Add Network</a></li>
-<li id="edit"><a href="../net_settings/edit.php">Edit Network</a></li>
-<li id="view"><a href="../status/view.php">Network Status</a></li>
-<li id="logout"><a href="../entry/logout.php">Log Out</a></li>
-</ul>
-<p>
-</div>
-<?
-} else {
-	//we're on the index page
-?>
+//determine if we're on the index page
+//this is important in determining file paths
+$on_index = (boolean)strpos($_SERVER['PHP_SELF'],'index.php');
+//echo (boolean)$on_index;
+
+//decide what menu to display
+switch($utype){
+	case 'admin':
+		showAdminMenu();
+		break;
+	case 'user':
+		showUserMenu();
+		break;
+	default:
+		showDefaultMenu();
+		break;
+}
+
+//generate and display the admin menu
+function showAdminMenu(){
+	global $on_index;
+	echo 'You are logged in to the "'.$_SESSION['net_name'].'" network.';
+	
+	?>
 	<div id="menu">
 	<ul id="nav">
-	<li id="home" class="first"><a href="index.php">Home</a></li>
-	<li id="create"><a href="entry/create.php">Add Network</a></li>
-	<li id="edit"><a href="net_settings/edit.php">Edit Network</a></li>
-	<li id="view"><a href="status/view.php">Network Status</a></li>
-	<li id="logout"><a href="entry/logout.php">Log Out</a></li>
+	<li id="home" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
+	<li id="manage"><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Network Settings</a></li>
+	<li id="view"><a href="<?if(!$on_index){echo '../';}?>status/view.php">Network Status</a></li>
+	<li id="logout"><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Logout</a></li>
 	</ul>
-	<p>
 	</div>
-<? } ?>
+	<?
+}
+
+//generate and display the user menu
+function showUserMenu(){
+	global $on_index;
+	echo 'You\'ve viewing the "'.$_SESSION['net_name'].'" network.';
+	?>
+	<div id="menu">
+	<ul id="nav">
+	<li id="home" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
+	<li id="view"><a href="<?if(!$on_index){echo '../';}?>status/view.php">View Another Network</a></li>
+	<li id="logout"><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Logout</a></li>
+	</ul>
+	</div>
+	<?
+}
+
+//generate and display the default (no login) menu
+function showDefaultMenu(){
+	global $on_index;
+	echo 'Login to manage a network, or select a network to view its status.';
+	?>
+	<div id="menu">
+	<ul id="nav">
+	<li id="home" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
+	<li id="create"><a href="<?if(!$on_index){echo '../';}?>entry/create.php">Create Network</a></li>
+	<li id="manage"><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Manage Network</a></li>
+	<li id="view"><a href="<?if(!$on_index){echo '../';}?>status/view.php">View Network</a></li>
+	</ul>
+	</div>
+	<?
+}
+?>

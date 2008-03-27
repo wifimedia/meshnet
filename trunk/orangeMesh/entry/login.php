@@ -26,10 +26,13 @@
  */
 
 $rd_page = $_GET['rd'];
+unset($_GET['rd']);
 session_start();
 
 include '../lib/menu.php';
-if(isset($_POST["login"])){
+if(isset($_POST["submit"])){
+	//unset variable
+	unset($_POST["submit"]);
 	//setup connection
 	require '../lib/connectDB.php';
 	setTable('network');
@@ -45,32 +48,29 @@ if(isset($_POST["login"])){
 
 	if ( $num >= 1 )
 	{   
-    	// A matching row was found - the user is authenticated. 
-    	$auth = true;	//MIKE - is there a purpose for this?
+    	// A matching row was found - the user is authenticated as 'admin'. 
     	$resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
     	$_SESSION['netid'] = $resArray['id'];
-   		$_SESSION['registered'] = true;
-    	$_SESSION['loginName'] = $net_name;
-    	$_SESSION["password"] = $password;
-	 	unset($_SESSION['read_only']);	//MIKE - purpose?
+   		$_SESSION['user_type'] = 'admin';
+   		$_SESSION['net_name'] = $net_name;
 	 	echo "<h1>Success!</h1>";
-    	echo "<meta http-equiv=\"Refresh\" content=\"0;url=$rd_page.php\">"; 
+    	echo "<meta http-equiv=\"Refresh\" content=\"0;url=../$rd_page.php\">"; 
     	
 	} else 
 	{
 		//there was no match found, so the login failed
-    	unset($_SESSION['registered']);
-    	unset($_SESSION['loginName']);
+    	unset($_SESSION['user_type']);
     	$_SESSION['login_error'] = true;
     	echo "<meta http-equiv=\"Refresh\" content=\"0;url=login.php?rd=$rd_page\">"; 
   	}  
 }
-else if (isset($_SESSION['registered']) && ($rd_page != "edit")) {
-    // gets here if already logged in and coming from another page.
-    echo "<meta http-equiv=\"Refresh\" content=\"0;url=$rd_page.php\">"; 
+//else if (isset($_SESSION['authenticated']) && ($rd_page != "edit")) {
+//    // gets here if already logged in and coming from another page.
+//    echo "<meta http-equiv=\"Refresh\" content=\"0;url=$rd_page.php\">"; 
 	
 
-} else {
+//}
+ else {
 ?>
 <!-- HTML BEGINS HERE -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -87,7 +87,7 @@ Login to manage your network.<br>
 	<?php if (isset($_SESSION['login_error'])) echo "Account or Password not recognized.  Please try again.<br>";?>
 	Network Name <input name="net_name"><br>
 	Password <input name="password" type="password"><br>
-  	<input name="login" value="Login" type="submit">
+  	<input name="submit" value="Login" type="submit">
   	<input name="reset" value="Reset" type="reset"><br>
   	<input name="rd" id="rd" type=hidden value=<?php print $rd_page?>>
 </form>

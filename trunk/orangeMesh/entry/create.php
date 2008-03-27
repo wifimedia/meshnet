@@ -25,7 +25,7 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 	include '../lib/menu.php';
-	if(!isset($_POST['create'])){
+	if(!isset($_POST['submit'])){
  ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -61,7 +61,7 @@
 			<td><input name="email2" default=" "></td>
 		</tr>
 		<tr>
-			<td><input name="create" value="Create Network" type="submit"></td>
+			<td><input name="submit" value="Create Network" type="submit"></td>
 			<td><input name="reset" value="Reset" type="reset"></td>
 		</tr>
 		<tr>

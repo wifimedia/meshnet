@@ -2,7 +2,7 @@
 /* Name: edit.php
  * Purpose: edit network settings.
  * Written By: Shaddi Hasan, Mike Burmeister-Brown
- * Last Modified: March 20, 2008
+ * Last Modified: March 26, 2008
  * 
  * (c) 2008 Open-Mesh, Inc. and Orange Networking.
  *  
@@ -25,8 +25,8 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 session_start();
-if (!isset($_SESSION['registered'])) 
-	header("Location: ../entry/login.php?rd=../net_settings/edit");
+if ($_SESSION['user_type']!='admin') 
+	header("Location: ../entry/login.php?rd=net_settings/edit");
 
 //set up database connection
 require '../lib/connectDB.php';
@@ -34,8 +34,7 @@ setTable('network');
 
 //select the network from the database and get the values
 $netid = $_SESSION["netid"];
-$password = $_SESSION["password"];
-$query = "SELECT * FROM ".$dbTable." WHERE id='".$netid."' AND password='".$password."'";;
+$query = "SELECT * FROM ".$dbTable." WHERE id='".$netid."'";
 $result = mysqli_query($conn,$query);
 $resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
@@ -156,7 +155,7 @@ function isChecked($field){
  	<br>
  	<br>
  	<br>
- 	<input name="save" value="Save Settings" type="submit">
+ 	<input name="submit" value="Save Settings" type="submit">
 </form>
 </body>
 </html>
