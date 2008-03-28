@@ -2,7 +2,7 @@
 /* Name: menu.php
  * Purpose: main menu for dashboard.
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
- * Last Modified: March 26, 2008
+ * Last Modified: March 27, 2008
  * 
  * Variable Summary
  * Globals: on_index
@@ -73,12 +73,11 @@ function showAdminMenu(){
 //generate and display the user menu
 function showUserMenu(){
 	global $on_index;
-	echo 'You\'ve viewing the "'.$_SESSION['net_name'].'" network.';
+	echo 'You are viewing the "'.$_SESSION['net_name'].'" network.';
 	?>
 	<div id="menu">
 	<ul id="nav">
 	<li id="home" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
-	<li id="view"><a href="<?if(!$on_index){echo '../';}?>status/view.php">View Another Network</a></li>
 	<li id="logout"><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Logout</a></li>
 	</ul>
 	</div>

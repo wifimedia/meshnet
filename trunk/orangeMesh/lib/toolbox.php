@@ -50,9 +50,9 @@ function insert($table,$fields,$values){
 //TODO: sanitize. provide an error result if the input is not good.
 function getValuesFromPOST($fields){
 	foreach ($fields as $f){
-		echo $f.": ";
+		//echo $f.": ";
 		$val = $_POST[$f];
-		echo $val."<br>";
+		//echo $val."<br>";
 		$values[]=$_POST[$f];
 	}
 	return $values;
