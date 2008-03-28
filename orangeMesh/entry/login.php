@@ -2,7 +2,7 @@
 /* Name: login.php
  * Purpose: creates a user session and logs the user into the config or status page.
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
- * Last Modified: March 16, 2008
+ * Last Modified: March 26, 2008
  * 
  * (c) 2008 Open Mesh, Inc. and Orange Networking.
  * 
