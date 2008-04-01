@@ -151,7 +151,7 @@ function isChecked($field){
  	<br>
 	AP2 Isolation <input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=<?echo $ap2_isolate?> type="checkbox">
  	<br>
-	Enable Migration (will revert to off in one hour) <input name="migration_enable" value=<?echo $migration_enable?> type="checkbox">
+	<a href="../migration/v_export.php">Enable Migration</a> (will revert to off in one hour) <input name="migration_enable" value=<?echo $migration_enable?> type="checkbox">
  	<br>
  	<br>
  	<br>
