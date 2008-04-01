@@ -1,7 +1,7 @@
 <?php
 /* Name: menu.php
  * Purpose: main menu for dashboard.
- * Written By: Mike Burmeister-Brown, Shaddi Hasan
+ * Written By: Shaddi Hasan, Mike Burmeister-Brown
  * Last Modified: March 27, 2008
  * 
  * Variable Summary
