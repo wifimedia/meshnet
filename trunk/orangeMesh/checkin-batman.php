@@ -1,16 +1,35 @@
 <?php
+/* Name: checkin-batman.php
+ * Purpose: checking script for nodes.
+ * Written By: Mac Mollison, Shaddi Hasan
+ * Last Modified: April 1, 2008
+ * 
+ * Known Issues:
+ * 	-Had to mess with /sbin/update to get it to work with non-https server.
+ *  -Right now the test to set the gateway_bit to 1 is if hops==1; I'm not positive this is correct.
+ * 
+ * (c) 2008 Orange Networking.
+ *  
+ * This file is part of OrangeMesh.
+ *
+ * OrangeMesh is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. This license is similar to the GNU
+ * General Public license, but also requires that if you extend this code and
+ * use it on a publicly accessible server, you must make available the 
+ * complete source source code, including your extensions.
+ *
+ * OrangeMesh is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#checkin-batman.php
-#OrangeMesh
-#Mac Mollison
-#Last Update: Mar. 29
-#Known Issues:
-#    -Had to mess with /sbin/update to get it to work with non-https server.
-#    -Right now the test to set the gateway_bit to 1 is if hops==1; I'm not positive this is correct.
-
-//Establish database connection
-mysql_connect("localhost", "root", "");
-mysql_select_db("orangemesh");
+require 'lib/connectDB.php';
 
 //Create an array to fill with the values from ROBIN
 $keys = array('ip','mac','uptime','robin','batman','memfree','nbs','gateway','gw-qual','routes','users','kbdown','kbup','rank','hops','ssid','pssid');
