@@ -57,6 +57,7 @@ $resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
  * 
  * I'm pretty sure that's how it works anyway. Take a look at the php manual 
  * page for mysqli_fetch_array for details...
+ */
 
 ?>
 

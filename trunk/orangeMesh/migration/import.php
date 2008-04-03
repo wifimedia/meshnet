@@ -2,7 +2,7 @@
 /* Name: import.php
  * Purpose: import data from another dashboard server (for data migration).
  * Written By: Shaddi Hasan
- * Last Modified: March 9, 2008
+ * Last Modified: April 2, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -22,40 +22,29 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
+include '../lib/connectDB.php';
 
-$query = $_POST["values"];
-$user = "root";
-$pwd = "";
-$db = "test";
-$table = "animals";
+if($_POST['migration_phase']=='network'){
+	setTable('network');
 
-$enabled = false;
-
-h
-	or die ('Error connecting to dest DB! :(');
-echo 'Connected to local DB!<br>';
-
-if(!mysql_select_db($destDBname)){	//do some error checking to make sure the db is there
-	echo 'DB does not exist.<br>';
-}
-
-$query = "INSERT INTO ".$table." VALUES (".$query.");";
-//import the item to the db
-$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-
-mysql_close($conn);
-
-function import(){
+	$net_name = $_POST['net_name'];
+	$query = 'SELECT migration_enable FROM '.$dbTable.' WHERE net_name="'.$net_name.'"';
+	$result = mysqli_query($conn,$query);
 	
+	//check if the network account exists on this server.
+	if(mysqli_num_rows($result)<1){
+		die('ERROR: There is no matching network on this server. Please create the network, then try exporting again.');
+	}
+	$resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	if($resArray['migration_enable']!=0){
+		
+	}
+	else{
+		die('ERROR: The network you are exporting does not have migration enabled on this server. Enable migration, then try again.');
+	}
 }
 
-function enable(){
-	global $enabled;
-	$enabled = true;
-}
 
-function disable(){
-	global $enabled;
-	$enabled = false;
-}
+
+
 ?>

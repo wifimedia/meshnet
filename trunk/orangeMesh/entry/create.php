@@ -83,6 +83,10 @@
 		require '../lib/connectDB.php';
 		setTable('network');
 		
+		$query = 'SELECT * FROM network WHERE net_name="'.$net_name.'"';
+		$result = mysqli_query($conn,$query);
+		
+		
 		//the fields we want to insert into the database
 		$fields = array("net_name","password","email1","net_location","email2");
 		

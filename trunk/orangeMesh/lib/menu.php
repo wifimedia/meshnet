@@ -62,8 +62,9 @@ function showAdminMenu(){
 	<div id="menu">
 	<ul id="nav">
 	<li id="home" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
-	<li id="manage"><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Network Settings</a></li>
+	<li id="config"><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Network Settings</a></li>
 	<li id="view"><a href="<?if(!$on_index){echo '../';}?>status/view.php">Network Status</a></li>
+	<li id="node"><a href="<?if(!$on_index){echo '../';}?>nodes/addnode.php">Add Nodes</a></li>
 	<li id="logout"><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Logout</a></li>
 	</ul>
 	</div>
