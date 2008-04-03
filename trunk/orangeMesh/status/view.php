@@ -51,19 +51,18 @@ $resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
  * 
  * So if your result has multiple nodes, you can echo all the mac addresses by:
  * 
- * for($resArray as $row){
- * 		echo $row['mac'];
+ * while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC) ){
+ * 		foreach($row as $key =>  $value){
+ * 			//do something
+ * 		}
  * }
- * 
- * I'm pretty sure that's how it works anyway. Take a look at the php manual 
- * page for mysqli_fetch_array for details...
  */
 
 ?>
 
-//this lets you create a sortable table. click on the top field to sort it.
+<!--this lets you create a sortable table. click on the top field to sort it.-->
 <script src="../lib/sorttable.js"></script>
 
-//the table you make here will be sortable.
+<!-- the table you make here will be sortable. -->
 <table class="sortable">
 </table>
