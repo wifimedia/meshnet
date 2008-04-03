@@ -2,7 +2,7 @@
 /* Name: toolbox.php
  * Purpose: general utility functions for the dashboard.
  * Written By: Shaddi Hasan
- * Last Modified: March 20, 2008
+ * Last Modified: April 2, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -56,5 +56,16 @@ function getValuesFromPOST($fields){
 		$values[]=$_POST[$f];
 	}
 	return $values;
+}
+
+//sanitize a string
+//I think this is best used in controllers, to check their own input. We don't
+//want someone to be able to mess stuff up by calling a controller script.
+function sanitize($string){
+	global $conn;	//the variable for the db connection
+	if (is_null($conn))	//if for some reason we don't have a db connection
+		return mysql_real_escape_string(htmlspecialchars($string));
+	else
+		return mysql_real_escape_string(htmlspecialchars($string),$conn);
 }
 ?>

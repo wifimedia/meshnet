@@ -60,7 +60,7 @@ if(isset($_POST["submit"])){
 	{
 		//there was no match found, so the login failed
     	unset($_SESSION['user_type']);
-    	$_SESSION['login_error'] = true;
+    	$_SESSION['error'] = true;
     	echo "<meta http-equiv=\"Refresh\" content=\"0;url=login.php?rd=$rd_page\">"; 
   	}  
 }
@@ -84,7 +84,7 @@ if(isset($_POST["submit"])){
 Login to manage your network.<br>
 <br>
 <form method="POST" action='<?php echo "login.php?rd=$rd_page"; ?>' name="login">
-	<?php if (isset($_SESSION['login_error'])) echo "Account or Password not recognized.  Please try again.<br>";?>
+	<?php if (isset($_SESSION['error'])) echo "Account or Password not recognized.  Please try again.<br>";?>
 	Network Name <input name="net_name"><br>
 	Password <input name="password" type="password"><br>
   	<input name="submit" value="Login" type="submit">

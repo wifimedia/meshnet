@@ -42,13 +42,13 @@ if(mysqli_num_rows($result)>=1){
 
 	//set the user type to 'user'
 	$_SESSION['user_type'] = 'user';
-	$_SESSION['login_error'] = false;
+	$_SESSION['error'] = false;
 	header('location: ../status/view.php');
 }
 
 //otherwise there was no matching network
 else {
-	$_SESSION['login_error'] = true;
+	$_SESSION['error'] = true;
 	unset($_SESSION['user_type']);
 	header('location: select.php');
 	

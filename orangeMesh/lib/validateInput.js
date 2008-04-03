@@ -1,12 +1,5 @@
 <style type="text/css">
 
-body{
-	font-family: Trebuchet MS, Lucida Sans Unicode, Arial, sans-serif;	/* Font to use */
-	background-color:#FFF;
-	font-size:0.9em;
-
-}
-	
 /* General styling for both valid and invalid input */
 .invalidInput,.validInput{
 	display:compact;
