@@ -79,6 +79,7 @@ function showUserMenu(){
 	<div id="menu">
 	<ul id="nav">
 	<li id="home" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
+	<li id="node"><a href="<?if(!$on_index){echo '../';}?>nodes/addnode.php">Add Nodes</a></li>
 	<li id="logout"><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Logout</a></li>
 	</ul>
 	</div>
