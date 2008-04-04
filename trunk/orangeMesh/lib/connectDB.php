@@ -26,12 +26,15 @@
  * 
  */
 
-//define the database configuration stuff
+//Database Configuration Options
 $dbHost = "localhost";
 $dbUser = "orangemesh";
-$dbPass = "default";
+$dbPass = "default";	//be sure to change this!
 $dbName = "orangemesh";
+
+
 $dbTable;
+
 $network_fields = array('id','net_name','display_name','password','email1','email2',
 				'net_location','ap1_essid','ap1_key','ap2_enable','ap2_essid',
 				'ap2_key','node_pwd','splash_enable','splash_redirect_url',
