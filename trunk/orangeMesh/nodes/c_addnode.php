@@ -20,7 +20,7 @@ switch($utype){
 }
 require '../lib/connectDB.php';
 
-$fields = array('name','description','latitude','longitude','owner_name',
+$fields = array('mac','name','description','latitude','longitude','owner_name',
 				'owner_email','owner_phone','owner_address','approval_status','netid');
 
 $values = getValuesFromPOST($fields);

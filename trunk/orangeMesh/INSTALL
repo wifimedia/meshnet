@@ -26,3 +26,9 @@ III. Install the dashboard files
 Copy the dashboard server files into your webroot directory (under XAMPP, this is htdocs). Everything should be working now. In a browser, go to http://localhost (or whatever directory you've placed the dashboard files), and you should see the main page for the dashboard.
 
 Questions or problems? Contact me: shasan@email.unc.edu. I'll do my best to help.
+
+IV. Configuring your Web Server
+===============================
+Finally, before you get off and running, you should take some steps to secure your web server. If you're using XAMPP, the simplest thing to do is run the security script. You can do this from the console or through the web at http://localhost/security/xamppsecurity.php.
+
+You should also probably lock your system down a bit further, depending on your setup (i.e., disable directory listings in Apache). A detailed explaination of how to secure your web server is outside the scope of this document, but there are many good resources available online. One geared towards XAMPP is http://robsnotebook.com/xampp-security-hardening.

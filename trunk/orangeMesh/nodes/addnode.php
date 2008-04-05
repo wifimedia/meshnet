@@ -43,7 +43,8 @@ include("../lib/validateInput.js");
 		onsubmit="if(!isFormValid()){
 			alert('The fields highlighted in red have errors. Please correct this and resubmit.');return false;}" 
 		name="addnode">
-		
+	
+	MAC Address	<input name="mac" required="1"><br>	
 	Name 		<input name="name" required="1"><br>
 	Description <input name="description" required="1"><br>
 	Latitude 	<input name="latitude" value="35.91204361476439" required="1"><br>

@@ -2,7 +2,7 @@
 /* Name: c_export.php
  * Purpose: sends a network to a remote dashboard server.
  * Written By: Shaddi Hasan
- * Last Modified: April 2, 2008
+ * Last Modified: April 5, 2008
  * TODO: allow users to set a new name for their network on the remote server.
  * 
  * (c) 2008 Orange Networking.
@@ -33,7 +33,11 @@ $net_name = $_SESSION['net_name'];
 $netid = $_SESSION['netid'];
 $host = $_POST['host'];
 $path = $_POST['path']."/migration/import.php";
-
+if(isset($_POST['new_name'])){
+	$net_name = $_POST['new_name'];
+}
+	echo $net_name;
+	
 if(strlen($host)==0){$host = "localhost";}
 
 
@@ -81,6 +85,7 @@ $req->addPostData('migration_phase','network');
 foreach($resArray as $key => $value){
 	$req->addPostData($key,$value);
 }
+$req->addPostData('net_name',$net_name);
 
 echo "Sending network configuration information...<br>";
 
@@ -90,7 +95,7 @@ if (PEAR::isError($req->sendRequest())) {
 } else {
 	$response = $req->getResponseBody();	//get the response from the import server
 	if(strstr($response,"ERROR")==FALSE)	//check if the remote server gave an error
-		echo "Network configuration sent succesfully!<br>"; //ok
+		echo "Network configuration sent succesfully: ".$response."<br>"; //ok
 	else
 		die('Migration error! Remote server says: "'.$response.'"');	//error
 }
@@ -112,6 +117,7 @@ else {
 		$req->setMethod(HTTP_REQUEST_METHOD_POST);
 		
 		$req->addPostData('migration_phase','node');
+		$req->addPostData('net_name',$net_name);
 		//get all the values for every node
 		foreach($row as $key => $value){
 			$req->addPostData($key,$value);
@@ -123,7 +129,7 @@ else {
 		} else {
 			$response = $req->getResponseBody();	//get the response from the import server
 			if(strstr($response,"ERROR")==FALSE){	//check if the remote server gave an error
-				echo "Node sent succesfully!<br>"; //ok
+				echo "Node sent succesfully: ".$response."<br>"; //ok
 			}
 			else{
 				die('Migration error! Remote server says: "'.$response.'"');	//error
