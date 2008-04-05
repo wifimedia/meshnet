@@ -2,7 +2,7 @@
 /* Name: export.php
  * Purpose: form to add migration info.
  * Written By: Shaddi Hasan
- * Last Modified: April 2, 2008
+ * Last Modified: April 5, 2008
  * TODO: allow users to set a new name for their network on the remote server.
  * 
  * (c) 2008 Orange Networking.
@@ -25,6 +25,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+include '../lib/menu.php';
 ?>
 
 Enter the location of the server to which you want to migrate this network's data.<br>
@@ -38,5 +40,6 @@ in your web server's root directory. It could also be under /orangemesh.
 <form method="POST" action="c_export.php" name="export">
 	Host: <input name="host"><br>
 	Path: <input name="path"><br>
+	New Network Name (optional): <input name="new_name"><br>
 	<input type="submit" name="submit" value="submit">
 </form>
