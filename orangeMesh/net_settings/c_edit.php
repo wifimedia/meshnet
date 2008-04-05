@@ -34,15 +34,23 @@ setTable("network");
 //get the network id we're working with
 $id = $_SESSION['netid'];
 
+//process all the checkbox-based values
+if(!isset($_POST['splash_enable'])){$_POST['splash_enable'] = 0;}
+if(!isset($_POST['ap2_enable'])){$_POST['ap2_enable'] = 0;}
+if(!isset($_POST['lan_block'])){$_POST['lan_block'] = 0;}
+if(!isset($_POST['ap1_isolate'])){$_POST['ap1_isolate'] = 0;}
+if(!isset($_POST['ap2_isolate'])){$_POST['ap2_isolate'] = 0;}
+if(!isset($_POST['migration_enable'])){$_POST['migration_enable'] = 0;}
+
 //generate string of values to update in dashboard
 foreach ($network_fields as $f){
 	//if the originating form didn't sent a value for this field, skip it
 	if(!isset($_POST[$f])){continue;}
 	
 	//add the field to the result array: "field = 'value'"
-	$result[]=$f." = "."'".$_POST[$f]."'";
+	$temp=$f." = "."'".$_POST[$f]."'";
+	$result[] = $temp;
 }
-
 //turn result array into result string
 $result = implode(", ",$result);
 

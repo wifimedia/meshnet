@@ -92,7 +92,7 @@ function isChecked($field){
 	<br>
 	Network Name <input readonly="readonly" name="net_name" value=<?echo $net_name ?>>
 	<br>
-	Display name <input name="display_name" value=<?echo $display_name?>>
+	Display name <input name="display_name" value="<?echo $display_name?>">
 	<br>
   	<a href="changePass.php?netid=$netid" target="_blank">Change Password</a>
   	<br>
@@ -101,7 +101,7 @@ function isChecked($field){
   	<br>
   	<b>Network Notifications</b>
   	<br>
-	Notification Emails: <input name="email2" value=<?echo $email1.','.$email2?>>
+	Additional Notification Emails: <input name="email2" value=<?echo $email2?>>
 	<br>
 	Enable/Disable/Configure notifications...
 	<br>
@@ -121,9 +121,9 @@ function isChecked($field){
 	<br>
 	<b>Splash Page</b>
 	<br>
-  	Enable<input name="splash_enable" value=<?echo $splash_enable?> type="checkbox">
+  	Enable<input name="splash_enable" <?echo isChecked($splash_enable) ?>value=1 type="checkbox">
   	<br>
-	Configure Splash Page (somehow...)
+	Configure Splash Page (coming soon...)
 	<br>
 	Splash Redirect URL <input name="splash_redirect_url" value=<?echo $splash_redirect_url?>>
 	<br>
@@ -134,7 +134,7 @@ function isChecked($field){
   	<br>
   	<b>Access Point 2 (Private)</b>
   	<br>
-	Enable <input <?echo isChecked($ap2_enable) ?> name="ap2_enable" value=<?echo $ap2_enable ?> type="checkbox">
+	Enable <input <?echo isChecked($ap2_enable) ?> name="ap2_enable" value=1 type="checkbox">
 	<br>
 	Network Name <input name="ap2_essid" value=<?echo $ap2_essid ?>>
 	<br>
@@ -145,13 +145,13 @@ function isChecked($field){
   	<br>
   	Root Password for Nodes <input name="node_pwd" value=<?echo $node_pwd?>>
   	<br>
-	LAN Block <input <?echo isChecked($lan_block) ?>name="lan_block" value=<?echo $lan_block?> type="checkbox">
+	LAN Block <input <?echo isChecked($lan_block) ?>name="lan_block" value=1 type="checkbox">
 	<br>
-	AP1 Isolation <input <?echo isChecked($ap1_isolate) ?>name="ap1_isolate" value=<?echo $ap1_isolate?> type="checkbox">
+	AP1 Isolation <input <?echo isChecked($ap1_isolate) ?>name="ap1_isolate" value=1 type="checkbox">
  	<br>
-	AP2 Isolation <input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=<?echo $ap2_isolate?> type="checkbox">
+	AP2 Isolation <input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=1 type="checkbox">
  	<br>
-	<a href="../migration/export.php">Enable Migration</a> (will revert to off in one hour) <input name="migration_enable" value=<?echo $migration_enable?> type="checkbox">
+	<a href="../migration/export.php">Enable Migration</a> (will revert to off in one hour) <input <?echo isChecked($migration_enable) ?>name="migration_enable" value="1" type="checkbox">
  	<br>
  	<br>
  	<br>
