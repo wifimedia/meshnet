@@ -42,8 +42,8 @@ foreach($robin_vars as $key => $value) { $robin_vars[$key] = $_GET[$key]; }
 if ($robin_vars["mac"] == '') die("No MAC address.");
 
 //If we don't have a DB row for this MAC address, create one.
-//While we're at it, get the memlow and usershi variables to use later.
-$query = sprintf("SELECT memlow, usershi FROM node WHERE mac='%s'",$robin_vars["mac"]);
+//While we're at it, get the memlow, usershi, and netid variables to use later.
+$query = sprintf("SELECT memlow, usershi,netid FROM node WHERE mac='%s'",$robin_vars["mac"]);
 $result = mysql_query($query);
 if (mysql_num_rows($result) == 0) {
     $query = sprintf("INSERT INTO node (mac) VALUES ('%s')",$robin_vars["mac"]);
@@ -51,6 +51,7 @@ if (mysql_num_rows($result) == 0) {
 $row = mysql_fetch_array($result);
 $memlow = $row['memlow'];
 $usershi = $row['usershi'];
+$netid = $row['netid'];
 
 //Prepare the update string with the ROBIN vars
 $update = "UPDATE node SET ";
@@ -66,4 +67,46 @@ $update = rtrim($update, ", ");
 $update .= sprintf(" WHERE mac='%s'",$robin_vars["mac"]);
 mysql_query($update);
 
+//Get the network settings variables
+$query = sprintf("SELECT * FROM network WHERE id='%s'",$netid);
+$result = mysql_query($query);
+if (mysql_num_rows($result) == 0) die("No such network");
+$row = mysql_fetch_array($result);
+$fields = array("ap1_essid","ap1_key","ap2_essid","ap2_key","ap1_isolate","ap2_isolate","ap2_enable","node_pwd","download_limit","upload_limit","throttling_enable","lan_block","splash_redirect_url","splash_idle_timeout","splash_force_timeout","test_firmware_enable","splash_enable");
+foreach ($fields as $field) $$field = $row[$field];
+
+//Create any other special strings needed for the response
+if (strlen($splash_redirect_url) > 0) $splash_redirect_url_string = "RedirectURL " . $splash_redirect_url;
+else $splash_redirect_url_string = "";
+if ($test_firmware_enable == 1) $base = "trunk";
+else $base = "beta";
+if ($splash_enable == 1) $authenticate_immediately = 0; 
+else $authenticate_immediately = 1;
+
+//Display the response
+echo <<<RESPONSE
+#@#config wireless
+public.ssid $ap1_essid
+public.key $ap1_key
+private.ssid $ap2_essid
+private.key $ap2_key
+#@#config mesh
+Myap.up $ap2_enable
+#@#config management
+enable.base $base
+enable.rootpwd $node_pwd
+#@#config iprules
+AP1_bridge $ap1_isolate
+AP2_bridge $ap2_isolate
+LAN_BLOCK $lan_block
+#@#config nodog
+TrafficControl $throttling_enable
+DownloadLimit $download_limit
+UploadLimit $upload_limit
+ClientIdleTimeout $splash_idle_timeout
+ClientForceTimeout $splash_force_timeout
+AuthenticateImmediately $authenticate_immediately
+$splash_redirect_url_string
+
+RESPONSE;
 ?>
