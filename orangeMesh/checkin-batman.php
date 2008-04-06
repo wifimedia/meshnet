@@ -1,35 +1,16 @@
 <?php
-/* Name: checkin-batman.php
- * Purpose: checking script for nodes.
- * Written By: Mac Mollison, Shaddi Hasan
- * Last Modified: April 1, 2008
- * 
- * Known Issues:
- * 	-Had to mess with /sbin/update to get it to work with non-https server.
- *  -Right now the test to set the gateway_bit to 1 is if hops==1; I'm not positive this is correct.
- * 
- * (c) 2008 Orange Networking.
- *  
- * This file is part of OrangeMesh.
- *
- * OrangeMesh is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version. This license is similar to the GNU
- * General Public license, but also requires that if you extend this code and
- * use it on a publicly accessible server, you must make available the 
- * complete source source code, including your extensions.
- *
- * OrangeMesh is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-require 'lib/connectDB.php';
+#checkin-batman.php
+#OrangeMesh
+#Mac Mollison
+#Last Update: Mar. 29
+#Known Issues:
+#    -Had to mess with /sbin/update to get it to work with non-https server.
+#    -Right now the test to set the gateway_bit to 1 is if hops==1; I'm not positive this is correct.
+
+//Establish database connection
+mysql_connect("localhost", "root", "");
+mysql_select_db("orangemesh");
 
 //Create an array to fill with the values from ROBIN
 $keys = array('ip','mac','uptime','robin','batman','memfree','nbs','gateway','gw-qual','routes','users','kbdown','kbup','rank','hops','ssid','pssid');
@@ -82,31 +63,113 @@ if ($test_firmware_enable == 1) $base = "trunk";
 else $base = "beta";
 if ($splash_enable == 1) $authenticate_immediately = 0; 
 else $authenticate_immediately = 1;
+if ( strlen($ap1_key) >= 8) $ap_psk = 1; 
+else $ap_psk = 0;
 
+
+//My old sample response which I have abandoned trying to use...
+//Just keep around for reference to the variables, it is useful for now.
 //Display the response
-echo <<<RESPONSE
-#@#config wireless
-public.ssid $ap1_essid
-public.key $ap1_key
-private.ssid $ap2_essid
-private.key $ap2_key
-#@#config mesh
-Myap.up $ap2_enable
+#echo <<<RESPONSE
+##@#config wireless
+#public.ssid $ap1_essid
+#public.key $ap1_key
+#private.ssid $ap2_essid
+#private.key $ap2_key
+##@#config mesh
+#Myap.up $ap2_enable
+#ap.psk 0
+##@#config management
+#enable.base $base
+#enable.rootpwd $node_pwd
+##@#config iprules
+#AP1_bridge $ap1_isolate
+#AP2_bridge $ap2_isolate
+#LAN_BLOCK $lan_block
+##@#config nodog
+#TrafficControl $throttling_enable
+#DownloadLimit $download_limit
+#UploadLimit $upload_limit
+#ClientIdleTimeout $splash_idle_timeout
+#ClientForceTimeout $splash_force_timeout
+#AuthenticateImmediately $authenticate_immediately
+#$splash_redirect_url_string
+#
+#RESPONSE;
+
+//Antonio's sample response, modified with our DB variables.
+//I don't know what effect changing the network name has. So why bother?
+//I don't know what defessid does, so leaving it at 0.
+//We don't have an option to change ap.up
+//Not guaranteed to work if you change ap1_isolate, ap2_isolate or lan_block to values other than 1.
+//backend.update, backend.server and backend.ssl left at Antonio's defaults.
+//FirewallRuleSet left at Antonio's defaults
+//GatewayName changed from antonio test to orange test - I don't know what this does.
+//RedirectURL may break if (currently) if no RedirectURL is given, because Mike's code emits the entry in that case.
+//Leaving #bogus as is. - what is this?
+//Not messing with nodogsplash stuff.
+
+echo <<< RESPONSE
+#@#config node
+general.net orange
 #@#config management
 enable.base $base
-enable.rootpwd $node_pwd
+enable.rootpwd
+enable.defessid 0
+#@#config mesh
+ap.up 1
+Myap.up $ap2_enable
+ap.psk $ap_psk
+#@#config wireless
+private.ssid $ap2_essid
+public.ssid $ap1_essid
+private.key $ap2_key
+
+RESPONSE;
+if ($ap_psk) echo "public.key $ap1_key\n";
+echo <<< RESPONSE
 #@#config iprules
+LAN_BLOCK $lan_block
 AP1_bridge $ap1_isolate
 AP2_bridge $ap2_isolate
-LAN_BLOCK $lan_block
+#@#config secondary
+backend.update 0
+backend.server
+backend.ssl 0
+#@#config acl
+mac.mode_ap1 0
 #@#config nodog
-TrafficControl $throttling_enable
-DownloadLimit $download_limit
-UploadLimit $upload_limit
+FirewallRuleSet preauthenticated-users {
+FirewallRule allow
+}
+FirewallRuleSet authenticated-users {
+FirewallRule allow
+}
+FirewallRuleSet users-to-router {
+FirewallRule allow udp port 53
+FirewallRule allow tcp port 53
+FirewallRule allow udp port 67
+FirewallRule allow tcp port 20
+FirewallRule allow tcp port 21
+FirewallRule allow tcp port 22
+FirewallRule allow tcp port 23
+FirewallRule allow tcp port 80
+FirewallRule allow tcp port 443
+}
+GatewayName orange test
+RedirectURL http://$splash_redirect_url
 ClientIdleTimeout $splash_idle_timeout
 ClientForceTimeout $splash_force_timeout
 AuthenticateImmediately $authenticate_immediately
-$splash_redirect_url_string
+TrafficControl $throttling_enable
+DownloadLimit $download_limit
+UploadLimit $upload_limit
+#bogus2 772827811
+#@#config splash-HTML
+page http://www.open-mesh.com/users/anselmi/splash.txt
+file http://www.open-mesh.com/pages/gateway.css
+image http://www.open-mesh.com/users/anselmi/images/antonio.GIF
+image http://www.open-mesh.com/users/anselmi/images/open-mesh-small.png
 
 RESPONSE;
 ?>
