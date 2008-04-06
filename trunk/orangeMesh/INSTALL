@@ -10,6 +10,7 @@ I. Requirements
 ==============
 - A copy of OrangeMesh (available at http://meshnet.googlecode.com)
 - Apache, MySQL, PHP. You can get all these with XAMPP, at http://www.apachefriends.org/en/xampp.html.
+- Be sure you've compiled PHP with sendmail support (if you're using XAMPP, it's already there)
 - A stout heart: this is development code.
 
 II. Setup your database
