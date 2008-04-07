@@ -2,8 +2,7 @@
 /* Name: view.php
  * Purpose: master view for network settings.
  * Written By: Shaddi Hasan, Mac Mollison
- * Modified: April 1, 2008 (created - Shaddi)
- * Last Modified: April 6, 2008 (displays table - by Mac)
+ * Last Modified: April 6, 2008
  *
  * (c) 2008 Orange Networking.
  *  
