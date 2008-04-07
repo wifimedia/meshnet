@@ -124,8 +124,9 @@ else if($_POST['migration_phase']=='node'){
 		
 	} else {
 		echo "DOES NOT EXIST!!!<BR>";
+		$_POST['netid'] = $netid;
 		//if the node does not already exist, we have to insert
-		$fields = array('mac','name','description','latitude','longitude',
+		$fields = array('mac','netid','name','description','latitude','longitude',
 						'owner_name','owner_email','owner_phone','owner_address',
 						'approval_status');
 		$values = getValuesFromPost($fields);
