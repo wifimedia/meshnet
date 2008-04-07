@@ -29,7 +29,7 @@
 //Database Configuration Options
 $dbHost = "localhost";
 $dbUser = "root";
-$dbPass = "";	//be sure to change this!
+$dbPass = "default";	//be sure to change this!
 $dbName = "orangemesh";
 
 
