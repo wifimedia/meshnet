@@ -4,10 +4,6 @@
  * Written By: Mac Mollison
  * Last Modified: April 6, 2008
  * 
- * Known Issues:
- *  -Had to mess with /sbin/update to get it to work with non-https server.
- *  -Right now the test to set the gateway_bit to 1 is if hops==1; I'm not positive this is correct.
- * 
  * (c) 2008 Orange Networking.
  *  
  * This file is part of OrangeMesh.
@@ -44,12 +40,13 @@ if ($robin_vars["mac"] == '') die("No MAC address.");
 
 //If we don't have a DB row for this MAC address, create one.
 //While we're at it, get the memlow, usershi, and netid variables to use later.
-$query = sprintf("SELECT memlow, usershi,netid FROM node WHERE mac='%s'",$robin_vars["mac"]);
-$result = mysql_query($query);
-if (mysql_num_rows($result) == 0) {
+
+$query = sprintf("SELECT memlow, usershi, netid FROM node WHERE mac='%s'",$robin_vars["mac"]);
+$result = mysqli_query($conn,$query);
+if (mysqli_num_rows($result) == 0) {
     $query = sprintf("INSERT INTO node (mac) VALUES ('%s')",$robin_vars["mac"]);
-    mysql_query($query);          }
-$row = mysql_fetch_array($result);
+    mysqli_query($query);          }
+$row = mysqli_fetch_array($result);
 $memlow = $row['memlow'];
 $usershi = $row['usershi'];
 $netid = $row['netid'];
@@ -61,18 +58,18 @@ foreach($robin_vars as $key => $value) $update .= "`" . $key . "`='" . $value . 
 //Add the derivative ROBIN vars to the update string
 if ($memlow == '' || $memlow > $robin_vars["memfree"]) $update .= "`memlow`='" . $robin_vars['memfree'] . "', "; 
 if ($usershi < $robin_vars["users"]) $update .= "`usershi`='" . $robin_vars['users'] . "', ";
-if ($robin_vars['hops']==1) $update .= "`gateway_bit`=1, "; else $update .= "`gateway_bit`=0, ";
+if (in_array($robin_vars["gateway"],split(";",$robin_vars["nbs"]))) $update .= "`gateway_bit`=0, "; else $update .= "`gateway_bit`=1, ";    //If $gateway is in $nbs array, the gateway is a neighbor (i.e. another node), which means this node itself is not a gateway. (For actual gateway nodes, the 'gateway' is the router.)
 
 //Cap off the update string and make the update
 $update = rtrim($update, ", ");
 $update .= sprintf(" WHERE mac='%s'",$robin_vars["mac"]);
-mysql_query($update);
+mysqli_query($conn,$update);
 
 //Get the network settings variables
 $query = sprintf("SELECT * FROM network WHERE id='%s'",$netid);
-$result = mysql_query($query);
-if (mysql_num_rows($result) == 0) die("No such network");
-$row = mysql_fetch_array($result);
+$result = mysqli_query($conn,$query);
+if (mysqli_num_rows($result) == 0) die("No such network");
+$row = mysqli_fetch_array($result);
 $fields = array("ap1_essid","ap1_key","ap2_essid","ap2_key","ap1_isolate","ap2_isolate","ap2_enable","node_pwd","download_limit","upload_limit","throttling_enable","lan_block","splash_redirect_url","splash_idle_timeout","splash_force_timeout","test_firmware_enable","splash_enable");
 foreach ($fields as $field) $$field = $row[$field];
 

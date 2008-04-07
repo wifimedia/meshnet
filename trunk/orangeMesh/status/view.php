@@ -63,7 +63,7 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     echo "<tr>";
     foreach($node_fields as $key => $value) {
         echo "<td>";
-        if ($value=="name" && (true)) {    //Display name in bold, if gateway. Currently, I don't know how to do it; basing on rank==255 fails the test; basing on gw-qual==255 also fails.
+        if ($value=="name" && $row["gateway_bit"]==1) {
                echo "<b>" . $row[$value] . "</b>";                      
         }
         elseif ($value=="rank") {    //Convert rank from x {x | 0 < x < 255} to %
