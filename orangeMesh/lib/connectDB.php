@@ -28,8 +28,8 @@
 
 //Database Configuration Options
 $dbHost = "localhost";
-$dbUser = "orangemesh";
-$dbPass = "default";	//be sure to change this!
+$dbUser = "root";
+$dbPass = "";	//be sure to change this!
 $dbName = "orangemesh";
 
 
@@ -43,11 +43,11 @@ $network_fields = array('id','net_name','display_name','password','email1','emai
 				'access_control_list','lan_block','ap1_isolate','ap2_isolate',
 				'test_firmware_enable','migration_enable');
 
-$node_fields = array('id','netid','name','description','ip_addr','mac_addr','latitude',
-				'longitude','gateway','uptime','build','memfree','memlow','time',
-				'neighbors','nearest_gw','gw_metric','gw_route','clients','clients_hi',
-				'bytes_down','bytes_up','owner_name','owner_email','owner_phone',
-				'owner_address','approval_status');
+$node_fields = array('id','netid','name','description','ip','mac','latitude',
+				'longitude','gateway','gateway_bit','uptime','robin','batman','memfree','memlow','time',
+				'nbs','gw-qual','routes','users','usershi',
+				'kbdown','kbup','owner_name','owner_email','owner_phone',
+				'owner_address','approval_status','hops','rank');
 
 function setTable($table){
 	global $dbTable;
