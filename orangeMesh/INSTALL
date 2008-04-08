@@ -7,10 +7,12 @@ This file is free documentation; Orange Networking gives
 unlimited permission to copy, distribute and modify it.
 
 I. Requirements
-==============
+===============
 - A copy of OrangeMesh (available at http://meshnet.googlecode.com)
-- Apache, MySQL, PHP. You can get all these with XAMPP, at http://www.apachefriends.org/en/xampp.html.
-- Be sure you've compiled PHP with sendmail support (if you're using XAMPP, it's already there)
+- XAMPP (available for Linux (strongly recommended, tested on Ubuntu 7.10), Windows, Mac, and Solaris)
+	- Note: You don't have to use XAMPP, but we'll assume you do. If you choose not to,
+	  then you'll need to have a working installation of Apache, MySQL, PHP + PEAR, and
+	  sendmail. These can be quite difficult to configure so we encourage you to use XAMPP.
 - A stout heart: this is development code.
 
 II. Setup your database
@@ -22,14 +24,28 @@ stored on this dashboard server. The "node" table contains information about eve
 
 Next, open the file /lib/connectDB.php in a text editor. Under "Database Configuration Options" change the value of "dbPass" to whatever the password you created in your dashboard. Save your changes.
 
-III. Install the dashboard files
-================================
+III. Install and configure the dashboard
+========================================
 Copy the dashboard server files into your webroot directory (under XAMPP, this is htdocs). Everything should be working now. In a browser, go to http://localhost (or whatever directory you've placed the dashboard files), and you should see the main page for the dashboard.
 
-Questions or problems? Contact me: shasan@email.unc.edu. I'll do my best to help.
+For email alerts to work properly, you'll need to set up a cron job to run the 
+/lib/mailalerts.php script every 30 minutes. If you're not using Linux, you won't have
+cron, but any way of scheduling a script to run at a certain interval will work fine.
 
 IV. Configuring your Web Server
 ===============================
-Finally, before you get off and running, you should take some steps to secure your web server. If you're using XAMPP, the simplest thing to do is run the security script. You can do this from the console or through the web at http://localhost/security/xamppsecurity.php.
+Finally, start XAMPP! In Linux, just run /opt/lampp/lampp start to start XAMPP. In Windows,
+XAMPP probably was started automatically, but you can start it using the XAMPP Control
+Panel (Start > Programs > Apache Friends > XAMPP > XAMPP Control Panel). Be sure that you have
+at least Apache and MySQL running. We don't use any of the other services for OrangeMesh.
 
-You should also probably lock your system down a bit further, depending on your setup (i.e., disable directory listings in Apache). A detailed explaination of how to secure your web server is outside the scope of this document, but there are many good resources available online. One geared towards XAMPP is http://robsnotebook.com/xampp-security-hardening.
+Finally, before you get off and running, you should take some steps to secure your web server. 
+If you're using XAMPP, the simplest thing to do is run the security script. You can do this 
+from the console or through the web at http://localhost/security/xamppsecurity.php.
+
+You should also probably lock your system down a bit further, depending on your setup 
+(i.e., disable directory listings in Apache). A detailed explaination of how to secure your 
+web server is outside the scope of this document, but there are many good resources 
+available online. One geared towards XAMPP is http://robsnotebook.com/xampp-security-hardening.
+
+Thank you for supporting OrangeMesh!

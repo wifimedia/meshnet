@@ -4,11 +4,6 @@
  * Written By: Shaddi Hasan
  * Last Modified: April 7, 2008
  * 
- * Known Issues:
- * - due to sendmail() config problems in Windows, the actual mail sending has not 
- *	 been tested. I have confirmed that the function is receiving the input it expects.
- *   I will test this once it is on omnis tonight.
- * 
  * (c) 2008 Orange Networking.
  *  
  * This file is part of OrangeMesh.
@@ -30,30 +25,41 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//set how long a node can be down before it's alerted (in seconds)
+//configure mail sending options
+require 'Mail.php';
+$smtp_params['host'] = "smtp.unc.edu";	// Must change this to your smtp server
+$smtp_params['auth'] = FALSE; // Change to true if your smtp server requires authentication
+$params['username'] = ""; // The username to use for SMTP authentication.
+$params['password'] = ""; // The password to use for SMTP authentication.
+$params['persist'] = FALSE; // Allows you to use one SMTP connection for multiple emails.
+$headers['From'] = "shasan@email.unc.edu";	// The from address
+$headers['Reply-To'] = "shasan@email.unc.edu"; // Reply-to
+$headers['X-Mailer'] = "OrangeMesh PHP /".phpversion();	// Makes this look less like spam
+
+//Set how long a node can be down before it's alerted (in seconds)
 $OK_DOWNTIME = 1800;
 
-//get the current time
+//Get the current time
 $currentTime = getdate();
 $currentTime = $currentTime['0'];
 
-//setup db connection
+//Setup db connection
 require 'connectDB.php';
 
-//select all the networks from the database
+//Select all the networks from the database
 $query = "SELECT * FROM network";
 $network_result = mysqli_query($conn,$query);
 if(mysqli_num_rows($network_result)==0) die("No networks in database, mailing halted.");
 
-//for every network in the dashboard
+//For every network in the dashboard
 while($network = mysqli_fetch_assoc($network_result)){
 	$body = "Network alert for '".$network['display_name']."'\n\nThe following nodes have not checked in recently:\n\n";
-	//get the nodes associated with that network
+	//Get the nodes associated with this network
 	$query = "SELECT * FROM node WHERE netid='".$network['id']."'";
 	$node_result = mysqli_query($conn,$query);
 	if(mysqli_num_rows($node_result)==0)  {continue;}
 	
-	//for every node that is in the network
+	//For every node that is in the network
 	while($node = mysqli_fetch_assoc($node_result)){
 		//if the node is down, add a line to the email
 		$down = $currentTime - strtotime($node['time']);
@@ -62,13 +68,18 @@ while($network = mysqli_fetch_assoc($network_result)){
 		}
 	}
 	
-	//prepare the email for sending
-	$body .= "\nYou can view your network status at ".$_SERVER['SERVER_NAME'].".";
-	$to = $network['email1'];
-	$subject = "OrangeMesh Network Alert for ".$network['name'];
-	$headers = "From: alerts@orangenetworking.org";
+	//Conclude email
+	$body .= "You can view the status of the network at THE SERVER ADDRESS!!\n";
+	$recipients = $network['email1'];
+	$headers['To'] = $recipients;
+	$headers['Subject'] = 'Network Alerts for '.$network['net_name'];
 	
-	//send the message for this network
-	mail($to,$subject,$body,$headers);
+	//Send the message
+	$mail_object =& Mail::factory('smtp', $smtp_params);
+	
+	if($mail_object->send($recipients, $headers, $body)){
+		echo "sent!";
+	} else {echo "fail!";}
+
 }
 ?>

@@ -57,7 +57,7 @@ require '../lib/connectDB.php';
 setTable('network');
 
 //get the PEAR files for this 
-require '../lib/PEAR/Request.php';
+require 'HTTP/Request.php';
 
 echo "Gathering network information from database...<br>";
 
