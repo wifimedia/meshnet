@@ -19,8 +19,7 @@ II. Setup your database
 =======================
 The easiest way to set up your database is to use phpMyAdmin. Under "Privleges" create a new user called 'orangemesh' with any password you like (remember this!), and click the option to "Create a database with same name and all privileges".
 
-The database structure is stored in orangemesh.sql. Import this file into your database. It will create the "orangemesh" database with two tables "network" and "node". The "network" table contains information about all the network accounts
-stored on this dashboard server. The "node" table contains information about every node for every network on the server.
+The database structure is stored in orangemesh.sql. Import this file into your database. It will create the "orangemesh" database with two tables "network" and "node". The "network" table contains information about all the network accounts stored on this dashboard server. The "node" table contains information about every node for every network on the server.
 
 Next, open the file /lib/connectDB.php in a text editor. Under "Database Configuration Options" change the value of "dbPass" to whatever the password you created in your dashboard. Save your changes.
 
@@ -28,24 +27,14 @@ III. Install and configure the dashboard
 ========================================
 Copy the dashboard server files into your webroot directory (under XAMPP, this is htdocs). Everything should be working now. In a browser, go to http://localhost (or whatever directory you've placed the dashboard files), and you should see the main page for the dashboard.
 
-For email alerts to work properly, you'll need to set up a cron job to run the 
-/lib/mailalerts.php script every 30 minutes. If you're not using Linux, you won't have
-cron, but any way of scheduling a script to run at a certain interval will work fine.
+For email alerts to work properly, you'll need to set up a cron job to run the /lib/mailalerts.php script every 30 minutes. If you're not using Linux, you won't have cron, but any way of scheduling a script to run at a certain interval will work fine. Additionally, you need to set your SMTP server settings in /lib/mailalerts.php. The settings are located at the top of the script; the most important one is 'host', which should be changed to the address of your SMTP server. The rest can probably be left alone.
 
 IV. Configuring your Web Server
 ===============================
-Finally, start XAMPP! In Linux, just run /opt/lampp/lampp start to start XAMPP. In Windows,
-XAMPP probably was started automatically, but you can start it using the XAMPP Control
-Panel (Start > Programs > Apache Friends > XAMPP > XAMPP Control Panel). Be sure that you have
-at least Apache and MySQL running. We don't use any of the other services for OrangeMesh.
+Finally, start XAMPP! In Linux, just run /opt/lampp/lampp start to start XAMPP. In Windows, XAMPP probably was started automatically, but you can start it using the XAMPP Control Panel (Start > Programs > Apache Friends > XAMPP > XAMPP Control Panel). Be sure that you have at least Apache and MySQL running. We don't use any of the other services for OrangeMesh.
 
-Finally, before you get off and running, you should take some steps to secure your web server. 
-If you're using XAMPP, the simplest thing to do is run the security script. You can do this 
-from the console or through the web at http://localhost/security/xamppsecurity.php.
+Finally, before you get off and running, you should take some steps to secure your web server. If you're using XAMPP, the simplest thing to do is run the security script. You can do this from the console or through the web at http://localhost/security/xamppsecurity.php.
 
-You should also probably lock your system down a bit further, depending on your setup 
-(i.e., disable directory listings in Apache). A detailed explaination of how to secure your 
-web server is outside the scope of this document, but there are many good resources 
-available online. One geared towards XAMPP is http://robsnotebook.com/xampp-security-hardening.
+You should also probably lock your system down a bit further, depending on your setup (i.e., disable directory listings in Apache). A detailed explaination of how to secure your web server is outside the scope of this document, but there are many good resources available online. One geared towards XAMPP is http://robsnotebook.com/xampp-security-hardening.
 
 Thank you for supporting OrangeMesh!
