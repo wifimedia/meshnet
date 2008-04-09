@@ -27,13 +27,13 @@
 
 //configure mail sending options
 require 'Mail.php';
-$smtp_params['host'] = "smtp.unc.edu";	// Must change this to your smtp server
+$smtp_params['host'] = "your.smtp.server";	// Must change this to your smtp server
 $smtp_params['auth'] = FALSE; // Change to true if your smtp server requires authentication
 $params['username'] = ""; // The username to use for SMTP authentication.
 $params['password'] = ""; // The password to use for SMTP authentication.
 $params['persist'] = FALSE; // Allows you to use one SMTP connection for multiple emails.
-$headers['From'] = "shasan@email.unc.edu";	// The from address
-$headers['Reply-To'] = "shasan@email.unc.edu"; // Reply-to
+$headers['From'] = "from@address";	// The from address
+$headers['Reply-To'] = "reply-to@address"; // Reply-to
 $headers['X-Mailer'] = "OrangeMesh PHP /".phpversion();	// Makes this look less like spam
 
 //Set how long a node can be down before it's alerted (in seconds)
