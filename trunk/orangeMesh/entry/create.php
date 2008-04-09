@@ -83,9 +83,12 @@
 		require '../lib/connectDB.php';
 		setTable('network');
 		
-		$query = 'SELECT * FROM network WHERE net_name="'.$net_name.'"';
+		//make sure there is not a duplicate network
+		$query = 'SELECT * FROM network WHERE net_name="'.$_POST['net_name'].'"';
 		$result = mysqli_query($conn,$query);
-		
+		if(mysqli_num_rows($result)>0){
+			die("Network name is taken, please enter a new network name.");
+		}
 		
 		//the fields we want to insert into the database
 		$fields = array("net_name","password","email1","net_location","email2");
@@ -95,9 +98,7 @@
 		
 		//get the values corresponding to the above fields from the user input 
 		$values = getValuesFromPOST($fields);
-		
-		//foreach ($values as $v){echo $v."<BR>";}
-		
+				
 		//insert the values into the database
 		insert($dbTable,$fields,$values);
 
