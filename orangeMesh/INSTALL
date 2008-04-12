@@ -17,7 +17,7 @@ I. Requirements
 
 II. Setup your database
 =======================
-The easiest way to set up your database is to use phpMyAdmin. Under "Privleges" create a new user called 'orangemesh' with any password you like (remember this!), and click the option to "Create a database with same name and all privileges".
+The easiest way to set up your database is to use phpMyAdmin. Under "Privileges" create a new user called 'orangemesh' with any password you like (remember this!), and click the option to "Create a database with same name and all privileges".
 
 The database structure is stored in orangemesh.sql. Import this file into your database. It will create the "orangemesh" database with two tables "network" and "node". The "network" table contains information about all the network accounts stored on this dashboard server. The "node" table contains information about every node for every network on the server.
 
