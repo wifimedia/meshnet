@@ -2,7 +2,7 @@
 /* Name: mapkeys.php
  * Purpose: selects the proper google map api key for the host server.
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
- * Last Modified: March 28, 2008
+ * Last Modified: April 12, 2008
  * 
  * (c) 2008 Open Mesh Inc. and Orange Networking.
  *  
@@ -31,8 +31,8 @@ $host = $_SERVER['HTTP_HOST'];
 // you'll need two:  One for your domain with the www and one without.
 //
 
-if ($Host == "localhost")  // change to www.your-domain.com
+if ($host == "localhost")  // change to www.your-domain.com
   echo '<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAOblURTDowPDJJzfEXmiWIBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQbL_rhHeHuGFVXrVCUAJB7anr10w" type="text/javascript"></script>'."\n" ;
-else if ($Host == "open-mesh.com") // change to your-domain.com (w/o www)
+else if ($host == "open-mesh.com") // change to your-domain.com (w/o www)
   echo '<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAOblURTDowPDJJzfEXmiWIBTZjxrB_pn9jGmMh-RwF7AKb9MO5BSCsu6kbvCWascCDdDG4x87WRQixA" type="text/javascript"></script>'."\n" ;
 ?>

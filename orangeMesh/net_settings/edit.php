@@ -68,6 +68,16 @@ unset($_SESSION['updated']);
 //setup the menu
 include '../lib/menu.php';
 
+//include dojo framework and styles
+include '../lib/dojo.php';
+//dojo requires
+echo <<< REQUIRES
+	<script type = "text/javascript">
+		dojo.require("dojo.parser");
+		dojo.require("dijit.TitlePane");
+	</script>
+REQUIRES;
+
 //determines the value of a boolean in the db
 //probably should be located in a different file.
 function isChecked($field){
