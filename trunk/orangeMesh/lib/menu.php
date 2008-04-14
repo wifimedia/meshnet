@@ -92,6 +92,9 @@ function showDefaultMenu(){
 	global $on_index;
 	echo 'Login to manage a network, or select a network to view its status.';
 	?>
+	<HEAD>
+	<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
+	</HEAD>
 	<div id="menu">
 	<ul id="nav">
 	<li id="home" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
