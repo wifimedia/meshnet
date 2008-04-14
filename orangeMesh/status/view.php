@@ -48,7 +48,7 @@ $node_fields = array("Node Name" => "name","Description" => "description","Uptim
   "Last Checkin" => "time","MAC" => "mac");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
-echo "<head> <LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css"> </head>"
+include "../lib/style.php";
 echo "<script src='../lib/sorttable.js'></script>";
 echo "<table class='sortable' border='1'>";
 
