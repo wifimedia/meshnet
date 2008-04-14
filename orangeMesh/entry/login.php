@@ -79,6 +79,7 @@ if(isset($_POST["submit"])){
   <meta content="text/html; charset=ISO-8859-1"
  http-equiv="content-type">
   <title></title>
+	<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
 </head>
 <body>
 Login to manage your network.<br>
