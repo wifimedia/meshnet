@@ -29,6 +29,7 @@ include '../lib/menu.php';
 <html>
 <head>
 <title>Select Network</title>
+<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
 </head>
 <body>
 Select the network you'd like to see.

@@ -34,6 +34,8 @@
   <? include("../lib/validateInput.js");?>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Create Network</title>
+  	<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
+
 </head>
 <body>
 	<form method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>" onsubmit="if(!isFormValid()){
