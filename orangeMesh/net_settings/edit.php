@@ -93,6 +93,7 @@ function isChecked($field){
 <head>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Edit Network</title>
+ 	<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
 </head>
 <body>
 <?if ($updated=='true') echo "Network successfully updated!<br>"; ?>

@@ -1,0 +1,80 @@
+html,body{margin:0;padding:0}
+body{font-family: "Trebuchet MS", Verdana,Arial,sans-serif; font-size: 0.8em;height:100%;
+    text-align: center;background-image: url(BodyBg.gif);background-repeat: repeat-x;padding-top:0px;padding-bottom:0px}
+p{margin-top:0}
+h1,h2,h3{font: normal normal 200% "Trebuchet MS",Arial,sans-serif; border-bottom: 1px dotted #bbbbbb; color: #007BC4;}
+h2{font-size:160%}
+h3{font-size:120%}
+
+div#overview{background: #FFF;padding-left:30px}
+
+div#header{background-image: url(WrapperBg.jpg);background-repeat: no-repeat;width:800px;margin: 0 auto;overflow:hidden}
+div#header h1{width:800px;margin:10 auto;text-align:left;background-color:transparent}
+div#header h1{padding: 2px 0 2px;color: #FFF}
+
+div#menu{font-size: 1.1em; width:800px;margin:10 auto;text-align:left;background-color:transparent;overflow:hidden}
+
+
+div#container{height:400px;width:800px;margin:0 auto 10px;padding:10px 10px 10px 10px;text-align:left;background:#FFFFFF}
+div#content{position:relative;float:left;display:inline;width:780px;margin:0px 0px 0px 0px}
+
+ul#intro,ul#intro li{list-style-type:none;margin:0;padding:0}
+ul#intro{width:100%;overflow:hidden;margin-bottom:20px}
+ul#intro li{float:left;width:380px;margin-right: 10px; padding:10px 0px 10px 00px}
+li#mission{background: #aaccff;}
+li#services{background: #99bbee }
+ul#intro li#more{margin-right:0;background: #88aadd }
+ul#intro a{text-decoration:none;text-decoration:underline;color: #FFF}
+
+ul#intro p,ul#intro h3{margin:0;padding: 0 10px}
+ul#intro h3{text-transform:uppercase;padding-bottom:3px;color: #FFF}
+
+div#content h2{margin: 10px 0;color: #007BC4; border-bottom: 1px dotted #bbbbbb;}
+div#content td{font-size:80%;}
+div.date{float:left;width: 4em;padding: 5px 0;background: #F1DDC4;color:#B0001E;
+    text-align:center;margin: 0 0px 0px 0;font-size: 80%;line-height:0.9}
+div.date span{display:block;font-size: 150%;font-weight:bold}
+
+div.comments div{background: #DAE6FE;margin-bottom:10px}
+div.comments p{font-size:90%;padding: 10px;margin:0}
+div.comments div.odd{background:#FFFF80}
+
+div#side{float:right;display:inline;width: 180px;background:#F3FF40; margin:0 10px 10px 0}
+
+div#side p{margin:5px 0 10px;padding: 0 10px}
+div#side div{margin: 0 0 10px;padding: 10px 0}
+
+div#side table{font-size:80%}
+
+div#footer{clear:both;width:760px;margin:10px 0px 0px, 0px;padding: 10px 0;
+    background: #FFF;color: #FFF;text-align:center}
+div#footer p{margin:0}
+
+#menu ul
+{
+padding: .2em 0;
+margin: 0;
+list-style-type: none;
+background-color: #036;
+color: #FFF;
+width: 100%;
+font: normal 90% arial, helvetica, sans-serif;
+text-align: center;
+}
+
+li { display: inline; }
+
+li a
+{
+text-decoration: none;
+background-color: #036;
+color: #FFF;
+padding: .2em 1em;
+border-right: 1px solid #fff;
+}
+
+li a:hover
+{
+background-color: #369;
+color: #fff;
+}
