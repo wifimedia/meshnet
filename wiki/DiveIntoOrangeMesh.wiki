@@ -1,0 +1,37 @@
+#summary This page is a quick primer on the basics of wireless mesh networking and OrangeMesh. The goal is for a reader who knows nothing before reading the article, to be able to administer wireless mesh networks with OrangeMesh after finishing the article.
+
+= Introduction =
+
+This page is a quick primer on the basics of wireless mesh networking and OrangeMesh. The goal is for a reader who knows nothing before reading the article, to be able to administer wireless mesh networks with OrangeMesh after finishing the article.
+
+=What is a wireless mesh network?=
+Let's first go over what a regular wireless network is, so terminology is clear. Then we'll use corresponding terminology to explain what a wireless mesh network is.
+
+A *regular wireless network* is produced by a *wireless router*, which provides a wireless signal over a given radius. Each wireless router is plugged into the Internet through Ethernet. Larger wireless networks are created by multiple routers broadcasting the same signal, each of which is plugged into the Internet through Ethernet.
+
+A *wireless mesh network* is produced not by wireless routers, but by *repeater nodes*. A repeater node works exactly like a wireless router, but generally they're not plugged into Ethernet. The Internet connection is transmitted between repeater nodes wirelessly. The repeater nodes must be close enough to each other to send and receive signals.
+
+However, at least one of the repeater nodes must be plugged into Ethernet to establish a connection to the Internet. This node is given a special name: a gateway. Some wireless mesh networks have multiple gateways; this provides more bandwidth for the users and provides redundancy in case part of the network goes down.
+
+Here is a sample configuration for a large, one-story building:
+||[http://unc.edu/~mollison/diagram.png]||[http://unc.edu/~mollison/key.png]||
+
+A wireless mesh network is a low-cost method of supplying a wireless signal to a large area using a shared Internet connection.
+
+=What is OrangeMesh?=
+
+*OrangeMesh* is a piece of server-side software that helps someone view the status of their wireless mesh network and change configuration options for the network. OrangeMesh is designed to work as the top layer of a stack of wireless mesh network technology components.
+
+At the bottom of this stack is the Accton Mini-Router - the recommended node.
+
+Next is B.A.T.M.A.N. - software which runs on each node and allows the nodes to "talk to each other" to share a wireless internet connection.
+
+Next is ROBIN - software which runs on each node, on top of B.A.T.M.A.N., and allows an external dashboard website to collect data about the network and send configuration changes.
+
+That is where OrangeMesh comes in - OrangeMesh is that dashboard.
+
+OrangeMesh is simply a piece of server-side software (otherwise known as a "website") which communicates with the each node via ROBIN.
+
+OrangeMesh is totally optional - generally, one can plug Accton Mini-Routers with the B.A.T.M.A.N. and ROBIN installed into electrical outlets, plug one into a working Ethernet connection, and generate a working wireless mesh network. However, one will not be able to get status information (such as the number of users connected) or change configuration options (such as the broadcast ID, or SSID, of the wireless network).
+
+
