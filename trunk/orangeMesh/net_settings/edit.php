@@ -114,7 +114,7 @@ function isChecked($field){
 ?>
 
 <body onload=hideAdvanced();Nifty("div.comment");>
-<?if ($updated=='true') echo "Network successfully updated!<br>"; ?>
+<?if ($updated=='true') echo "<div class=updated>Network successfully updated!</div>"; ?>
 <h1><?echo $display_name ?></h1>
 <form method="POST" action="c_edit.php" name="editNetwork">
 <table align="left" cellpadding="4" cellspacing="0" border=0>
