@@ -2,7 +2,7 @@
 /* Name: edit.php
  * Purpose: edit network settings.
  * Written By: Shaddi Hasan, Mike Burmeister-Brown
- * Last Modified: March 26, 2008
+ * Last Modified: April 15, 2008
  * 
  * (c) 2008 Open-Mesh, Inc. and Orange Networking.
  *  
