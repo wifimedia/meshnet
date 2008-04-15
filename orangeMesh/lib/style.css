@@ -115,3 +115,7 @@ tr.fields td {
     border-style: solid;
 	border-color: #000;
 }
+
+tr.down td {
+	color: #FF0000
+}
