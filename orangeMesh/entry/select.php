@@ -2,7 +2,7 @@
 /* Name: select.php
  * Purpose: select network page.
  * Written By: Shaddi Hasan
- * Last Modified: March 27, 2008
+ * Last Modified: April 16, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -29,7 +29,7 @@ include '../lib/menu.php';
 <html>
 <head>
 <title>Select Network</title>
-<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
+<?include "../lib/style.php"; ?>
 </head>
 <body>
 Select the network you'd like to see.

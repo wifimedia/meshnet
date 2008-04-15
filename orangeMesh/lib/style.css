@@ -78,3 +78,40 @@ li a:hover
 background-color: #369;
 color: #fff;
 }
+
+//ruckman's table settings!
+
+table {
+        color: #00008B;
+        border-color: #000;
+        border-width: 0 0 0px 0px;
+        border-style: solid;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        align: center;
+}
+
+td
+{
+		font-family: Verdana, Arial, sans-serif;
+        font-size: 0.8em;
+        border-width: 0px 0px 0px 0px;
+        border-style: solid;
+        margin: 0;
+        padding: 4px;
+        background-color: #FFF;
+        border-color: #000;
+}
+
+
+tr.fields td {
+	border-width: 0px 0px 2px 0px;
+    border-style: solid;
+	border-color: #000;
+}

@@ -2,7 +2,7 @@
 /* Name: create.php
  * Purpose: create a new network in the dashboard.
  * Written By: Shaddi Hasan
- * Last Modified: March 22, 2008
+ * Last Modified: April 16, 2008
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -31,11 +31,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <? include("../lib/validateInput.js");?>
+  <? include("../lib/validateInput.js");
+  	include "../lib/style.php";
+  ?>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Create Network</title>
-  	<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
-
 </head>
 <body>
 	<form method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>" onsubmit="if(!isFormValid()){

@@ -2,7 +2,7 @@
 /* Name: login.php
  * Purpose: creates a user session and logs the user into the config or status page.
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
- * Last Modified: March 26, 2008
+ * Last Modified: April 16, 2008
  * 
  * (c) 2008 Open Mesh, Inc. and Orange Networking.
  * 
@@ -76,10 +76,9 @@ if(isset($_POST["submit"])){
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <meta content="text/html; charset=ISO-8859-1"
- http-equiv="content-type">
-  <title></title>
-	<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Create Network</title>
+  <?include "../lib/style.php"; ?>
 </head>
 <body>
 Login to manage your network.<br>

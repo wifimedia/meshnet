@@ -64,7 +64,16 @@ $migration_enable = $resArray['migration_enable'];
 //check if the user just updated the network
 $updated = $_SESSION['updated'];
 unset($_SESSION['updated']);
+?>
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Edit Network</title>
+  <?include '../lib/style.php';?>
+</head>
+<?
 //setup the menu
 include '../lib/menu.php';
 
@@ -86,15 +95,8 @@ function isChecked($field){
 	else return 'checked="checked"';
 }
 
-
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  <title>Edit Network</title>
- 	<LINK REL=STYLESHEET HREF="../style.css" TYPE="text/css">
-</head>
+
 <body>
 <?if ($updated=='true') echo "Network successfully updated!<br>"; ?>
 <h1><?echo $display_name ?></h1>
