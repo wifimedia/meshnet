@@ -68,7 +68,7 @@ echo "</tr>";
 
 //Output the rest of the table
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-	if($currentTime - strtotime($node['time'])>$OK_DOWNTIME)
+	if($currentTime - strtotime($row['time']) >= $OK_DOWNTIME)
     	echo "<tr class=\"down\">";
     else
     	echo "<tr>";
