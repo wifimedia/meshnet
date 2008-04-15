@@ -69,9 +69,25 @@ unset($_SESSION['updated']);
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  <title>Edit Network</title>
-  <?include '../lib/style.php';?>
+	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+	<title>Edit Network</title>
+	<?include '../lib/style.php';?>
+	<script type=text/javascript>
+	function showAdvanced(){
+		document.getElementById("root_pwd").style.display="";
+		document.getElementById("lan_block").style.display="";
+		document.getElementById("ap1_isolate").style.display="";
+		document.getElementById("ap2_isolate").style.display="";
+		document.getElementById("migration").style.display="";
+  	}
+  	function hideAdvanced(){
+		document.getElementById("root_pwd").style.display="none";
+		document.getElementById("lan_block").style.display="none";
+		document.getElementById("ap1_isolate").style.display="none";
+		document.getElementById("ap2_isolate").style.display="none";
+		document.getElementById("migration").style.display="none";
+  	}
+  	</script>
 </head>
 <?
 //setup the menu
@@ -97,78 +113,147 @@ function isChecked($field){
 
 ?>
 
-<body>
+<body onload=hideAdvanced();Nifty("div.comment");>
 <?if ($updated=='true') echo "Network successfully updated!<br>"; ?>
 <h1><?echo $display_name ?></h1>
 <form method="POST" action="c_edit.php" name="editNetwork">
-	<b>Network Account Settings</b>
-	<br>
-	Network Name <input readonly="readonly" name="net_name" value=<?echo $net_name ?>>
-	<br>
-	Display name <input name="display_name" value="<?echo $display_name?>">
-	<br>
-  	<a href="changePass.php?netid=$netid" target="_blank">Change Password</a>
-  	<br>
-	Primary Email Address&nbsp;<input name="email1" value=<?echo $email1?>>
-	<br>
-  	<br>
-  	<b>Network Notifications</b>
-  	<br>
-	Additional Notification Emails: <input name="email2" value=<?echo $email2?>>
-	<br>
-	Enable/Disable/Configure notifications...
-	<br>
- 	<br>
-  	<b>Access Point 1 (Public)</b>
-  	<br>
-	Network Name <input name="ap1_essid" value=<?echo $ap1_essid?>>
-	<br>
-	Network Key <input name="ap1_key" value=<?echo $ap1_key?>>
-	<br>
-	Download Limit <input name="download_limit" value=<?echo $download_limit?>>
-	<br>
-	Upload Limit <input name="upload_limit" value=<?echo $upload_limit?>>
-	<br>
-	Whitelist&nbsp;<textarea cols="20" rows="4" name="access_control_list"><?echo $access_control_list?></textarea>
-	<br>
-	<br>
-	<b>Splash Page</b>
-	<br>
-  	Enable<input name="splash_enable" <?echo isChecked($splash_enable) ?>value=1 type="checkbox">
-  	<br>
-	Configure Splash Page (coming soon...)
-	<br>
-	Splash Redirect URL <input name="splash_redirect_url" value=<?echo $splash_redirect_url?>>
-	<br>
-	Idle Splash Page Timeout <input name="splash_idle_timeout"  value=<?echo $splash_idle_timeout?>>
-	<br>
-	Require Splash Page Timeout <input name="splash_force_timeout" value=<?echo $splash_force_timeout?>>
-	<br>
-  	<br>
-  	<b>Access Point 2 (Private)</b>
-  	<br>
-	Enable <input <?echo isChecked($ap2_enable) ?> name="ap2_enable" value=1 type="checkbox">
-	<br>
-	Network Name <input name="ap2_essid" value=<?echo $ap2_essid ?>>
-	<br>
-	Network Key <input name="ap2_key" value=<?echo $ap2_key ?>>
-	<br>
-  	<br>
-  	<b>Advanced Settings</b>
-  	<br>
-  	Root Password for Nodes <input name="node_pwd" value=<?echo $node_pwd?>>
-  	<br>
-	LAN Block <input <?echo isChecked($lan_block) ?>name="lan_block" value=1 type="checkbox">
-	<br>
-	AP1 Isolation <input <?echo isChecked($ap1_isolate) ?>name="ap1_isolate" value=1 type="checkbox">
- 	<br>
-	AP2 Isolation <input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=1 type="checkbox">
- 	<br>
-	<a href="../migration/export.php">Enable Migration</a> (will revert to off in one hour) <input <?echo isChecked($migration_enable) ?>name="migration_enable" value="1" type="checkbox">
- 	<br>
- 	<br>
- 	<br>
- 	<input name="submit" value="Save Settings" type="submit">
+<table align="left" cellpadding="4" cellspacing="0" border=0>
+	<tr><td> </td></tr><tr><td colspan=2><h2>Network Account Settings</h2></td></tr>
+	<tr>
+		<td>Network Name</td>
+		<td><input readonly="readonly" name="net_name" value=<?echo $net_name ?>></td>
+		<td><div class="comment">Login ID for this network.</div></td>
+	</tr>
+	<tr>
+		<td>Display name</td>
+		<td><input name="display_name" value="<?echo $display_name?>"></td>
+		<td><div class="comment">The name to use on reports and the splash page.</div></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><a href="changePass.php?netid=$netid" target="_blank">Change Password</a></td>
+		<td><div class="comment">Administrator password for this network.</div></td>
+	</tr>
+	<tr>
+		<td>Primary Email Address</td>
+		<td><input name="email1" value=<?echo $email1?>></td>
+		<td><div class="comment">Your email in case we need to contact you. We will not share this with others.</div></td>
+	</tr>
+	<tr>
+  		<td colspan=2><h2>Network Notifications</h2></td>
+  	</tr>
+	<tr>
+		<td>Additional Notification Emails</td>
+		<td><input name="email2" value=<?echo $email2?>></td>
+		<td><div class="comment">Separate multiple email addresses with spaces. Gateway outages will be sent on the hour, repeater outages will be sent daily.</div></td>
+	</tr>
+	<tr>
+		<td>Enable/Disable/Configure notifications...</td>
+		<td>Coming soon!</td>
+		<td><div class="comment">Enable or disable status notifications for this network.</div></td>
+	</tr>
+	<tr>
+		<td colspan=2><h2>Access Point 1 (Public)</h2></td>
+	</tr>
+	<tr>
+		<td>Network Name</td>
+		<td><input name="ap1_essid" value=<?echo $ap1_essid?>></td>
+		<td><div class="comment">The SSID to use to connect to this access point.</div></td>
+	</tr>
+	<tr>
+		<td>Network Key</td>
+		<td><input name="ap1_key" value=<?echo $ap1_key?>></td>
+		<td><div class="comment">Password (key) for the this access point. Leave blank for an open network. KEYS MUST BE 8 CHARACTERS OR LONGER.</div></td>
+	</tr>
+	<tr>
+		<td>Download Limit</td>
+		<td><input name="download_limit" value=<?echo $download_limit?>></td>
+		<td><div class="comment">Download limit (throttling) in Kbits/sec.</div></td>
+	</tr>
+	<tr>
+		<td>Upload Limit</td>
+		<td><input name="upload_limit" value=<?echo $upload_limit?>></td>
+		<td><div class="comment">Upload limit (throttling) in Kbits/sec.</div></td>
+	</tr>
+	<tr>
+		<td>Whitelist</td>
+		<td><textarea cols="20" rows="4" name="access_control_list"><?echo $access_control_list?></textarea></td>
+		<td><div class="comment">MAC address allowed to use this Access Point, one per line. All other users (MAC addresses) will not be able to browse on this access point. Leave blank to allow all MAC addresses.</div></td>
+	</tr>
+	<tr>
+		<td colspan=2><h2>Splash Page</h2></td>
+	</tr>
+	<tr>
+		<td></td>
+  		<td>Enable<input name="splash_enable" <?echo isChecked($splash_enable) ?>value=1 type="checkbox"> Configure Splash Page (coming soon...)</td>
+  		<td><div class="comment">The splash page is a page users will see first and must click an "enter" link to use the network.</div></td>
+  	</tr>
+  	<tr>
+  		<td>Splash Redirect URL</td>
+  		<td><input name="splash_redirect_url" value=<?echo $splash_redirect_url?>></td>
+  		<td><div class="comment">The page to display after the Splash page. Leave blank to display the user's requested page.</div></td>
+  	</tr>
+	<tr>
+		<td>Idle Splash Page Timeout</td>
+		<td><input name="splash_idle_timeout"  value=<?echo $splash_idle_timeout?>></td>
+		<td><div class="comment">Minutes client is idle before showing Splash Page</div></td>
+	</tr>
+	<tr>
+		<td>Require Splash Page Timeout</td>
+		<td><input name="splash_force_timeout" value=<?echo $splash_force_timeout?>></td>
+		<td><div class="comment">Minutes to show splash page regardless of activity</div></td>
+	</tr>
+	<tr>
+		<td colspan=2><h2>Access Point 2 (Private)</h2></td>
+	</tr>
+  	<tr>
+		<td>Enable</td>
+		<td><input <?echo isChecked($ap2_enable) ?> name="ap2_enable" value=1 type="checkbox"></td>
+		<td><div class="comment">Uncheck to disable this access point.</div></td>
+	</tr>
+	<tr>
+		<td>Network Name</td>
+		<td><input name="ap2_essid" value=<?echo $ap2_essid ?>></td>
+		<td><div class="comment">The SSID to use to connect to this access point.</div></td>
+	</tr>
+	<tr>
+		<td>Network Key</td>
+		<td><input name="ap2_key" value=<?echo $ap2_key ?>></td>
+		<td><div class="comment">Password (key) for this access point. It is NOT possible to leave this field blank and have this be an open AP. MUST BE 8 CHARACTERS OR LONGER.</div></td>
+	</tr>
+	<tr>
+  		<td colspan=2><h2>Advanced Settings</h2></td><td align=left><a href="javascript:showAdvanced();">show</a>&nbsp;&nbsp;&nbsp;<a href="javascript:hideAdvanced();">hide</a></td>
+  	</tr>
+  	<tr id="root_pwd">
+  		<td>Root Password for Nodes</td>
+  		<td><input name="node_pwd" value=<?echo $node_pwd?>></td>
+  		<td><div class="comment">Root password for all nodes on your network used for ssh. You should change this for security.</div></td>
+  	</tr>
+  	<tr id="lan_block">
+  		<td>LAN Block</td>
+  		<td><input <?echo isChecked($lan_block) ?>name="lan_block" value=1 type="checkbox"></td>
+  		<td><div class="comment">Checking this box will prevent users on the wireless networks from accessing your wired LAN</div></td>
+  	</tr>
+  	<tr id="ap1_isolate">
+  		<td>AP1 Isolation</td>
+  		<td><input <?echo isChecked($ap1_isolate) ?>name="ap1_isolate" value=1 type="checkbox"></td>
+  		<td><div class="comment">Check this box to prevent your AP#1 users from being able to access each other's computers.</div></td>
+  	</tr>
+  	<tr id="ap2_isolate">
+  		<td>AP2 Isolation</td>
+  		<td><input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=1 type="checkbox"></td>
+  		<td><div class="comment">Check this box to prevent your AP#2 users from being able to access each other's computers.</div></td>
+  	</tr>
+  	<tr id="migration">
+  		<td>Migration</td>
+  		<td><a href="../migration/export.php">Migrate network to another Orangemesh Server</a><input <?echo isChecked($migration_enable) ?>name="migration_enable" value="1" type="checkbox"></td>
+		<td><div class="comment">Will revert to off in one hour)</div></td>
+	</tr>
+	<tr>
+		<td colspan=3 align=center><input name="submit" value="Save Settings" type="submit"></td>
+	</tr>
+</table>
+ 	
 </form>
 </body>
 </html>

@@ -51,7 +51,7 @@ $result = mysqli_query($conn,$query);
 //Table columns, in format Display Name => DB field name.
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
 $node_fields = array("Node Name" => "name","Description" => "description","Uptime" => "uptime",
-  "Quality" => "rank","Hops" => "hops","Route" => "routes","Users" =>"users","Max Users" => "usershi",
+  "Quality" => "rank","Hops" => "hops","Down kb" => "kbdown","Up kb" => "kbup","Users" =>"users","Max Users" => "usershi",
   "Last Checkin" => "time","MAC" => "mac");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
