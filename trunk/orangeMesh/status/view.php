@@ -27,6 +27,13 @@
 
 session_start();
 
+//Set how long a node can be down before it's alerted (in seconds)
+$OK_DOWNTIME = 1800;
+
+//Get the current time
+$currentTime = getdate();
+$currentTime = $currentTime['0'];
+
 //check if we have a network selected, if not redirect to select page
 if (!isset($_SESSION['netid'])) 
 	header("Location: ../entry/select.php");
@@ -60,9 +67,11 @@ foreach($node_fields as $key => $value) {
 echo "</tr>";
 
 //Output the rest of the table
-$i = 0;
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-    echo "<tr class=\"d".($i & 1)."\">";
+	if($currentTime - strtotime($node['time'])>$OK_DOWNTIME)
+    	echo "<tr class=\"down\">";
+    else
+    	echo "<tr>";
     foreach($node_fields as $key => $value) {
         echo "<td>";
         if ($value=="name" && $row["gateway_bit"]==1) {
@@ -77,6 +86,9 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         echo "</td>";
     }
     echo "</tr>";
-    $i++;
 }
 echo "</table>";
+?>
+<br>
+<font color="#FF0000">Node needs attention</font>
+
