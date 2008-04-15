@@ -33,5 +33,3 @@ That is where OrangeMesh comes in - OrangeMesh is that dashboard.
 OrangeMesh is simply a piece of server-side software (otherwise known as a "website") which communicates with the each node via ROBIN.
 
 OrangeMesh is totally optional - generally, one can plug Accton Mini-Routers with the B.A.T.M.A.N. and ROBIN installed into electrical outlets, plug one into a working Ethernet connection, and generate a working wireless mesh network. However, one will not be able to get status information (such as the number of users connected) or change configuration options (such as the broadcast ID, or SSID, of the wireless network).
-
-
