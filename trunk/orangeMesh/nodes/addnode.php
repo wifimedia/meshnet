@@ -244,7 +244,7 @@ END;
 <div align="center" id="top">
   <input name="net_name" id="net_name" type=hidden value=<?php print $net_name?>>
 </div>
-<div id="map" style="width: 70%; height: 70%">
+<div id="map" style="width: 100%; height: 70%">
 
 </div>
 </body>
