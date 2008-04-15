@@ -1,5 +1,3 @@
-#summary This page is a quick primer on the basics of wireless mesh networking and [http://code.google.com/p/meshnet OrangeMesh] after finishing the article.
-
 = Introduction =
 
 This page is a quick primer on the basics of wireless mesh networking and [http://code.google.com/p/meshnet OrangeMesh] after finishing the article.
