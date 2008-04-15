@@ -29,7 +29,7 @@
  include 'lib/menu.php';
  ?>
 <HEAD>
-<LINK REL=STYLESHEET HREF="style.css" TYPE="text/css">
+<?include "lib/style.php"; ?>
 </HEAD>
  <h1>Welcome to OrangeMesh!</h1><br>
 Feel free to poke around and see the features we're working on. However, you should know this is a development server. We try to keep the software on this up-to-date with our latest development builds. Sometimes that means we have to clear out the database, so don't expect any changes you make here to be permanent.<br><br>

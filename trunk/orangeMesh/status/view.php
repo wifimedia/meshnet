@@ -2,7 +2,7 @@
 /* Name: view.php
  * Purpose: master view for network settings.
  * Written By: Shaddi Hasan, Mac Mollison
- * Last Modified: April 6, 2008
+ * Last Modified: April 16, 2008
  *
  * (c) 2008 Orange Networking.
  *  
@@ -53,15 +53,16 @@ echo "<script src='../lib/sorttable.js'></script>";
 echo "<table class='sortable' border='1'>";
 
 //Output the top row of the table (display names)
-echo "<tr>";
+echo "<tr class=\"fields\">";
 foreach($node_fields as $key => $value) {
     echo "<td>" . $key . "</td>";
 }
 echo "</tr>";
 
 //Output the rest of the table
+$i = 0;
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-    echo "<tr>";
+    echo "<tr class=\"d".($i & 1)."\">";
     foreach($node_fields as $key => $value) {
         echo "<td>";
         if ($value=="name" && $row["gateway_bit"]==1) {
@@ -76,5 +77,6 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         echo "</td>";
     }
     echo "</tr>";
+    $i++;
 }
 echo "</table>";

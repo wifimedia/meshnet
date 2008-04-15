@@ -37,7 +37,8 @@ $updated = $_SESSION['updated'];
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <title>Add/Edit Nodes for - <?php echo $net_name; ?></title>
-<?php include("../lib/mapkeys.php"); ?>
+<?php include("../lib/mapkeys.php"); 
+	include "../lib/style.php";?>
 <script type="text/javascript" src="../lib/map.js"></script>  
 <script type="text/javascript">
 <!--[CDATA[
@@ -78,10 +79,26 @@ $updated = $_SESSION['updated'];
 				  '<td><input type="text" size="32"  name="description"></td>' +
 				'</tr><tr>' +
 				  '<td><span class="style1">Latitude:</span></td>' +
-				  '<td><input type="text" size="32"  name="lat" value="' + point.y + '" readonly></td>' +
+				  '<td><input type="text" size="32"  name="latitude" value="' + point.y + '" readonly></td>' +
 				'</tr><tr>' +
 				  '<td><span class="style1">Longitude:&nbsp;</span></td>' +
-				  '<td><input type="text" size="32"  name="long" value="' + point.x + '" readonly></td>' +
+				  '<td><input type="text" size="32"  name="longitude" value="' + point.x + '" readonly></td>' +
+				'</tr><tr>' +
+				  '<td><span class="style1">Owner Name:</span></td>' +
+				  '<td><input type="text" size="32" name="owner_name"></td>' +
+				'</tr><tr>' +
+				'</tr><tr>' +
+				  '<td><span class="style1">Owner Email:</span></td>' +
+				  '<td><input type="text" size="32" name="owner_email"></td>' +
+				'</tr><tr>' +
+				'</tr><tr>' +
+				  '<td><span class="style1">Owner Phone:</span></td>' +
+				  '<td><input type="text" size="32" name="owner_phone"></td>' +
+				'</tr><tr>' +
+				'</tr><tr>' +
+				  '<td><span class="style1">Owner Address:</span></td>' +
+				  '<td><input type="text" size="32" name="owner_address"></td>' +
+				'</tr><tr>' +
 				'</tr><tr></tr><td>&nbsp;</td><tr>' +
 				  '<td><input type="hidden" name="net_name" value="' + document.getElementById("net_name").value + '"></td>' +
 				  '<td align="right"><input type="button" name="Add" value="Add" onClick="addNode(this.form)"></td></tr>' +
@@ -119,13 +136,13 @@ include("../lib/connectDB.php");
 	if ($num)
 	{	
 		$resArray = mysqli_fetch_array($result,MYSQLI_ASSOC);
-		$long = $resArray["longitude"];
-		$lat=$resArray["latitude"];
+		$longitude = $resArray["longitude"];
+		$latitude=$resArray["latitude"];
 		mysqli_data_seek($result,0);
 	}
 
 echo <<<END
-	map.setCenter(new GLatLng($lat, $long), 17);
+	map.setCenter(new GLatLng($latitude, $longitude), 17);
 	map.setMapType(G_NORMAL_MAP);
 END;
 
@@ -144,20 +161,20 @@ END;
 		$notes=$row["description"];
 		$ip=$row["ip"];
 		$mac=$row["mac"];
-		$long=$row["longitude"];
-		$lat=$row["latitude"];
+		$longitude=$row["longitude"];
+		$latitude=$row["latitude"];
 		$gateway=$row["gateway"];
 		$gw_metric=$row["gw-qual"];
 		$users=$row["users"];
 		$time=$row["epoch_time"];
 		
 		//
-		// Calculate min, max lat, long for center and zoom later
+		// Calculate min, max latitude, longitude for center and zoom later
 		//
-		if ($lat < $minX) $minX = $lat;
-		if ($lat > $maxX) $maxX = $lat;
-		if ($long < $minY) $minY = $long;
-		if ($long > $maxY) $maxY = $long;
+		if ($latitude < $minX) $minX = $latitude;
+		if ($latitude > $maxX) $maxX = $latitude;
+		if ($longitude < $minY) $minY = $longitude;
+		if ($longitude > $maxY) $maxY = $longitude;
 		
 		if (!strlen($gw_metric)) $gw_metric = 0;
 	
@@ -178,14 +195,24 @@ END;
 		else
 			$LastCheckin = "$secs Seconds";
 	
-		$draggable=true;
-
+		switch($utype){
+		case 'admin':
+			$draggable = true;
+			break;
+		case 'user':
+			$draggable = false;
+			break;
+		default:
+			$draggable = false;
+			break;
+		}
+		
 //
 // Create the Marker
 //
 echo <<<END
  		
-	point = new GPoint($long, $lat);
+	point = new GPoint($longitude, $latitude);
 	marker = createMarker(map, "$net_name", point, "$name", "$notes", "$mac", "$gateway", "$gw_metric", "$up", "$draggable", "$users");
 	map.addOverlay(marker);
 	
@@ -218,6 +245,7 @@ END;
   <input name="net_name" id="net_name" type=hidden value=<?php print $net_name?>>
 </div>
 <div id="map" style="width: 70%; height: 70%">
+
 </div>
 </body>
 </html>

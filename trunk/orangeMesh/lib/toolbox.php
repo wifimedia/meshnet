@@ -2,10 +2,17 @@
 /* Name: toolbox.php
  * Purpose: general utility functions for the dashboard.
  * Written By: Shaddi Hasan
- * Last Modified: April 2, 2008
+ * Last Modified: April 13, 2008
  * 
  * (c) 2008 Orange Networking.
- *  
+ * 
+ * This toolbox contains:
+ * - a quick way to insert a bunch of values into a table
+ * - a quick way to get specified values from POST
+ * - an input sanitizer (both html and sql)
+ * - a quick way to sanitize all POST and GET inputs
+ * - a regex-based mac address validator
+ * 
  * This file is part of OrangeMesh.
  *
  * OrangeMesh is free software: you can redistribute it and/or modify
@@ -62,10 +69,24 @@ function getValuesFromPOST($fields){
 //I think this is best used in controllers, to check their own input. We don't
 //want someone to be able to mess stuff up by calling a controller script.
 function sanitize($string){
-	global $conn;	//the variable for the db connection
-	if (is_null($conn))	//if for some reason we don't have a db connection
-		return mysql_real_escape_string(htmlspecialchars($string));
-	else
-		return mysql_real_escape_string(htmlspecialchars($string),$conn);
+	return mysql_real_escape_string(htmlspecialchars($string));
+
+}
+function sanitizeAll(){
+	foreach($_POST as $key=>$value){
+		$_POST[$key] = sanitize($value);
+	}
+	foreach($_GET as $key=>$value){
+		$_GET[$key] = sanitize($value);
+	}
+}
+function is_mac($mac){
+	if(preg_match("/^([0-9A-F][0-9A-F]:){5}[0-9A-F][0-9A-F]$/i",$mac)){
+		echo "valid!";
+		return true;
+	} else {
+		echo "invalid. :(";
+		return false;
+	}
 }
 ?>

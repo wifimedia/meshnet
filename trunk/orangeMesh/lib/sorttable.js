@@ -36,7 +36,7 @@ sorttable = {
         sorttable.makeSortable(table);
       }
     });
-    
+    		alternateRowColors();
   },
   
   makeSortable: function(table) {
@@ -329,6 +329,35 @@ sorttable = {
 
     } // while(swap)
   }  
+}
+
+function alternateRowColors() {
+	var className = 'sortable';
+	var rowcolor = '#dddddd';
+	var defaultrowcolor = '#ffffff';
+	var rows, arow;
+	var tables = document.getElementsByTagName("table");
+	var rowCount = 0;
+	for(var i=0;i<tables.length;i++) {
+		//dump(tables.item(i).className + " " + tables.item(i).nodeName + "\n");
+		if(tables.item(i).className == className) {
+			atable = tables.item(i);
+			rows = atable.getElementsByTagName("tr");
+			for(var j=0;j<rows.length;j++) {
+				arow = rows.item(j);
+				if(arow.nodeName == "TR") {
+					if(rowCount % 2) {
+						arow.style.backgroundColor = rowcolor;
+					} else {
+						// default case
+						arow.style.backgroundColor = defaultrowcolor;
+					}
+					rowCount++;
+				}
+			}
+			rowCount = 0;
+		}
+	}
 }
 
 /* ******************************************************************

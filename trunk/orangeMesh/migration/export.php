@@ -28,7 +28,12 @@
 
 include '../lib/menu.php';
 ?>
-
+<html>
+<head>
+<title>Migrate Network</title>
+<?include "../lib/style.css"; ?>
+</head>
+<body>
 Enter the location of the server to which you want to migrate this network's data.<br>
 <br>
 Be careful you enter data correctly! This script will be sending your network configuration information,
@@ -43,3 +48,5 @@ in your web server's root directory. It could also be under /orangemesh.
 	New Network Name (optional): <input name="new_name"><br>
 	<input type="submit" name="submit" value="submit">
 </form>
+</body>
+</html>
