@@ -111,6 +111,10 @@ div.comment {
 		padding: 10px;
 		font-size: 90%;
 }
+div.updated {
+		color: #00CC00;
+		text-decoration: bold;
+}
 tr {
 		margin: 10px;
 }
