@@ -33,6 +33,8 @@ $host = $_SERVER['HTTP_HOST'];
 
 if ($host == "localhost")  // change to www.your-domain.com
   echo '<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAOblURTDowPDJJzfEXmiWIBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQbL_rhHeHuGFVXrVCUAJB7anr10w" type="text/javascript"></script>'."\n" ;
+else if ($host == "omnis.hopto.org")  // change to www.your-domain.com
+  echo '<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAOblURTDowPDJJzfEXmiWIBTZjxrB_pn9jGmMh-RwF7AKb9MO5BSCsu6kbvCWascCDdDG4x87WRQixA" type="text/javascript"></script>'."\n" ;
 else if ($host == "open-mesh.com") // change to your-domain.com (w/o www)
   echo '<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAOblURTDowPDJJzfEXmiWIBTZjxrB_pn9jGmMh-RwF7AKb9MO5BSCsu6kbvCWascCDdDG4x87WRQixA" type="text/javascript"></script>'."\n" ;
 ?>
