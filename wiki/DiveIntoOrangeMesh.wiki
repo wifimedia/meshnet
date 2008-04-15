@@ -1,8 +1,8 @@
-#summary This page is a quick primer on the basics of wireless mesh networking and OrangeMesh. The goal is for a reader who knows nothing before reading the article, to be able to administer wireless mesh networks with OrangeMesh after finishing the article.
+#summary This page is a quick primer on the basics of wireless mesh networking and [OrangeMesh http://google.com/p/meshnet/]. The goal is for a reader who knows nothing before reading the article, to be able to administer wireless mesh networks with [OrangeMesh http://google.com/p/meshnet/] after finishing the article.
 
 = Introduction =
 
-This page is a quick primer on the basics of wireless mesh networking and OrangeMesh. The goal is for a reader who knows nothing before reading the article, to be able to administer wireless mesh networks with OrangeMesh after finishing the article.
+This page is a quick primer on the basics of wireless mesh networking and [OrangeMesh http://google.com/p/meshnet/]. The goal is for a reader who knows nothing before reading the article, to be able to administer wireless mesh networks with [OrangeMesh http://google.com/p/meshnet/] after finishing the article.
 
 =What is a wireless mesh network?=
 Let's first go over what a regular wireless network is, so terminology is clear. Then we'll use corresponding terminology to explain what a wireless mesh network is.
@@ -18,9 +18,9 @@ Here is a sample configuration for a large, one-story building:
 
 A wireless mesh network is a low-cost method of supplying a wireless signal to a large area using a shared Internet connection.
 
-=What is OrangeMesh?=
+=What is [OrangeMesh http://google.com/p/meshnet/]?=
 
-*OrangeMesh* is a piece of server-side software that helps someone view the status of their wireless mesh network and change configuration options for the network. OrangeMesh is designed to work as the top layer of a stack of wireless mesh network technology components.
+*[OrangeMesh http://google.com/p/meshnet/]* is a piece of server-side software that helps someone view the status of their wireless mesh network and change configuration options for the network. [OrangeMesh http://google.com/p/meshnet/] is designed to work as the top layer of a stack of wireless mesh network technology components.
 
 At the bottom of this stack is the Accton Mini-Router - the recommended node.
 
@@ -28,8 +28,8 @@ Next is B.A.T.M.A.N. - software which runs on each node and allows the nodes to 
 
 Next is ROBIN - software which runs on each node, on top of B.A.T.M.A.N., and allows an external dashboard website to collect data about the network and send configuration changes.
 
-That is where OrangeMesh comes in - OrangeMesh is that dashboard.
+That is where [OrangeMesh http://google.com/p/meshnet/] comes in - [OrangeMesh http://google.com/p/meshnet/] is that dashboard.
 
-OrangeMesh is simply a piece of server-side software (otherwise known as a "website") which communicates with the each node via ROBIN.
+[OrangeMesh http://google.com/p/meshnet/] is simply a piece of server-side software (otherwise known as a "website") which communicates with the each node via ROBIN.
 
-OrangeMesh is totally optional - generally, one can plug Accton Mini-Routers with the B.A.T.M.A.N. and ROBIN installed into electrical outlets, plug one into a working Ethernet connection, and generate a working wireless mesh network. However, one will not be able to get status information (such as the number of users connected) or change configuration options (such as the broadcast ID, or SSID, of the wireless network).
+[OrangeMesh http://google.com/p/meshnet/] is totally optional - generally, one can plug Accton Mini-Routers with the B.A.T.M.A.N. and ROBIN installed into electrical outlets, plug one into a working Ethernet connection, and generate a working wireless mesh network. However, one will not be able to get status information (such as the number of users connected) or change configuration options (such as the broadcast ID, or SSID, of the wireless network).
