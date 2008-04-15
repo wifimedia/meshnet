@@ -99,11 +99,10 @@ $updated = $_SESSION['updated'];
 				  '<td><span class="style1">Owner Address:</span></td>' +
 				  '<td><input type="text" size="32" name="owner_address"></td>' +
 				'</tr><tr>' +
-				'</tr><tr></tr><td>&nbsp;</td><tr>' +
+				'</tr><tr>' +
 				  '<td><input type="hidden" name="net_name" value="' + document.getElementById("net_name").value + '"></td>' +
 				  '<td align="right"><input type="button" name="Add" value="Add" onClick="addNode(this.form)"></td></tr>' +
-				'<tr><td>&nbsp;</td></tr>' +
-            '</tr><tr><td colspan=2><span class="style1">&nbsp;&nbsp;&nbsp;*Use MAC address in form xx:xx:xx:xx:xx:xx.</span></td></tr></table></form>';
+            '</tr><tr><td scolspan=2><span class="style1">&nbsp;&nbsp;&nbsp;*Use MAC address in form xx:xx:xx:xx:xx:xx.</span></td></tr></table></form>';
 
 				map.openInfoWindowHtml(point, html);
 			}
@@ -139,12 +138,23 @@ include("../lib/connectDB.php");
 		$longitude = $resArray["longitude"];
 		$latitude=$resArray["latitude"];
 		mysqli_data_seek($result,0);
-	}
-
-echo <<<END
+echo <<<NODES
 	map.setCenter(new GLatLng($latitude, $longitude), 17);
 	map.setMapType(G_NORMAL_MAP);
-END;
+NODES;
+	} else {
+echo <<<NO_NODES
+		address = "$net_location";
+		geocoder.getLatLng(address,function(point) {
+      		if (!point) {
+        		alert(address + " We tried to find your network, and this was the best estimate we could do. If it's incorrect, just move the map to the correct location.");
+      		} else {
+        		map.setCenter(point, 13);
+      		}
+    	  }
+  		);
+NO_NODES;
+	}
 
 	$i=0;
 	$minX=90;
@@ -244,8 +254,8 @@ END;
 <div align="center" id="top">
   <input name="net_name" id="net_name" type=hidden value=<?php print $net_name?>>
 </div>
-<div id="map" style="width: 100%; height: 70%">
-
-</div>
+Click anywhere on the map to add a new node to this network.<br>
+<?if($utype == "admin") echo "Drag an existing node to a new location, or click on it to change its settings."?>
+<div id="map" style="width: 100%; height: 70%"></div>
 </body>
 </html>
