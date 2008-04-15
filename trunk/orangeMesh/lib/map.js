@@ -257,7 +257,7 @@ var gmarker = null;
 				  '<td class="style1">Name:</td>' +
 				  '<td><input type="text" size="32" name="name" value="' + name + '"></td>' +
 				'</tr><tr>' +
-				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&#42;&nbsp;</span></td>' +
+				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&nbsp;</span></td>' +
 				  '<td><input type="text" size="32" name="mac" value ="' + mac + '" readonly></td>' +
 				'</tr><tr>' +
 				  '<td><span class="style1">Description:</td>' +
@@ -275,8 +275,7 @@ var gmarker = null;
   	    		'&nbsp;<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td></tr>' +
 
 				'<tr><td>&nbsp;</td></tr>' +
-				'</tr><tr><td colspan=2><span class="style2">&#42;</span>&nbsp;<span class="style1">IP should be 5.x.x.x (if shown on your router).</td>' +
-            '</tr><tr><td colspan=2><span class="style1">&nbsp;&nbsp;&nbsp;Or use MAC address in form xx:xx:xx:xx:xx:xx.</span></td></tr></table></form>';
+				'</tr></table></form>';
 
 		gmarker = marker;
     

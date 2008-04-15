@@ -103,7 +103,7 @@ $updated = $_SESSION['updated'];
 				  '<td><input type="hidden" name="net_name" value="' + document.getElementById("net_name").value + '"></td>' +
 				  '<td align="right"><input type="button" name="Add" value="Add" onClick="addNode(this.form)"></td></tr>' +
 				'<tr><td>&nbsp;</td></tr>' +
-            '</tr><tr><td colspan=2><span class="style1">&nbsp;&nbsp;&nbsp;Use MAC address in form xx:xx:xx:xx:xx:xx.</span></td></tr></table></form>';
+            '</tr><tr><td colspan=2><span class="style1">&nbsp;&nbsp;&nbsp;*Use MAC address in form xx:xx:xx:xx:xx:xx.</span></td></tr></table></form>';
 
 				map.openInfoWindowHtml(point, html);
 			}
