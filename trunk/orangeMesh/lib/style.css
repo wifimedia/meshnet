@@ -2,7 +2,7 @@ html,body{margin:0;padding:0}
 body{font-family: "Trebuchet MS", Verdana,Arial,sans-serif; font-size: 0.8em;height:100%;
     text-align: center;padding-bottom:0px}
 p{margin-top:0}
-h1,h2,h3{font: normal normal 200% "Trebuchet MS",Arial,sans-serif; border-bottom: 1px dotted #bbbbbb; color: #007BC4;}
+h1,h2,h3{font: normal normal 200% "Trebuchet MS",Arial,sans-serif; border-bottom: 1px dotted #bbbbbb; color: #FF9900;}
 h2{font-size:160%}
 h3{font-size:120%}
 
@@ -55,7 +55,7 @@ div#footer p{margin:0}
 padding: .2em 0;
 margin: 0;
 list-style-type: none;
-background-color: #036;
+background-color: #FF9900;
 color: #FFF;
 width: 100%;
 font: normal 90% arial, helvetica, sans-serif;
@@ -67,7 +67,7 @@ li { display: inline; }
 li a
 {
 text-decoration: none;
-background-color: #036;
+background-color: #FF9900;
 color: #FFF;
 padding: .2em 1em;
 border-right: 1px solid #fff;
@@ -75,7 +75,8 @@ border-right: 1px solid #fff;
 
 li a:hover
 {
-background-color: #369;
+text-decoration: underline;
+//background-color: #FFCC80;
 color: #fff;
 }
 
@@ -86,10 +87,6 @@ table {
         border-color: #000;
         border-width: 0 0 0px 0px;
         border-style: solid;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
         padding-top: 0px;
         padding-right: 0px;
         padding-bottom: 0px;
@@ -108,14 +105,21 @@ td
         background-color: #FFF;
         border-color: #000;
 }
-
-
+div.comment {
+		background-color: #FFCC80;
+		margin-bottom: 10px;
+		padding: 10px;
+		font-size: 90%;
+}
+tr {
+		margin: 10px;
+}
 tr.fields td {
-	border-width: 0px 0px 2px 0px;
-    border-style: solid;
-	border-color: #000;
+		border-width: 0px 0px 2px 0px;
+    	border-style: solid;
+		border-color: #000;
 }
 
 tr.down td {
-	color: #FF0000
+		color: #FF0000
 }
