@@ -14,7 +14,7 @@ A *wireless mesh network* is produced not by wireless routers, but by *repeater 
 However, at least one of the repeater nodes must be plugged into Ethernet to establish a connection to the Internet. This node is given a special name: a gateway. Some wireless mesh networks have multiple gateways; this provides more bandwidth for the users and provides redundancy in case part of the network goes down.
 
 Here is a sample configuration for a large, one-story building:
-||[http://code.google.com/p/meshnet OrangeMesh]||
+||[http://unc.edu/~mollison/diagram.png]||[http://unc.edu/~mollison/keys.png]||
 
 A wireless mesh network is a low-cost method of supplying a wireless signal to a large area using a shared Internet connection.
 
