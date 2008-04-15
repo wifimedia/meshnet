@@ -22,14 +22,30 @@ A wireless mesh network is a low-cost method of supplying a wireless signal to a
 
 *[http://code.google.com/p/meshnet OrangeMesh] is designed to work as the top layer of a stack of wireless mesh network technology components.
 
-At the bottom of this stack is the Accton Mini-Router - the recommended node.
+At the bottom of this stack is the *Accton Mini-Router* - the recommended node.
 
-Next is B.A.T.M.A.N. - software which runs on each node and allows the nodes to "talk to each other" to share a wireless internet connection.
+Next is *B.A.T.M.A.N.* - software which runs on each node and allows the nodes to "talk to each other" to share a wireless internet connection.
 
-Next is ROBIN - software which runs on each node, on top of B.A.T.M.A.N., and allows an external dashboard website to collect data about the network and send configuration changes.
+Next is *ROBIN* - software which runs on each node, on top of B.A.T.M.A.N., and allows an external dashboard website to collect data about the network and send configuration changes.
 
-That is where [http://code.google.com/p/meshnet OrangeMesh] is that dashboard.
+That is where [http://code.google.com/p/meshnet OrangeMesh] comes in - it is the dashboard.
 
 [http://code.google.com/p/meshnet OrangeMesh] is simply a piece of server-side software (otherwise known as a "website") which communicates with the each node via ROBIN.
 
 [http://code.google.com/p/meshnet OrangeMesh] is totally optional - generally, one can plug Accton Mini-Routers with the B.A.T.M.A.N. and ROBIN installed into electrical outlets, plug one into a working Ethernet connection, and generate a working wireless mesh network. However, one will not be able to get status information (such as the number of users connected) or change configuration options (such as the broadcast ID, or SSID, of the wireless network).
+
+=How can I install OrangeMesh?=
+You can read about installation at [InstallInstructions]. You don't need to pay attention to this unless you don't already have a working installation of the dashboard.
+
+=How do I configure OrangeMesh to work with my network?=
+It takes a little bit of configuration to get OrangeMesh to communicate properly with ROBIN.
+
+The dashboard should be easy to navigate, so I won't explain how to interact with it. However, I will go over the steps you would need to take to get an existing wireless mesh network working with OrangeMesh.
+
+First, choose "Create Network" in OrangeMesh.
+
+Now that you have created a network, choose "Add Nodes." You need to tell OrangeMesh the MAC address of each node in your network, so that it knows which nodes receive the same configuration files and should be displayed in a group (in the Network Status view - but we will get to that later).
+
+=Now, how do I _use_ OrangeMesh?=
+
+Once you've finished adding nodes, click "Network Status" to check on the status of your network. Click "Edit Network" to change configuration settings.
