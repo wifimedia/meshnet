@@ -38,15 +38,29 @@ $currentTime = $currentTime['0'];
 if (!isset($_SESSION['netid'])) 
 	header("Location: ../entry/select.php");
 
+include "../lib/style.php";
 include "../lib/menu.php";
 
 //setup database connection
 require "../lib/connectDB.php";
 setTable("node");
 
+//display the title of the page
+$result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
+$resArray = mysqli_fetch_assoc($result);
+if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
+else {$display_name = $resArray['display_name'];}
+echo <<<TITLE
+<h2>Network Status for $display_name</h2>
+TITLE;
+
+
+
 //get nodes that match network id from database
 $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"];
 $result = mysqli_query($conn,$query);
+if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associated with this network yet. You might want to <a href=\"../nodes/addnode.php\">add some</a>.</div>");
+
 
 //Table columns, in format Display Name => DB field name.
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
@@ -55,8 +69,8 @@ $node_fields = array("Node Name" => "name","Description" => "description","Uptim
   "Last Checkin" => "time","MAC" => "mac");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
-include "../lib/style.php";
 echo "<script src='../lib/sorttable.js'></script>";
+
 echo "<table class='sortable' border='1'>";
 
 //Output the top row of the table (display names)
@@ -90,5 +104,5 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 echo "</table>";
 ?>
 <br>
-<font color="#FF0000">Node needs attention</font>
+<div class=error>Red: Node needs attention</div>
 

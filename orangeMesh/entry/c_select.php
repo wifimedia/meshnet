@@ -2,7 +2,7 @@
 /* Name: c_select.php
  * Purpose: process input from select page form
  * Written By: Shaddi Hasan, Mike Burmeister-Brown
- * Last Modified: March 27, 2008
+ * Last Modified: April 16, 2008
  * 
  * (c) 2008 Open-Mesh, Inc. and Orange Networking.
  *  
@@ -39,7 +39,6 @@ if(mysqli_num_rows($result)>=1){
 	$resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	$_SESSION['netid'] = $resArray['id'];
 	$_SESSION['net_name'] = $resArray['net_name'];
-
 	//set the user type to 'user'
 	$_SESSION['user_type'] = 'user';
 	$_SESSION['error'] = false;

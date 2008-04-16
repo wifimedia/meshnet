@@ -114,14 +114,19 @@ function isChecked($field){
 ?>
 
 <body onload=hideAdvanced();Nifty("div.comment");>
-<?if ($updated=='true') echo "<div class=updated>Network successfully updated!</div>"; ?>
+<?
+if ($updated=='true') echo "<div class=success>Network successfully updated!</div>";
+$query = "SELECT * FROM node WHERE netid='".$netid."'";
+$result = mysqli_query($conn,$query);
+if(mysqli_num_rows($result)==0) echo "<div class=error>There are no nodes associated with this network yet. You might want to <a href=\"../nodes/addnode.php\">add some</a>.</div>";
+?>
 <h1><?echo $display_name ?></h1>
 <form method="POST" action="c_edit.php" name="editNetwork">
 <table align="left" cellpadding="4" cellspacing="0" border=0>
 	<tr><td> </td></tr><tr><td colspan=2><h2>Network Account Settings</h2></td></tr>
 	<tr>
 		<td>Network Name</td>
-		<td><input readonly="readonly" name="net_name" value=<?echo $net_name ?>></td>
+		<td><input readonly="readonly" name="net_name" value="<?echo $net_name ?>"></td>
 		<td><div class="comment">Login ID for this network.</div></td>
 	</tr>
 	<tr>
