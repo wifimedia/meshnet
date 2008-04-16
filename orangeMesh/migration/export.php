@@ -31,7 +31,7 @@ include '../lib/menu.php';
 <html>
 <head>
 <title>Migrate Network</title>
-<?include "../lib/style.css"; ?>
+<?include "../lib/style.php"; ?>
 </head>
 <body>
 Enter the location of the server to which you want to migrate this network's data.<br>
