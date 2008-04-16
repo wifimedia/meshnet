@@ -51,7 +51,7 @@ $result = mysqli_query($conn,$query);
 //Table columns, in format Display Name => DB field name.
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
 $node_fields = array("Node Name" => "name","Description" => "description","Uptime" => "uptime",
-  "Quality" => "rank","Hops" => "hops","Down kb" => "kbdown","Up kb" => "kbup","Users" =>"users","Max Users" => "usershi",
+  "Quality" => "gw-qual","Hops" => "hops","Down kb" => "kbdown","Up kb" => "kbup","Users" =>"users","Max Users" => "usershi",
   "Last Checkin" => "time","MAC" => "mac");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
@@ -77,7 +77,7 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         if ($value=="name" && $row["gateway_bit"]==1) {
                echo "<b>" . $row[$value] . "</b>";                      
         }
-        elseif ($value=="rank") {    //Convert rank from x {x | 0 < x < 255} to %
+        elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
             echo floor(100 * ($row[$value] / 255)) . "%";
         }
         else {
