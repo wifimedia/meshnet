@@ -397,7 +397,7 @@ var gmarker = null;
       {
           if (!point)
           {
-            alert(address + " not found");
+            //alert("We weren't able to find your default location, so this is our best guess.");
           }
           else
           {

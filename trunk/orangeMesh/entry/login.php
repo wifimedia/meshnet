@@ -30,6 +30,8 @@ unset($_GET['rd']);
 session_start();
 
 include '../lib/menu.php';
+include "../lib/style.php";
+
 if(isset($_POST["submit"])){
 	//unset variable
 	unset($_POST["submit"]);
@@ -53,7 +55,6 @@ if(isset($_POST["submit"])){
     	$_SESSION['netid'] = $resArray['id'];
    		$_SESSION['user_type'] = 'admin';
    		$_SESSION['net_name'] = $net_name;
-	 	echo "<h1>Success!</h1>";
     	echo "<meta http-equiv=\"Refresh\" content=\"0;url=../$rd_page.php\">"; 
     	
 	} else 
@@ -78,7 +79,6 @@ if(isset($_POST["submit"])){
 <head>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Create Network</title>
-  <?include "../lib/style.php"; ?>
 </head>
 <body>
 Login to manage your network.<br>

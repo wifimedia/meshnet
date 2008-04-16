@@ -256,6 +256,6 @@ END;
 </div>
 Click anywhere on the map to add a new node to this network.<br>
 <?if($utype == "admin") echo "Drag an existing node to a new location, or click on it to change its settings."?>
-<div id="map" style="width: 100%; height: 70%"></div>
+<div id="map" style="width: 100%; height: 70%" text-align="center"></div>
 </body>
 </html>

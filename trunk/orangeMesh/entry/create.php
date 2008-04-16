@@ -25,7 +25,6 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 	include '../lib/menu.php';
-	if(!isset($_POST['submit'])){
  ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -38,7 +37,7 @@
   <title>Create Network</title>
 </head>
 <body>
-	<form method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>" onsubmit="if(!isFormValid()){
+	<form method="POST" action="c_create.php" onsubmit="if(!isFormValid()){
 			alert('The fields highlighted in red have errors. Please correct this and resubmit.');return false;}"name="createNetwork">
 	Please fill in the following information to register a new network. Fields outlined in red have errors.
 	<table>
@@ -74,40 +73,3 @@
 	Problem? Check the <a href="../help/help.php">help,</a> then <a href="mailto:shasan@email.unc.edu">notify us.</a>
 	</body>
 </html>
-
-<?
-	} else{
-		
-		//get the toolbox
-		include '../lib/toolbox.php';
-				
-		//setup database connection
-		require '../lib/connectDB.php';
-		setTable('network');
-		
-		//make sure there is not a duplicate network
-		$query = 'SELECT * FROM network WHERE net_name="'.$_POST['net_name'].'"';
-		$result = mysqli_query($conn,$query);
-		if(mysqli_num_rows($result)>0){
-			die("Network name is taken, please enter a new network name.");
-		}
-		
-		//the fields we want to insert into the database
-		$fields = array("net_name","password","email1","net_location","email2");
-		
-		//hash the input password
-		$_POST["password"] = md5($_POST["password"]);
-		
-		//get the values corresponding to the above fields from the user input 
-		$values = getValuesFromPOST($fields);
-				
-		//insert the values into the database
-		insert($dbTable,$fields,$values);
-
-		//close the connection
-		mysqli_close($conn);
-		
-		//if we're here, everything went as planned. tell the user that.
-		echo("Network sucessfully created!");
-	}
-?>
