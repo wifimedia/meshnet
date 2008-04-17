@@ -27,6 +27,8 @@ III. Install and configure the dashboard
 ========================================
 Copy the dashboard server files into your webroot directory (under XAMPP, this is htdocs). Everything should be working now. In a browser, go to http://localhost (or whatever directory you've placed the dashboard files), and you should see the main page for the dashboard.
 
+Additionally, you'll need to sign up for a Google Maps key for your dashboard: http://code.google.com/apis/maps/signup.html. Just use the address you type into your browser to get to your Orangemesh server (don't include the http://). Put the key you receive from Google in the /lib/mapkeys.php file. There are only two lines to change -- you'll see them at the top of the file.
+
 For email alerts to work properly, you'll need to set up a cron job to run the /lib/mailalerts.php script every 30 minutes. If you're not using Linux, you won't have cron, but any way of scheduling a script to run at a certain interval will work fine. Additionally, you need to set your SMTP server settings in /lib/mailalerts.php. The settings are located at the top of the script; the most important one is 'host', which should be changed to the address of your SMTP server. The rest can probably be left alone.
 
 IV. Configuring your Web Server
