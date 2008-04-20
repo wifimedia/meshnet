@@ -265,7 +265,7 @@ var gmarker = null;
 	   		// Show this marker's info when it is clicked	
 			GEvent.addListener(marker, "click", function() 
 			{
-				//gmarker = marker;
+				gmarker = marker;
 				if(infoTabs.length>0){
 					marker.openInfoWindowTabsHtml(infoTabs);
 				} else {
