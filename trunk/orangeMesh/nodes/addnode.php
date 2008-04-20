@@ -167,6 +167,9 @@ NO_NODES;
 	//
 	while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) 
 	{
+		$approval_status=$row["approval_status"];
+		if($approval_status != "A"){continue;}
+		
 		$name=$row["name"];
 		$description=$row["description"];
 		$ip=$row["ip"];
