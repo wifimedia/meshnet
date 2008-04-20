@@ -168,11 +168,15 @@ NO_NODES;
 	while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) 
 	{
 		$name=$row["name"];
-		$notes=$row["description"];
+		$description=$row["description"];
 		$ip=$row["ip"];
 		$mac=$row["mac"];
 		$longitude=$row["longitude"];
 		$latitude=$row["latitude"];
+		$owner_name=$row["owner_name"];
+		$owner_email=$row["owner_email"];
+		$owner_phone=$row["owner_phone"];
+		$owner_address=$row["owner_address"];
 		$gateway=$row["gateway"];
 		$gw_metric=$row["gw-qual"];
 		$users=$row["users"];
@@ -220,11 +224,70 @@ NO_NODES;
 //
 // Create the Marker
 //
+
+$html = addslashes('<form name="basicEdit" method="POST">'.
+			'<h3>Basic Information</h3>'.
+				'<table width="310"  border="0" cellpadding="0" cellspacing="0" id="node">'.
+				'<tr>'.
+				  '<td class="style1">Name:</td>'.
+				  '<td><input type="text" size="32" name="name" value="'.$name.'"></td>'.
+				'</tr><tr>'.
+				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&nbsp;</span></td>'.
+				  '<td><input type="text" size="32" name="mac" value="'.$mac.'" readonly></td>'.
+				'</tr><tr>' .
+				  '<td><span class="style1">Description:</td>' .
+				  '<td><input type="text" size="32"  name="description" value="' . $description . '"></td>' .
+				'</tr><tr>' .
+				  '<td><span class="style1">Latitude:</span></td>' .
+				  '<td><input type="text" size="32"  name="latitude" value="' . $latitude . '" readonly></td>' .
+				'</tr><tr>' .
+				  '<td><span class="style1">Longitude:&nbsp;</span></td>' .
+				  '<td><input type="text" size="32"  name="longitude" value="' . $longitude . '" readonly></td>' .
+				'</tr><tr></tr><td>&nbsp;</td><tr>' .
+				  '<td><input type="hidden" name="net_name" value="' . $net_name . '"></td>' .
+				  '<td><input type="hidden" name="form_name" value="basicEdit"></td>'.
+	      	'<tr><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
+  	    		'&nbsp;<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td></tr>' .
+				'<tr><td>&nbsp;</td></tr>' .
+				'</tr></table></form>');
+
+$owner = addslashes('<form name="ownerEdit" method="POST">'.
+			'<h3>Node Owner Information</h3>'.
+			'<table class="infoWindow">'.
+			'<tr>'.
+				'<td>Owner Name:</td>'.
+				'<td><input type="text" size="32" name="owner_name" value="'.$owner_name.'"></td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td><a href="mailto:'.$owner_email.'">Owner Email:</a></td>'.
+				'<td><input type="text" size="32" name="owner_email" value="'.$owner_email.'"></td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>Owner Phone:</td>'.
+				'<td><input type="text" size="32" name="owner_phone" value="'.$owner_phone.'"></td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>Owner Address:</td>'.
+				'<td><input type="text" size="32" name="owner_address" value="'.$owner_address.'"></td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td><input type="hidden" name="net_name" value="' . $net_name . '">' .
+				'<input type="hidden" name="mac" value="' . $mac . '">' .
+				'<input type="hidden" name="form_name" value="ownerEdit"></td>'.
+			'</tr>'.
+			'<tr><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
+  	    		'<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td>'.
+  	    	'</tr>' .
+			'</table></form>');
+
 echo <<<END
  		
 	point = new GPoint($longitude, $latitude);
-	marker = createMarker(map, "$net_name", point, "$name", "$notes", "$mac", "$gateway", "$gw_metric", "$up", "$draggable", "$users");
-	map.addOverlay(marker);
+	var marker = new nodeMarker(map, "$net_name", point, "$name", "$notes", "$mac", "$gateway", "$gw_metric", "$up", "$draggable", "$users");	
+	marker.addTab("Basic Info","$html");
+	marker.addTab("Owner Info","$owner");	
+	marker.addListeners();
+	map.addOverlay(marker.get());
 	
 END;
 	
@@ -255,7 +318,7 @@ END;
   <input name="net_name" id="net_name" type=hidden value=<?php print $net_name?>>
 </div>
 Click anywhere on the map to add a new node to this network.<br>
-<?if($utype == "admin") echo "Drag an existing node to a new location, or click on it to change its settings."?>
+<?if($utype == "admin") echo "Drag an existing node to a new location, or click on it to change its settings.";?>
 <div id="map" style="width: 100%; height: 70%" text-align="center"></div>
 </body>
 </html>

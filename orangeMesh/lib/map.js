@@ -75,23 +75,28 @@ var gmarker = null;
 		req.open("POST", "c_addnode.php", false);
 		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		req.setRequestHeader('Cache-Control', 'private');
-		var encoded = "mac=" + mac + "&net_name=" + form.net_name.value + "&name=" + form.name.value +
-			"&description=" + form.description.value + "&latitude=" + form.latitude.value + "&longitude=" +form.longitude.value +
-			"&owner_name=" + form.owner_name.value + "&owner_email=" + form.owner_email.value + "&owner_phone=" +
-			form.owner_phone.value + "&owner_address=" + form.owner_address.value;
+		var encoded = "mac=" + mac + "&net_name=" + form.net_name.value + "&form_name=" + form.form_name.value;
+		if(form.name){encoded += "&name=" + form.name.value;}
+		if(form.description){encoded += "&description=" + form.description.value;}
+		if(form.latitude){encoded += "&latitude=" + form.latitude.value;}
+		if(form.longitude){encoded += "&longitude=" +form.longitude.value;}
+		if(form.owner_name){encoded += "&owner_name=" + form.owner_name.value;}
+		if(form.owner_email){encoded += "&owner_email=" + form.owner_email.value;}
+		if(form.owner_phone){encoded += "&owner_phone=" +	form.owner_phone.value;}
+		if(form.owner_address){encoded += "&owner_address=" + form.owner_address.value;}
 		alert(encoded);
 		req.send(encoded);
 		if (req.status != 200) {
   			alert("There was a communications error: " + req.responseText);
 		} else if (req.responseText.search("Error:") == 0){
   			alert(req.responseText);
-		}else
+		}else if(form.form_name.value == "addNode")
 		{
 			// good, so add	
 			var point = new GPoint(form.longitude.value, form.latitude.value);
 
-			var marker = createMarker(map, form.net_name.value, point, form.name.value, form.description.value, form.mac.value, "0", "1700", "1", "true", "0");
-			map.addOverlay(marker);
+			var marker = new nodeMarker(map, form.net_name.value, point, form.name.value, form.description.value, form.mac.value, "0", "1700", "1", "true", "0");
+			map.addOverlay(marker.get());
 		}
 		map.closeInfoWindow();
 	}
@@ -103,13 +108,13 @@ var gmarker = null;
 	{
 		var req;
 		if (window.XMLHttpRequest)
-			req = new XMLHttpRequest(); //newRequest();
+			req = new XMLHttpRequest();
 		else if (window.ActiveXObject)
 			req = new ActiveXObject("Microsoft.XMLHTTP");
 		req.open("POST", "c_deletenode.php", false);
 		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		req.setRequestHeader('Cache-Control', 'private');
-		var encoded = "ip=" + form.ip.value + "&net_name=" + form.net_name.value;
+		var encoded = "mac=" + form.mac.value + "&net_name=" + form.net_name.value;
 		req.send(encoded);
 		map.closeInfoWindow();
 		if (req.status != 200) {
@@ -204,13 +209,13 @@ var gmarker = null;
 		return icon;
 	}
 	
-	//FROM rnmap.js -- NOT YET RELEASED
+	//set the color of the route
 	function setRouteColor(metric)
 	{
 		var RGB;
-		if (metric < 8000) 
+		if (metric > 180) 
 			RGB = "#00FF00";  // green
-		else if (metric < 12000)
+		else if (metric > 120)
 			RGB = "#F39C04";  // yellow
 		else
 			RGB = "E01D49";  // red
@@ -219,7 +224,7 @@ var gmarker = null;
 		return RGB;
 	}
 	
-	//FROM rnmap.js -- NOT YET RELEASED
+	//draw the node route lines for a marker
 	function drawRoutePolyline(latitude, longitude, lat2, long2, metric)
 	{
 		var RGB="#1e2f10"; //setRouteColor(metric);
@@ -245,127 +250,91 @@ var gmarker = null;
 	//    
 	// Creates a node marker
 	//
-	function createMarker(map, net_name, point, name, description, mac, gateway, metric, up, draggable, users) 
+	function nodeMarker(map, net_name, point, name, description, mac, gateway, metric, up, draggable, users) 
 	{		
 		var icon = createIcon(metric, gateway, up, users);
 		var marker = new GMarker(point, {icon:icon, draggable:draggable, title:name});
-		//the popup form that appears when you click the node
-		var html = '<form name="form1" method="POST">' +
-				'<p align="center" class="style1"><B>Edit Node: </B></p>' +
-				'<table width="310"  border="0" cellpadding="0" cellspacing="0" id="node">' +
-				'<tr>' +
-				  '<td class="style1">Name:</td>' +
-				  '<td><input type="text" size="32" name="name" value="' + name + '"></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&nbsp;</span></td>' +
-				  '<td><input type="text" size="32" name="mac" value ="' + mac + '" readonly></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Description:</td>' +
-				  '<td><input type="text" size="32"  name="description" value="' + description + '"></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Latitude:</span></td>' +
-				  '<td><input type="text" size="32"  name="latitude" value="' + point.y + '" readonly></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Longitude:&nbsp;</span></td>' +
-				  '<td><input type="text" size="32"  name="longitude" value="' + point.x + '" readonly></td>' +
-				'</tr><tr></tr><td>&nbsp;</td><tr>' +
-				  '<td><input type="hidden" name="net_name" value="' + net_name + '"></td>' +
+		var infoTabs = new Array();
 
-	      	'<tr><td>&nbsp;</td><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' +
-  	    		'&nbsp;<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td></tr>' +
+    	function addTab(label,content){
+			infoTabs[infoTabs.length] = new GInfoWindowTab(label,content);
+			return true;
+    	};
 
-				'<tr><td>&nbsp;</td></tr>' +
-				'</tr></table></form>';
-
-		gmarker = marker;
-    
-		// Show this marker's info when it is clicked	
-		GEvent.addListener(marker, "click", function() 
-		{
-			gmarker = marker;
-			marker.openInfoWindowHtml(html);
-		});
-
-		GEvent.addListener(marker, "dragstart", function() {
-			map.closeInfoWindow();
-		});
-		
-		//handles the behavior for dragging
-		var req;
-		GEvent.addListener(marker, "dragend", function() {
-			var pDrop = marker.getPoint();
-			if (window.XMLHttpRequest)
-				req = new XMLHttpRequest(); //newRequest();
-			else if (window.ActiveXObject)
-				req = new ActiveXObject("Microsoft.XMLHTTP");
-			req.open("POST", "c_addnode.php", false);
-			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			req.setRequestHeader('Cache-Control', 'private');
-			var encoded = "mac=" + mac + "&net_name=" + net_name + "&name=" + name + "&description=" + description + "&latitude=" + pDrop.y + "&longitude=" + pDrop.x;
-			req.send(encoded);
-			if (req.status != 200) {
-	  			alert("There was a communications error: " + req.responseText);
-			}
-
-		});
-		
-		GEvent.addListener(marker, "click", function() {
-			var items = gw_route.split("+");
+    	function addListeners(){
+	   		// Show this marker's info when it is clicked	
+			GEvent.addListener(marker, "click", function() 
+			{
+				//gmarker = marker;
+				if(infoTabs.length>0){
+					marker.openInfoWindowTabsHtml(infoTabs);
+				} else {
+					//nothing!
+				}
+				
+			});
 	
-	      	for (var i=0; i<count; i++) {
-		          map.removeOverlay(polyline[i]);
-		    }
+			GEvent.addListener(marker, "dragstart", function() {
+				map.closeInfoWindow();
+			});
+			
+			//handles the behavior for dragging
+			var req;
+			GEvent.addListener(marker, "dragend", function() {
+				var pDrop = marker.getPoint();
+				if (window.XMLHttpRequest)
+					req = new XMLHttpRequest();
+				else if (window.ActiveXObject)
+					req = new ActiveXObject("Microsoft.XMLHTTP");
+				req.open("POST", "c_addnode.php", false);
+				req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				req.setRequestHeader('Cache-Control', 'private');
+				var encoded = "mac=" + mac + "&net_name=" + net_name + "&name=" + name + "&description=" + description + "&latitude=" + pDrop.y + "&longitude=" + pDrop.x;
+				req.send(encoded);
+				if (req.status != 200) {
+		  			alert("There was a communications error: " + req.responseText);
+				}
 	
-	      	if (gateway != "true" && items.length >= 6) {
-		        // remove old polylines
-		        count = -1;
-	        	
-	 			for (var i=0; i<(items.length-1); i+=5)	 {
+			});
+			
+			GEvent.addListener(marker, "mouseout", function() {
+	      		var items = gw_route.split("+");
+	     		 
+	      		for (var i=0; i<count; i++) {
+				//map.removeOverlay(polyline[i]);
+	      		}
+			});
+	
+			GEvent.addListener(marker, "mouseover", function() {
+	      		var items = gw_route.split("+");
+	      
+	      		for (var i=0; i<count; i++) {
+	          		map.removeOverlay(polyline[i]);
+	      		}
+	
+	      		if (gateway != "true" && items.length >= 6)	{
+	         	// remove old polylines
+	        	count = -1;
+	        
+		 			for (var i=0; i<(items.length-1); i+=5)	{
 						if (i > 0) {
 							var RGB=setRouteColor(items[i+1]);
-							polyline[count] = (new GPolyline([new GLatLng(mpoint.y, mpoint.x), new GLatLng(items[i+2], items[i+3])], RGB, 5, 1.0));	
+							polyline[count] = (new GPolyline([new GLatLng(mpoint.y, mpoint.x), new GLatLng(items[i+2], items[i+3])], RGB, 5, 0.85));	
 							map.addOverlay(polyline[count]);  // on map, this fails and aborts the loop!  Works on add!
 						}
 						var mpoint = new GPoint(items[i+3], items[i+2]);
-	          	count++;
-				}
-			}
-	
-		});
-		
-		GEvent.addListener(marker, "mouseout", function() {
-      		var items = gw_route.split("+");
-     		 
-      		for (var i=0; i<count; i++) {
-			//map.removeOverlay(polyline[i]);
-      		}
-		});
-
-		GEvent.addListener(marker, "mouseover", function() {
-      		var items = gw_route.split("+");
-      
-      		for (var i=0; i<count; i++) {
-          		map.removeOverlay(polyline[i]);
-      		}
-
-      		if (gateway != "true" && items.length >= 6)	{
-         	// remove old polylines
-        	count = -1;
-        
-	 			for (var i=0; i<(items.length-1); i+=5)	{
-					if (i > 0) {
-						var RGB=setRouteColor(items[i+1]);
-						polyline[count] = (new GPolyline([new GLatLng(mpoint.y, mpoint.x), new GLatLng(items[i+2], items[i+3])], RGB, 5, 0.85));	
-						map.addOverlay(polyline[count]);  // on map, this fails and aborts the loop!  Works on add!
+		          		count++;
 					}
-					var mpoint = new GPoint(items[i+3], items[i+2]);
-	          		count++;
 				}
-			}
-
-		});
+	
+			});
+		}
 		
-		return marker;
+		function get(){return marker;}
+		
+		this.addTab = addTab;
+		this.addListeners = addListeners;
+		this.get = get;
 	}
 	
 	//FROM rnmap.js -- NOT YET RELEASED
