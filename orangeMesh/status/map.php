@@ -36,7 +36,7 @@ $updated = $_SESSION['updated'];
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-<title>Add/Edit Nodes for - <?php echo $net_name; ?></title>
+<title>Status Map for "<?php echo $net_name; ?>"</title>
 <?php include("../lib/mapkeys.php"); 
 	include "../lib/style.php";?>
 <script type="text/javascript" src="../lib/map.js"></script>  
@@ -60,57 +60,11 @@ $updated = $_SESSION['updated'];
 		map.addControl(new GOverviewMapControl());
 		geocoder = new GClientGeocoder();
 
-		// Create a marker whenever the user clicks the map   
-		GEvent.addListener(map, 'click', function(overlay, point) 
-		{
-			if (point) 
-			{
-				var html = '<form name="addnode" method="POST">' +
-				'<p align="center" class="style1"><B>Add Node: </B></p>' +
-				'<table width="310"  border="0" cellpadding="0" cellspacing="0" id="node">' +
-				'<tr>' +
-				  '<td class="style1">Name:</td>' +
-				  '<td><input type="text" size="32"  name="name"></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&#42;&nbsp;</span></td>' +
-				  '<td><input type="text" size="32" name="mac"></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Description:</td>' +
-				  '<td><input type="text" size="32"  name="description"></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Latitude:</span></td>' +
-				  '<td><input type="text" size="32"  name="latitude" value="' + point.y + '" readonly></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Longitude:&nbsp;</span></td>' +
-				  '<td><input type="text" size="32"  name="longitude" value="' + point.x + '" readonly></td>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Owner Name:</span></td>' +
-				  '<td><input type="text" size="32" name="owner_name"></td>' +
-				'</tr><tr>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Owner Email:</span></td>' +
-				  '<td><input type="text" size="32" name="owner_email"></td>' +
-				'</tr><tr>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Owner Phone:</span></td>' +
-				  '<td><input type="text" size="32" name="owner_phone"></td>' +
-				'</tr><tr>' +
-				'</tr><tr>' +
-				  '<td><span class="style1">Owner Address:</span></td>' +
-				  '<td><input type="text" size="32" name="owner_address"></td>' +
-				'</tr><tr>' +
-				  '<td><input type="hidden" name="form_name" value="addNode"><input type="hidden" name="net_name" value="' + document.getElementById("net_name").value + '"></td>' +
-				  '<td align="right"><input type="button" name="Add" value="Add" onClick="addNode(this.form)"></td></tr>' +
-            '<tr><td colspan=2>*Use MAC address in form xx:xx:xx:xx:xx:xx.</td></tr></table></form>';
 
-				map.openInfoWindowHtml(point, html);
-			}
-		});
-
-	var point;
-	var marker;
-	
-	window.onresize=setMapSizePos;
+		var point;
+		var marker;
+		
+		window.onresize=setMapSizePos;
 
 <?php
 include("../lib/connectDB.php");
@@ -175,14 +129,24 @@ NO_NODES;
 		$mac=$row["mac"];
 		$longitude=$row["longitude"];
 		$latitude=$row["latitude"];
-		$owner_name=$row["owner_name"];
-		$owner_email=$row["owner_email"];
-		$owner_phone=$row["owner_phone"];
-		$owner_address=$row["owner_address"];
+		if(!$owner_name=$row["owner_name"])
+			$owner_name="(none)";
+		if(!$owner_email=$row["owner_email"])
+			$owner_email="(none)";
+		if(!$owner_phone=$row["owner_phone"])
+			$owner_phone="(none)";
+		if(!$owner_address=$row["owner_address"])
+			$owner_address="(none)";
 		$gateway=$row["gateway"];
-		$gw_metric=$row["gw-qual"];
+		$gw_qual=$row["gw-qual"];
 		$users=$row["users"];
 		$time=$row["epoch_time"];
+		$kbdown=$row["kbdown"];
+		$kbup=$row["kbup"];
+		$hops=$row["hops"];
+		$robin=$row["robin"];
+		$batman=$row["batman"];
+		$is_gateway=$row["gateway_bit"];
 		
 		//
 		// Calculate min, max latitude, longitude for center and zoom later
@@ -192,8 +156,9 @@ NO_NODES;
 		if ($longitude < $minY) $minY = $longitude;
 		if ($longitude > $maxY) $maxY = $longitude;
 		
-		if (!strlen($gw_metric)) $gw_metric = 0;
-	
+		if (!strlen($gw_qual)) $gw_qual = 0;
+		
+		//get time since last checkin and prettify it
 		$up = time() - $time;
 		$ctime = time();
 	
@@ -226,67 +191,62 @@ NO_NODES;
 //
 // Create the Marker
 //
+$html_string = '<h3>Node Status: '.$name.'</h3>'.'<table class="infoWindow">';
+if($utype=="admin"){
+	$html_string .='<tr>'.'<td>Description:</td>'.'<td>'.$description.'</td>'.'</tr>';
+	$html_string .='<tr>'.'<td>MAC/IP:</td>'.'<td>'.$mac.' / '.$ip.'</td>'.'</tr>';
+}
+if($is_gateway=="1"){$hops="0 (gateway)";}
 
-$html = addslashes('<form name="basicEdit" method="POST">'.
-			'<h3>Basic Information</h3>'.
-				'<table width="310"  border="0" cellpadding="0" cellspacing="0" id="node">'.
-				'<tr>'.
-				  '<td class="style1">Name:</td>'.
-				  '<td><input type="text" size="32" name="name" value="'.$name.'"></td>'.
-				'</tr><tr>'.
-				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&nbsp;</span></td>'.
-				  '<td><input type="text" size="32" name="mac" value="'.$mac.'" readonly></td>'.
-				'</tr><tr>' .
-				  '<td><span class="style1">Description:</td>' .
-				  '<td><input type="text" size="32"  name="description" value="' . $description . '"></td>' .
-				'</tr><tr>' .
-				  '<td><span class="style1">Latitude:</span></td>' .
-				  '<td><input type="text" size="32"  name="latitude" value="' . $latitude . '" readonly></td>' .
-				'</tr><tr>' .
-				  '<td><span class="style1">Longitude:&nbsp;</span></td>' .
-				  '<td><input type="text" size="32"  name="longitude" value="' . $longitude . '" readonly></td>' .
-				'</tr><tr></tr><td>&nbsp;</td><tr>' .
-				  '<td><input type="hidden" name="net_name" value="' . $net_name . '"></td>' .
-				  '<td><input type="hidden" name="form_name" value="basicEdit"></td>'.
-	      	'<tr><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
-  	    		'&nbsp;<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td></tr>' .
-				'<tr><td>&nbsp;</td></tr>' .
-				'</tr></table></form>');
+$html_string .='<tr>'.
+				'<td>Users:</td>'.
+				'<td>'.$users.'</a></td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>Down/Up (bytes):</td>'.
+				'<td>'.$kbdown.' / '.$kbup.'</td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>Hops:</td>'.
+				'<td>'.$hops.'</td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>Quality:</td>'.
+				'<td>'.($gw_qual/255*100).'%</td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>ROBIN/BATMAN:</td>'.
+				'<td>'.$robin.' / '.$batman.'</td>'.
+			'</tr>'.
+			'</table>';
+$status = addslashes($html_string);
 
-$owner = addslashes('<form name="ownerEdit" method="POST">'.
-			'<h3>Node Owner Information</h3>'.
+
+$owner = addslashes('<h3>Node Owner Information</h3>'.
 			'<table class="infoWindow">'.
 			'<tr>'.
 				'<td>Owner Name:</td>'.
-				'<td><input type="text" size="32" name="owner_name" value="'.$owner_name.'"></td>'.
+				'<td>'.$owner_name.'</td>'.
 			'</tr>'.
 			'<tr>'.
-				'<td><a href="mailto:'.$owner_email.'">Owner Email:</a></td>'.
-				'<td><input type="text" size="32" name="owner_email" value="'.$owner_email.'"></td>'.
+				'<td>Owner Email:</td>'.
+				'<td><a href="mailto:'.$owner_email.'">'.$owner_email.'</a></td>'.
 			'</tr>'.
 			'<tr>'.
 				'<td>Owner Phone:</td>'.
-				'<td><input type="text" size="32" name="owner_phone" value="'.$owner_phone.'"></td>'.
+				'<td>'.$owner_phone.'</td>'.
 			'</tr>'.
 			'<tr>'.
 				'<td>Owner Address:</td>'.
-				'<td><input type="text" size="32" name="owner_address" value="'.$owner_address.'"></td>'.
+				'<td>'.$owner_address.'</td>'.
 			'</tr>'.
-			'<tr>'.
-				'<td><input type="hidden" name="net_name" value="' . $net_name . '">' .
-				'<input type="hidden" name="mac" value="' . $mac . '">' .
-				'<input type="hidden" name="form_name" value="ownerEdit"></td>'.
-			'</tr>'.
-			'<tr><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
-  	    		'<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td>'.
-  	    	'</tr>' .
-			'</table></form>');
+			'</table>');
 
 echo <<<END
  		
 	point = new GPoint($longitude, $latitude);
-	var marker = new nodeMarker(map, "$net_name", point, "$name", "$notes", "$mac", "$gateway", "$gw_metric", "$up", "$draggable", "$users");	
-	marker.addTab("Basic Info","$html");
+	var marker = new nodeMarker(map, "$net_name", point, "$name", "$notes", "$mac", "$gateway", "$gw_qual", "$up", "$draggable", "$users");	
+	marker.addTab("Node Status","$status");
 	marker.addTab("Owner Info","$owner");	
 	marker.addListeners();
 	map.addOverlay(marker.get());
@@ -319,7 +279,7 @@ END;
 <div align="center" id="top">
   <input name="net_name" id="net_name" type=hidden value=<?php print $net_name?>>
 </div>
-Click anywhere on the map to add a new node to this network.<br>
+Click on a node for detailed status information.<br>
 <?if($utype == "admin") echo "Drag an existing node to a new location, or click on it to change its settings.";?>
 <div id="map" style="width: 100%; height: 70%" text-align="center"></div>
 </body>

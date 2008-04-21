@@ -1,4 +1,9 @@
 var gmarker = null;
+var count=0;
+var j=0;
+var polyline = new Array();
+var markers = new Array();
+var macs = new Array();
 		
 	function isNumeric(strString)
 	{
@@ -255,7 +260,13 @@ var gmarker = null;
 		var icon = createIcon(metric, gateway, up, users);
 		var marker = new GMarker(point, {icon:icon, draggable:draggable, title:name});
 		var infoTabs = new Array();
-
+		
+		markers[j] = marker;
+		gmarker = marker;
+    	macs[j++] = mac;
+		
+		this.point = point;
+		
     	function addTab(label,content){
 			infoTabs[infoTabs.length] = new GInfoWindowTab(label,content);
 			return true;
@@ -338,12 +349,12 @@ var gmarker = null;
 	}
 	
 	//FROM rnmap.js -- NOT YET RELEASED
-	function myClick(ip)
+	function myClick(mac)
 	{
-	  for (var i=0; i<ips.length; i++) 
+	  for (var i=0; i<macs.length; i++) 
 	  {
-	      s = ips[i].replace(/\./g, "0");
-	      if (s == ip)
+	      s = macs[i].replace(/\./g, "0");
+	      if (s == mac)
 	        GEvent.trigger(markers[i],"click");
 	  }
 	}
