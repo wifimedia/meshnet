@@ -176,17 +176,8 @@ NO_NODES;
 		else
 			$LastCheckin = "$secs Seconds";
 	
-		switch($utype){
-		case 'admin':
-			$draggable = true;
-			break;
-		case 'user':
-			$draggable = false;
-			break;
-		default:
-			$draggable = false;
-			break;
-		}
+		$draggable = false;
+
 		
 //
 // Create the Marker
