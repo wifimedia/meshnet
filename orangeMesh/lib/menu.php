@@ -64,7 +64,8 @@ function showAdminMenu(){
 	<ul id="nav">
 	<li id="left"><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Network Settings</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>status/map.php">Node Map</a></li>
-	<li><a href="<?if(!$on_index){echo '../';}?>status/view.php">Node List</a></li>
+	<li><a href="<?if(!$on_index){echo '../';}?>status/view.php">Node Status List</a></li>
+	<li><a href="<?if(!$on_index){echo '../';}?>nodes/nodes_info.php">Node Info List</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>nodes/addnode.php">Add/Edit Nodes</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Logout</a></li>
 	</ul>
@@ -80,7 +81,7 @@ function showUserMenu(){
 	<div id="menu">
 	<ul id="nav">
 	<li id="left"><a href="<?if(!$on_index){echo '../';}?>status/map.php">Node Map</a></li>
-	<li><a href="<?if(!$on_index){echo '../';}?>status/view.php">Node List</a></li>
+	<li><a href="<?if(!$on_index){echo '../';}?>status/view.php">Node Status List</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>nodes/addnode.php">Add/Edit Nodes</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Leave Network</a></li>
 	</ul>
