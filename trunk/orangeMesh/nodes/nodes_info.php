@@ -1,8 +1,8 @@
 <?php 
-/* Name: view.php
- * Purpose: master view for network settings.
+/* Name: info.php
+ * Purpose: view and edit node information.
  * Written By: Shaddi Hasan, Mac Mollison
- * Last Modified: April 16, 2008
+ * Last Modified: April 23, 2008
  *
  * (c) 2008 Orange Networking.
  *  
@@ -27,13 +27,6 @@
 
 session_start();
 
-//Set how long a node can be down before it's name turns red (in seconds)
-$OK_DOWNTIME = 1800;
-
-//Get the current time
-$currentTime = getdate();
-$currentTime = $currentTime['0'];
-
 //check if we have a network selected, if not redirect to select page
 if (!isset($_SESSION['netid'])) 
 	header("Location: ../entry/select.php");
@@ -51,10 +44,8 @@ $resArray = mysqli_fetch_assoc($result);
 if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
 else {$display_name = $resArray['display_name'];}
 echo <<<TITLE
-<h2>Node Status List for $display_name</h2>
+<h2>Node Information List for $display_name</h2>
 TITLE;
-
-
 
 //get nodes that match network id from database
 $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"];
@@ -64,9 +55,7 @@ if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associa
 
 //Table columns, in format Display Name => DB field name.
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
-$node_fields = array("Node Name" => "name","Description" => "description","Uptime" => "uptime",
-  "Quality" => "gw-qual","Hops" => "hops","Down kb" => "kbdown","Up kb" => "kbup","Users" =>"users","Max Users" => "usershi",
-  "Last Checkin" => "time","MAC" => "mac");
+$node_fields = array("Node Name" => "name","MAC" => "mac","Description" => "description","Owner Name" => "owner_name","Owner Phone" => "owner_phone","Owner Address" => "owner_address","Approval Status" => "approval_status");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
 echo "<script src='../lib/sorttable.js'></script>";
@@ -82,17 +71,11 @@ echo "</tr>";
 
 //Output the rest of the table
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-	if($currentTime - strtotime($row['time']) >= $OK_DOWNTIME)
-    	echo "<tr class=\"down\">";
-    else
-    	echo "<tr>";
+    echo "<tr>";
     foreach($node_fields as $key => $value) {
         echo "<td>";
-        if ($value=="name" && $row["gateway_bit"]==1) {
-               echo "<b>" . $row[$value] . "</b>";                      
-        }
-        elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
-            echo floor(100 * ($row[$value] / 255)) . "%";
+        if ($value=="name") {
+               echo "<a href=node_info.php?mac=" . $row["mac"] . ">" . $row[$value] . "</a>";                      
         }
         else {
             echo $row[$value];
@@ -104,5 +87,4 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 echo "</table>";
 ?>
 <br>
-<div class=error>Red: Node needs attention</div>
 
