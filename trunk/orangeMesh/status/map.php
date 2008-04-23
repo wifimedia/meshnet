@@ -203,7 +203,7 @@ $html_string .='<tr>'.
 			'</tr>'.
 			'<tr>'.
 				'<td>Quality:</td>'.
-				'<td>'.($gw_qual/255*100).'%</td>'.
+				'<td>'.(floor($gw_qual/255*100)).'%</td>'.
 			'</tr>'.
 			'<tr>'.
 				'<td>ROBIN/BATMAN:</td>'.
