@@ -27,7 +27,7 @@
 
 session_start();
 
-//Set how long a node can be down before it's alerted (in seconds)
+//Set how long a node can be down before it's name turns red (in seconds)
 $OK_DOWNTIME = 1800;
 
 //Get the current time
@@ -51,7 +51,7 @@ $resArray = mysqli_fetch_assoc($result);
 if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
 else {$display_name = $resArray['display_name'];}
 echo <<<TITLE
-<h2>Network Status for $display_name</h2>
+<h2>Node List for $display_name</h2>
 TITLE;
 
 
