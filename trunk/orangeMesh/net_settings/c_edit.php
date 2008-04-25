@@ -27,6 +27,9 @@
 
 session_start();
 
+include '../lib/toolbox.php';
+sanitizeAll();
+
 //setup db connection
 require '../lib/connectDB.php';
 setTable("network");

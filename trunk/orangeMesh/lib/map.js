@@ -30,13 +30,33 @@ var macs = new Array();
 	//
 	function addNode(form)
 	{
+		if(form.user_type.value=="user"){
+			var text;
+			if(form.node_name.value=="" || form.mac.value==""){
+				text = "You must enter at least a node name and MAC address in format xx:xx:xx:xx:xx:xx. This number can be found on the back of your node.";
+			}
+			if(form.owner_name.value=="" || form.owner_email.value=="" || form.owner_phone.value=="" || form.owner_address.value==""){
+				text += "You must provide your name, email, phone number, and address so the network administrator can verify and approve your node.";
+			}
+			if(text){
+				alert(text);
+				return;
+			}
+		}
+		else {
+			if(form.node_name.value=="" || form.mac.value==""){
+				alert("You must enter at least a node name and MAC address in format xx:xx:xx:xx:xx:xx. This number can be found on the back of your node.");
+				return;
+			}
+		}
+		
 		var req;
 
 		//
 		// check the IP/MAC field to see if user entered an IP or MAC address
 		//
-      var items = form.mac.value.split(".");
-      var items2 = form.mac.value.split(":");
+      	var items = form.mac.value.split(".");
+      	var items2 = form.mac.value.split(":");
 
 
 		if (items.length != 4 && items2.length != 6)
@@ -102,7 +122,6 @@ var macs = new Array();
 			var marker = new nodeMarker(map, form.net_name.value, point, form.name.value, form.description.value, form.mac.value, "0", "1700", "1", "true", "0");
 			map.addOverlay(marker.get());
 		}
-				alert(encoded);
 		
 		map.closeInfoWindow();
 	}
