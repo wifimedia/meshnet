@@ -42,7 +42,11 @@ $updated = $_SESSION['updated'];
 <script type="text/javascript" src="../lib/map.js"></script>  
 <script type="text/javascript">
 <!--[CDATA[
-
+	
+	function close(){
+		document.getElementById("tip").style.display="none";
+	}
+	
 	var map = null;
 	var geocoder = null;
 	function onLoad() 
@@ -65,6 +69,9 @@ $updated = $_SESSION['updated'];
 		var marker;
 		
 		window.onresize=setMapSizePos;
+		
+		//setup nifty corners
+		Nifty("div.note");
 
 <?php
 include("../lib/connectDB.php");
@@ -264,14 +271,14 @@ END;
 //]]>
 </script>
 </head>
-<body bgcolor="#FFFFFF" align="center" onload="onLoad()" onResize="setMapSizePos()" onunload="GUnload()" >
+<body bgcolor="#FFFFFF" align="center" onload="onLoad();" onResize="setMapSizePos()" onunload="GUnload()" >
 <?php include '../lib/menu.php'; ?>
 
 <div align="center" id="top">
   <input name="net_name" id="net_name" type=hidden value=<?php print $net_name?>>
 </div>
-Click on a node for detailed status information.<br>
-<?if($utype == "admin") echo "Drag an existing node to a new location, or click on it to change its settings.";?>
+<div class="note" id="tip">Click on a node for detailed status information.  <a href=javascript:close()>hide</a>
+</div>
 <div id="map" style="width: 100%; height: 70%" text-align="center"></div>
 </body>
 </html>

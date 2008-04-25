@@ -81,7 +81,7 @@ var macs = new Array();
 		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		req.setRequestHeader('Cache-Control', 'private');
 		var encoded = "mac=" + mac + "&net_name=" + form.net_name.value + "&form_name=" + form.form_name.value;
-		if(form.name){encoded += "&name=" + form.name.value;}
+		if(form.node_name){encoded += "&name=" + form.node_name.value;}
 		if(form.description){encoded += "&description=" + form.description.value;}
 		if(form.latitude){encoded += "&latitude=" + form.latitude.value;}
 		if(form.longitude){encoded += "&longitude=" +form.longitude.value;}
@@ -89,7 +89,6 @@ var macs = new Array();
 		if(form.owner_email){encoded += "&owner_email=" + form.owner_email.value;}
 		if(form.owner_phone){encoded += "&owner_phone=" +	form.owner_phone.value;}
 		if(form.owner_address){encoded += "&owner_address=" + form.owner_address.value;}
-		alert(encoded);
 		req.send(encoded);
 		if (req.status != 200) {
   			alert("There was a communications error: " + req.responseText);
@@ -103,6 +102,8 @@ var macs = new Array();
 			var marker = new nodeMarker(map, form.net_name.value, point, form.name.value, form.description.value, form.mac.value, "0", "1700", "1", "true", "0");
 			map.addOverlay(marker.get());
 		}
+				alert(encoded);
+		
 		map.closeInfoWindow();
 	}
 
