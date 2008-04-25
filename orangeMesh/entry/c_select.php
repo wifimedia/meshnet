@@ -29,6 +29,9 @@ session_start();
 require '../lib/connectDB.php';
 setTable('network');
 
+include '../lib/toolbox.php';
+sanitizeAll();
+
 //get the network id
 $net_name = $_POST["net_name"];
 $query = "SELECT id FROM ".$dbTable." WHERE net_name='".$net_name."'";

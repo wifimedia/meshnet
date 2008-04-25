@@ -38,7 +38,8 @@ $updated = $_SESSION['updated'];
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <title>Add/Edit Nodes for - <?php echo $net_name; ?></title>
 <?php include("../lib/mapkeys.php"); 
-	include "../lib/style.php";?>
+	include "../lib/style.php";
+?>
 <script type="text/javascript" src="../lib/map.js"></script>  
 <script type="text/javascript">
 <!--[CDATA[
@@ -68,12 +69,12 @@ $updated = $_SESSION['updated'];
 		{
 			if (point) 
 			{
-				var html = '<form name="addnode" method="POST">' +
-				'<p align="center" class="style1"><B>Add Node: </B></p>' +
+				var html = 	'<form name="addnode" method="POST">' +
+				'<B>Add Node</B>' +
 				'<table width="310"  border="0" cellpadding="0" cellspacing="0" id="node">' +
 				'<tr>' +
 				  '<td class="style1">Name:</td>' +
-				  '<td><input type="text" size="32"  name="name"></td>' +
+				  '<td><input type="text" size="32" name="node_name" required="1"></td>' +
 				'</tr><tr>' +
 				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&#42;&nbsp;</span></td>' +
 				  '<td><input type="text" size="32" name="mac"></td>' +
@@ -102,7 +103,7 @@ $updated = $_SESSION['updated'];
 				  '<td><span class="style1">Owner Address:</span></td>' +
 				  '<td><input type="text" size="32" name="owner_address"></td>' +
 				'</tr><tr>' +
-				  '<td><input type="hidden" name="form_name" value="addNode"><input type="hidden" name="net_name" value="' + document.getElementById("net_name").value + '"></td>' +
+				  '<td><input type="hidden" name="user_type" value="<?echo $utype;?>"><input type="hidden" name="form_name" value="addNode"><input type="hidden" name="net_name" value="' + document.getElementById("net_name").value + '"></td>' +
 				  '<td align="right"><input type="button" name="Add" value="Add" onClick="addNode(this.form)"></td></tr>' +
             '<tr><td colspan=2>*Use MAC address in form xx:xx:xx:xx:xx:xx.</td></tr></table></form>';
 
@@ -253,6 +254,7 @@ $html = addslashes('<form name="basicEdit" method="POST">'.
 				  '<td><input type="text" size="32"  name="longitude" value="' . $longitude . '" readonly></td>' .
 				'</tr><tr></tr><td>&nbsp;</td><tr>' .
 				  '<td><input type="hidden" name="net_name" value="' . $net_name . '"></td>' .
+				  '<td><input type="hidden" name="user_type" value="' . $utype . '"></td>' .
 				  '<td><input type="hidden" name="form_name" value="basicEdit"></td>'.
 	      	'<tr><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
   	    		'&nbsp;<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td></tr>' .
@@ -281,6 +283,7 @@ $owner = addslashes('<form name="ownerEdit" method="POST">'.
 			'<tr>'.
 				'<td><input type="hidden" name="net_name" value="' . $net_name . '">' .
 				'<input type="hidden" name="mac" value="' . $mac . '">' .
+				'<td><input type="hidden" name="user_type" value="' . $utype . '"></td>' .
 				'<input type="hidden" name="form_name" value="ownerEdit"></td>'.
 			'</tr>'.
 			'<tr><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
