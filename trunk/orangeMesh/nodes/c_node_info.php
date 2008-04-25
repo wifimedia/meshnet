@@ -31,6 +31,10 @@ session_start();
 require '../lib/connectDB.php';
 setTable("node");
 
+//sanitize input info
+include '../lib/toolbox.php';
+sanitizeAll();
+
 //generate string of values to update in dashboard
 foreach ($node_fields as $f){
 	//if the originating form didn't sent a value for this field, skip it
