@@ -52,9 +52,8 @@ if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
 else {$display_name = $resArray['display_name'];}
 echo <<<TITLE
 <h2>Node Status List for $display_name</h2>
+<div class="page_note">Names of <u>gateway nodes</u> appear in bold. A node appears in red if it has not checked in with the dashboard recently.</div>
 TITLE;
-
-
 
 //get nodes that match network id from database
 $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"];

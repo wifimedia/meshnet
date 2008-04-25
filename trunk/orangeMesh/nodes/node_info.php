@@ -1,5 +1,5 @@
 <?php 
-/* Name: info.php
+/* Name: node_info.php
  * Purpose: Form to edit node information.
  * Written By: Mac Mollison, Shaddi Hassan
  * Last Modified: April 23, 2008
@@ -50,11 +50,24 @@ $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"] . " AND mac='" .
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)==0) die("<div class=error>We could not find that node.</a></div>");
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
+
+//set up variables needed to display current activation status properly
+if ($row["approval_status"] == A) {
+    $selected_flag_letter = "A";
+    $selected_flag = "Activated";
+    $other_flag_letter = "D";
+    $other_flag = "Deactivated";
+}
+else {
+    $selected_flag_letter = "D";
+    $selected_flag = "Deactivated"; 
+    $other_flag_letter = "A";
+    $other_flag = "Activated";
+}
 ?>
 
-
 <form method="POST" action="c_node_info.php" name="editNode">
-<input name="mac" type="hidden" value="<?echo $_GET["mac"];?>">    <!--Need to sent MAC address on as POST field-->
+<input name="mac" type="hidden" value="<?echo $_GET["mac"];?>">    <!--Need to send MAC address on as POST field-->
 <table align="left" cellpadding="4" cellspacing="0" border=0>
 	<tr><td colspan=2><h2>Node Information</h2></td></tr>
 	<tr>
@@ -87,10 +100,22 @@ $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		<td><input name="owner_address" value="<?echo $row["owner_address"];?>"></td>
 		<td><div class="comment">Owner's address. Only visible to the administrator.</div></td>
 	</tr>
+        <tr>
+                <td>Activation Flag</td>
+                <td>
+                    <SELECT NAME="approval_status">
+                    <OPTION VALUE=<? echo $selected_flag_letter?> SELECTED><?echo $selected_flag?>
+                    <OPTION VALUE=<?echo $other_flag_letter?>><?echo $other_flag;?>
+                    <OPTION VALUE=X>Delete This Node
+                    </SELECT>
+                </td>
+		<td><div class="comment">If your node is deactivated, it will not appear in the dashboard until you reactivate it.<br>
+                     This is the default setting for nodes added by community members.<br>
+                     If your node is deleted, you will not be able to reactivate it.</div></td>
+        </tr>
 	<tr>
 		<td colspan=3 align=center><input name="submit" value="Save Settings" type="submit"></td>
 	</tr>
 </table>
 </form>
 
-<?
