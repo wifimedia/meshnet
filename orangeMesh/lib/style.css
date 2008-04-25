@@ -122,6 +122,14 @@ div.comment {
 		padding: 10px;
 		font-size: 90%;
 }
+div.page_note {
+		background-color: #FFCC80;
+		margin-bottom: 10px;
+		padding: 10px;
+	        margin-left: auto;
+                margin-right: auto;
+                width:30%;
+}
 
 /* update text (ex, updated network settings) */
 div.success {
@@ -154,3 +162,6 @@ tr.fields td {
 tr.down td {
 		color: #FF0000
 }
+
+/* make visited links be blue, not purple */
+a:visited{color: blue;}

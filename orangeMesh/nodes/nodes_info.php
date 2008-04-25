@@ -43,9 +43,11 @@ $result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid'
 $resArray = mysqli_fetch_assoc($result);
 if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
 else {$display_name = $resArray['display_name'];}
-echo <<<TITLE
-<h2>Node Information List for $display_name</h2>
-TITLE;
+
+?>
+<h2>Node Information List for <?echo $display_name;?></h2>
+<div class="page_note">You can edit node information by clicking on the node's name.</div>
+<?
 
 //get nodes that match network id from database
 $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"];
@@ -55,7 +57,7 @@ if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associa
 
 //Table columns, in format Display Name => DB field name.
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
-$node_fields = array("Node Name" => "name","MAC" => "mac","Description" => "description","Owner Name" => "owner_name","Owner Phone" => "owner_phone","Owner Address" => "owner_address","Approval Status" => "approval_status");
+$node_fields = array("Node Name" => "name","MAC" => "mac","Description" => "description","Owner Name" => "owner_name","Owner Email" => "owner_email","Owner Phone" => "owner_phone","Owner Address" => "owner_address","Activation Status" => "approval_status");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
 echo "<script src='../lib/sorttable.js'></script>";
