@@ -50,12 +50,15 @@
 			<td><input name="password" required="1" type="password"></td>
 		</tr>
 		<tr>
+			<td><font color="red">*</font> Confirm Password </td>
+			<td><input name="confirm_pass" required="1" type="password"></td>
+		<tr>
 			<td><font color="red">*</font> Primary email address </td>
 			<td><input name="email1" required="1" mask="email"></td>
 		</tr>
 		<tr>
-			<td><font color="red">*</font> Network Location (5-digit zipcode)</td>
-			<td><input name="net_location" required="1" freemask="NNNNN" maxlength="5"></td>
+			<td><font color="red">*</font> Network Location</td>
+			<td><input name="net_location" required="1"></td>
 		</tr>
 		<tr>
 			<td>Email for notifications</td>

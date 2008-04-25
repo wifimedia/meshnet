@@ -91,7 +91,8 @@ if(is_mac($mac)){
 //	//for move or updated of name, description
 	if(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM node WHERE mac='$mac' AND netid='$netid'"))>0){
 		//update the existing entry
-		mysqli_query($conn,"UPDATE node SET name='$name', description='$description',latitude='$latitude',longitude='$longitude',approval_status='$approval_status',owner_name='$owner_name',owner_email='$owner_email',owner_phone='$owner_phone',owner_address='$owner_address' WHERE mac='$mac' AND netid='$netid'");
+		$query = "UPDATE node SET name='$name', description='$description',latitude='$latitude',longitude='$longitude',approval_status='$approval_status',owner_name='$owner_name',owner_email='$owner_email',owner_phone='$owner_phone',owner_address='$owner_address' WHERE mac='$mac' AND netid='$netid'";
+		mysqli_query($conn,$query);
 	} else {
 		//add the node
 		$fields = array('mac','netid','name','description','latitude','longitude','approval_status','owner_name','owner_email','owner_phone','owner_address');

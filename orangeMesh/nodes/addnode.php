@@ -42,7 +42,10 @@ $updated = $_SESSION['updated'];
 <script type="text/javascript" src="../lib/map.js"></script>  
 <script type="text/javascript">
 <!--[CDATA[
-
+	
+	function close(){
+		document.getElementById("tip").style.display="none";
+	}
 	var map = null;
 	var geocoder = null;
 	function onLoad() 
@@ -111,6 +114,8 @@ $updated = $_SESSION['updated'];
 	var marker;
 	
 	window.onresize=setMapSizePos;
+	
+	Nifty("div.note");
 
 <?php
 include("../lib/connectDB.php");
@@ -182,7 +187,7 @@ NO_NODES;
 		$gateway=$row["gateway"];
 		$gw_metric=$row["gw-qual"];
 		$users=$row["users"];
-		$time=$row["epoch_time"];
+		$time=$row["time"];
 		
 		//
 		// Calculate min, max latitude, longitude for center and zoom later
@@ -193,9 +198,10 @@ NO_NODES;
 		if ($longitude > $maxY) $maxY = $longitude;
 		
 		if (!strlen($gw_metric)) $gw_metric = 0;
-	
-		$up = time() - $time;
-		$ctime = time();
+		
+		$ctime = getdate();
+		$ctime = $ctime[0];
+		$up = $ctime-strtotime($time);
 	
 		$days  = (int)($up / 86400);
 		$hours = (int)(($up - ($days * 86400)) / 3600);
@@ -232,7 +238,7 @@ $html = addslashes('<form name="basicEdit" method="POST">'.
 				'<table width="310"  border="0" cellpadding="0" cellspacing="0" id="node">'.
 				'<tr>'.
 				  '<td class="style1">Name:</td>'.
-				  '<td><input type="text" size="32" name="name" value="'.$name.'"></td>'.
+				  '<td><input type="text" size="32" name="node_name" value="'.$name.'"></td>'.
 				'</tr><tr>'.
 				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&nbsp;</span></td>'.
 				  '<td><input type="text" size="32" name="mac" value="'.$mac.'" readonly></td>'.
@@ -319,8 +325,10 @@ END;
 <div align="center" id="top">
   <input name="net_name" id="net_name" type=hidden value=<?php print $net_name?>>
 </div>
-Click anywhere on the map to add a new node to this network.<br>
+<div class=note id=tip>Click anywhere on the map to add a new node to this network. <br>
 <?if($utype == "admin") echo "Drag an existing node to a new location, or click on it to change its settings.";?>
+ <a href=javascript:close()>hide</a>
+</div>
 <div id="map" style="width: 100%; height: 70%" text-align="center"></div>
 </body>
 </html>

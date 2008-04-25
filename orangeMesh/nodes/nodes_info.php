@@ -25,13 +25,24 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
 
+session_start();
+?>
+<head>
+<script>
+	function close(){
+		document.getElementById("tip").style.display="none";
+	}
+</script>
+</head>
+<?
 //check if we have a network selected, if not redirect to select page
 if (!isset($_SESSION['netid'])) 
 	header("Location: ../entry/select.php");
 
 include "../lib/style.php";
+?>
+<?
 include "../lib/menu.php";
 
 //setup database connection
@@ -46,7 +57,8 @@ else {$display_name = $resArray['display_name'];}
 
 ?>
 <h2>Node Information List for <?echo $display_name;?></h2>
-<div class="page_note">You can edit node information by clicking on the node's name.</div>
+<div class="note" id="tip">You can edit node information by clicking on the node's name. <a href="javascript:close()">hide</a></div>
+
 <?
 
 //get nodes that match network id from database
@@ -89,4 +101,7 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 echo "</table>";
 ?>
 <br>
+
+<body onload=Nifty("div.note");> <!-- This is not valid HTML but NiftyCorners won't work without putting this here. -->
+</body>
 

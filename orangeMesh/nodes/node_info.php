@@ -32,6 +32,10 @@ if (!isset($_SESSION['netid']))
     header("Location: ../entry/select.php");
 
 include "../lib/style.php";
+
+?>
+<body onload=Nifty("div.comment");>
+<?
 include "../lib/menu.php";
 
 //setup database connection

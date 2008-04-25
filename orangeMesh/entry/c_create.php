@@ -34,6 +34,14 @@ sanitizeAll();
 require '../lib/connectDB.php';
 setTable('network');
 
+//first check that the passwords entered matched
+if($_POST["password"]!=$_POST["confirm_pass"]){
+	header("Refresh: 3 url=create.php");
+	include "../lib/menu.php";
+	include "../lib/style.php";
+	die("<div class=error>The passwords you entered did not match!</div>");
+}
+	
 //make sure there is not a duplicate network
 $query = 'SELECT * FROM network WHERE net_name="'.$_POST['net_name'].'"';
 $result = mysqli_query($conn,$query);

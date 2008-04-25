@@ -40,7 +40,15 @@ if (!isset($_SESSION['netid']))
 
 include "../lib/style.php";
 include "../lib/menu.php";
-
+?>
+<head>
+<script>
+	function close(){
+		document.getElementById("tip").style.display="none";
+	}
+</script>
+</head>
+<?
 //setup database connection
 require "../lib/connectDB.php";
 setTable("node");
@@ -52,7 +60,10 @@ if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
 else {$display_name = $resArray['display_name'];}
 echo <<<TITLE
 <h2>Node Status List for $display_name</h2>
-<div class="page_note">Names of <u>gateway nodes</u> appear in bold. A node appears in red if it has not checked in with the dashboard recently.</div>
+<div class="note" id="tip">
+<div class=error>Nodes in red need attention.</div>
+<b>Names of gateway nodes appear in bold.
+<a href="javascript:close()">hide</a></div>
 TITLE;
 
 //get nodes that match network id from database
@@ -103,5 +114,6 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 echo "</table>";
 ?>
 <br>
-<div class=error>Red: Node needs attention</div>
+<body onload=Nifty("div.note");> <!-- Not valid HTML, but NiftyCorners needs this here to work for some reason... -->
+</body>
 
