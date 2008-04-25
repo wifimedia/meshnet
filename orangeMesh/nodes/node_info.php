@@ -86,7 +86,7 @@ else {
 	</tr>
 	<tr>
 		<td>Node Owner Name</td>
-		<td><input name="owner_name" value=<?echo $row["owner_name"];?>></td>
+		<td><input name="owner_name" value="<?echo $row["owner_name"];?>"></td>
 		<td><div class="comment">Name of the node owner. Only visible to the administrator.</div></td>
 	</tr>
 	<tr>
