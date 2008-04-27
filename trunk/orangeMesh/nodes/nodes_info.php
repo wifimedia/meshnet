@@ -85,23 +85,34 @@ echo "</tr>";
 
 //Output the rest of the table
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-    echo "<tr>";
-    foreach($node_fields as $key => $value) {
-        echo "<td>";
-        if ($value=="name") {
+    if ($row["approval_status"] == "A" ||     //show only activated, pending or deactivated nodes
+        $row["approval_status"] == "P" || 
+        $row["approval_status"] == "D") {        
+        foreach($node_fields as $key => $value) {
+            echo "<td>";
+            if ($value=="name") {
                echo "<a href=node_info.php?mac=" . $row["mac"] . ">" . $row[$value] . "</a>";                      
+            }
+            elseif ($value=="approval_status") {    //Translate approval flags into English
+                switch ($row[$value]) {
+                    case "A": echo "Activated"; break;
+                    case "P": echo "Pending Approval"; break;
+                    case "D": echo "Deactivated"; break;
+                }
+            }
+            else {
+                echo $row[$value];
+            }
+            echo "</td>";
         }
-        else {
-            echo $row[$value];
-        }
-        echo "</td>";
+        echo "</tr>";
     }
-    echo "</tr>";
 }
 echo "</table>";
+
+//Display NiftyCorners effects
 ?>
 <br>
-
 <body onload=Nifty("div.note");> <!-- This is not valid HTML but NiftyCorners won't work without putting this here. -->
 </body>
 
