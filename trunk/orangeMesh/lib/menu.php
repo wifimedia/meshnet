@@ -82,7 +82,7 @@ function showUserMenu(){
 	<ul id="nav">
 	<li id="left"><a href="<?if(!$on_index){echo '../';}?>status/map.php">Node Map</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>status/view.php">Node List</a></li>
-	<li><a href="<?if(!$on_index){echo '../';}?>nodes/my_nodes.php">Your Nodes</a></li>
+	<li><a href="<?if(!$on_index){echo '../';}?>nodes/my_nodes.php">My Nodes</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>nodes/addnode.php">Add Node</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Leave Network</a></li>
 	</ul>
