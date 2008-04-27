@@ -68,10 +68,13 @@ setTable("node");
 <?
 
 //display the title of the page and tip box
+$result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
+$resArray = mysqli_fetch_assoc($result);
+if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
+else {$display_name = $resArray['display_name'];}
 $email = $_POST["email"];    //just used for the following message
-$network = $_SESSION["net_name"];    //ditto
 echo <<<TITLE
-<h2>Node Status List for $email on $network</h2>
+<h2>Node Status List for $email on $display_name</h2>
 <div class="note" id="tip">
 <div class=error>Nodes in red need attention.</div>
 <b>Names of gateway nodes appear in bold.
