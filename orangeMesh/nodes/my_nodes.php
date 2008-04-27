@@ -34,9 +34,11 @@ $OK_DOWNTIME = 1800;
 $currentTime = getdate();
 $currentTime = $currentTime['0'];
 
-//Create menu and style
+//Create menu and style, sanitize form input 
 include "../lib/style.php";
 include "../lib/menu.php";
+include "../lib/toolbox.php";
+sanitizeAll();
 
 //check if we have an email selected, if not ask them for one.
 if (!isset($_POST['email'])) {
