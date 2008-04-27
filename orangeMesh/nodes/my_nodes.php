@@ -34,32 +34,52 @@ $OK_DOWNTIME = 1800;
 $currentTime = getdate();
 $currentTime = $currentTime['0'];
 
-//check if we have a network selected, if not redirect to select page
-if (!isset($_SESSION['netid'])) 
-	header("Location: ../entry/select.php");
-
+//Create menu and style
 include "../lib/style.php";
 include "../lib/menu.php";
+
+//check if we have an email selected, if not ask them for one.
+if (!isset($_POST['email'])) {
+    ?>
+    Please enter your email address.
+    <form method="POST" action='my_nodes.php' name="select">
+            <input name="email"><br>
+            <input name="select" value="View Nodes" type="submit">
+    </form>
+    <?
+    die();
+}
 
 //setup database connection
 require "../lib/connectDB.php";
 setTable("node");
 
-//display the title of the page
-$result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
-$resArray = mysqli_fetch_assoc($result);
-if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
-else {$display_name = $resArray['display_name'];}
+//include javascript to close the tip box
+?>
+<head>
+<script>
+	function close(){
+		document.getElementById("tip").style.display="none";
+	}
+</script>
+</head>
+<?
+
+//display the title of the page and tip box
+$email = $_POST["email"];    //just used for the following message
+$network = $_SESSION["net_name"];    //ditto
 echo <<<TITLE
-<h2>Node Status List for $display_name</h2>
+<h2>Node Status List for $email on $network</h2>
+<div class="note" id="tip">
+<div class=error>Nodes in red need attention.</div>
+<b>Names of gateway nodes appear in bold.
+<a href="javascript:close()">hide</a></div>
 TITLE;
 
-
-
-//get nodes that match network id from database
-$query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"];
+//get nodes that match email address from database
+$query = "SELECT * FROM node WHERE owner_email='" . $_POST["email"]. "' AND netid='" . $_SESSION["netid"] . "'";
 $result = mysqli_query($conn,$query);
-if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associated with this network yet. You might want to <a href=\"../nodes/addnode.php\">add some</a>.</div>");
+if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associated with this email address.</div>");
 
 
 //Table columns, in format Display Name => DB field name.
@@ -104,5 +124,6 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 echo "</table>";
 ?>
 <br>
-<div class=error>Red: Node needs attention</div>
 
+<body onload=Nifty("div.note");> <!-- Not valid HTML, but NiftyCorners needs this here to work for some reason... -->
+</body>
