@@ -95,24 +95,28 @@ echo "</tr>";
 
 //Output the rest of the table
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-	if($currentTime - strtotime($row['time']) >= $OK_DOWNTIME)
-    	echo "<tr class=\"down\">";
-    else
-    	echo "<tr>";
-    foreach($node_fields as $key => $value) {
-        echo "<td>";
-        if ($value=="name" && $row["gateway_bit"]==1) {
-               echo "<b>" . $row[$value] . "</b>";                      
-        }
-        elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
-            echo floor(100 * ($row[$value] / 255)) . "%";
+    if ($row["approval_status"] == "A") {    //show only activated nodes
+        if($currentTime - strtotime($row['time']) >= $OK_DOWNTIME) {
+    	    echo "<tr class=\"down\">";
         }
         else {
-            echo $row[$value];
+    	    echo "<tr>";
         }
-        echo "</td>";
+        foreach($node_fields as $key => $value) {
+            echo "<td>";
+            if ($value=="name" && $row["gateway_bit"]==1) {
+                echo "<b>" . $row[$value] . "</b>";                      
+            }
+            elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
+                echo floor(100 * ($row[$value] / 255)) . "%";
+            }
+            else {
+                echo $row[$value];
+            }
+            echo "</td>";
+        }
+        echo "</tr>";
     }
-    echo "</tr>";
 }
 echo "</table>";
 ?>
