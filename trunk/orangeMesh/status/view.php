@@ -40,6 +40,8 @@ if (!isset($_SESSION['netid']))
 
 include "../lib/style.php";
 include "../lib/menu.php";
+
+//include javascript to close the tip box
 ?>
 <head>
 <script>
@@ -49,6 +51,7 @@ include "../lib/menu.php";
 </script>
 </head>
 <?
+
 //setup database connection
 require "../lib/connectDB.php";
 setTable("node");
