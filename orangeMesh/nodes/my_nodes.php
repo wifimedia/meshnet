@@ -2,7 +2,7 @@
 /* Name: my_nodes.php
  * Purpose: show all nodes associated with an email address
  * Written By: Mac Mollison
- * Last Modified: April 25, 2008
+ * Last Modified: April 27, 2008
  *
  * (c) 2008 Orange Networking.
  *  
@@ -86,7 +86,7 @@ if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associa
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
 $node_fields = array("Node Name" => "name","Description" => "description","Uptime" => "uptime",
   "Quality" => "gw-qual","Hops" => "hops","Down kb" => "kbdown","Up kb" => "kbup","Users" =>"users","Max Users" => "usershi",
-  "Last Checkin" => "time","MAC" => "mac");
+  "Last Checkin" => "time","MAC" => "mac","Activation Status" => "approval_status");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
 echo "<script src='../lib/sorttable.js'></script>";
@@ -102,28 +102,43 @@ echo "</tr>";
 
 //Output the rest of the table
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-	if($currentTime - strtotime($row['time']) >= $OK_DOWNTIME)
-    	echo "<tr class=\"down\">";
-    else
-    	echo "<tr>";
-    foreach($node_fields as $key => $value) {
-        echo "<td>";
-        if ($value=="name" && $row["gateway_bit"]==1) {
-               echo "<b>" . $row[$value] . "</b>";                      
-        }
-        elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
-            echo floor(100 * ($row[$value] / 255)) . "%";
+    if ($row["approval_status"] == "A" ||     //show only activated, pending or deactivated nodes
+        $row["approval_status"] == "P" || 
+        $row["approval_status"] == "D") {        
+        
+        if($currentTime - strtotime($row['time']) >= $OK_DOWNTIME) {
+    	    echo "<tr class=\"down\">";
         }
         else {
-            echo $row[$value];
+    	    echo "<tr>";
         }
-        echo "</td>";
+        foreach($node_fields as $key => $value) {
+            echo "<td>";
+            if ($value=="name" && $row["gateway_bit"]==1) {
+                echo "<b>" . $row[$value] . "</b>";                      
+            }
+            elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
+                echo floor(100 * ($row[$value] / 255)) . "%";
+            }
+            elseif ($value=="approval_status") {    //Translate approval flags into English
+                switch ($row[$value]) {
+                    case "A": echo "Activated"; break;
+                    case "P": echo "Pending Approval"; break;
+                    case "D": echo "Deactivated"; break;
+                }
+            }
+            else {
+                echo $row[$value];
+            }
+            echo "</td>";
+        }
+        echo "</tr>";
     }
-    echo "</tr>";
 }
 echo "</table>";
+
+//Set up NiftyCorners
 ?>
 <br>
-
 <body onload=Nifty("div.note");> <!-- Not valid HTML, but NiftyCorners needs this here to work for some reason... -->
 </body>
