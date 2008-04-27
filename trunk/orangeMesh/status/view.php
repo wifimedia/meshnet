@@ -2,7 +2,7 @@
 /* Name: view.php
  * Purpose: master view for network settings.
  * Written By: Shaddi Hasan, Mac Mollison
- * Last Modified: April 16, 2008
+ * Last Modified: April 27, 2008
  *
  * (c) 2008 Orange Networking.
  *  
@@ -119,6 +119,8 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     }
 }
 echo "</table>";
+
+//Set up NiftyCorners
 ?>
 <br>
 <body onload=Nifty("div.note");> <!-- Not valid HTML, but NiftyCorners needs this here to work for some reason... -->
