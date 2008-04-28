@@ -30,23 +30,25 @@ var macs = new Array();
 	//
 	function addNode(form)
 	{
-		if(form.user_type.value=="user"){
-			var text;
-			if(form.node_name.value=="" || form.mac.value==""){
-				text = "You must enter at least a node name and MAC address in format xx:xx:xx:xx:xx:xx. This number can be found on the back of your node.";
+		if(form.form_name.value=="basicEdit"){
+			if(form.user_type.value=="user"){
+				var text;
+				if(form.node_name.value=="" || form.mac.value==""){
+					text = "You must enter at least a node name and MAC address in format xx:xx:xx:xx:xx:xx. This number can be found on the back of your node.";
+				}
+				if(form.owner_name.value=="" || form.owner_email.value=="" || form.owner_phone.value=="" || form.owner_address.value==""){
+					text += "You must provide your name, email, phone number, and address so the network administrator can verify and approve your node.";
+				}
+				if(text){
+					alert(text);
+					return;
+				}
 			}
-			if(form.owner_name.value=="" || form.owner_email.value=="" || form.owner_phone.value=="" || form.owner_address.value==""){
-				text += "You must provide your name, email, phone number, and address so the network administrator can verify and approve your node.";
-			}
-			if(text){
-				alert(text);
-				return;
-			}
-		}
-		else {
-			if(form.node_name.value=="" || form.mac.value==""){
-				alert("You must enter at least a node name and MAC address in format xx:xx:xx:xx:xx:xx. This number can be found on the back of your node.");
-				return;
+			else {
+				if(form.node_name.value=="" || form.mac.value==""){
+					alert("You must enter at least a node name and MAC address in format xx:xx:xx:xx:xx:xx. This number can be found on the back of your node.");
+					return;
+				}
 			}
 		}
 		
@@ -119,7 +121,9 @@ var macs = new Array();
 			// good, so add	
 			var point = new GPoint(form.longitude.value, form.latitude.value);
 
-			var marker = new nodeMarker(map, form.net_name.value, point, form.name.value, form.description.value, form.mac.value, "0", "1700", "1", "true", "0");
+			var marker = new nodeMarker(map, form.net_name.value, point, form.node_name.value, form.description.value, form.mac.value, "0", "1700", "1", "true", "0");
+			marker.addTab("newnode","<br>Refresh this page to display node info.<br>Nodes check in every five minutes.");
+			marker.addListeners();
 			map.addOverlay(marker.get());
 		}
 		
