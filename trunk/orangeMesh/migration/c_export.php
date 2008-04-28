@@ -51,7 +51,9 @@ $_POST[] = array();
 //setup the network connection. MIKE: Change this to work with your database file. Take a look
 //at ours to see everything it's doing. This should be an easy change...
 require '../lib/connectDB.php';
+include '../lib/toolbox.php';
 setTable('network');
+sanitizeAll();
 
 //get the PEAR files for this 
 require 'HTTP/Request.php';

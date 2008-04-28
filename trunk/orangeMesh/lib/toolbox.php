@@ -69,7 +69,8 @@ function getValuesFromPOST($fields){
 //I think this is best used in controllers, to check their own input. We don't
 //want someone to be able to mess stuff up by calling a controller script.
 function sanitize($string){
-	return mysql_real_escape_string(htmlspecialchars($string));
+	global $conn;
+	return mysqli_real_escape_string($conn, htmlspecialchars($string));
 
 }
 function sanitizeAll(){
