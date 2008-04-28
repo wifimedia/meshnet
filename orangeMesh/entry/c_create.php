@@ -28,11 +28,12 @@
 
 //get the toolbox
 include '../lib/toolbox.php';
-sanitizeAll();
 		
 //setup database connection
 require '../lib/connectDB.php';
 setTable('network');
+sanitizeAll();
+
 
 //first check that the passwords entered matched
 if($_POST["password"]!=$_POST["confirm_pass"]){

@@ -32,6 +32,7 @@
 require '../lib/connectDB.php';
 include '../lib/toolbox.php';
 setTable('network');
+sanitizeAll();
 
 //do checking to make sure we can actually do the import
 $net_name = $_POST['net_name'];

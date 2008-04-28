@@ -37,7 +37,9 @@ if(isset($_POST["submit"])){
 	unset($_POST["submit"]);
 	//setup connection
 	require '../lib/connectDB.php';
+	include '../lib/toolbox.php';
 	setTable('network');
+	sanitizeAll();
 	
 	//generate query
 	$net_name = $_POST["net_name"];
