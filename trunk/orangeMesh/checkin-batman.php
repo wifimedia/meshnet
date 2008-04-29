@@ -131,7 +131,7 @@ echo <<< RESPONSE
 general.net orange
 #@#config management
 enable.base $base
-enable.rootpwd
+enable.rootpwd $node_pwd
 enable.defessid 0
 #@#config mesh
 ap.up 1
