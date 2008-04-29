@@ -34,6 +34,10 @@ $OK_DOWNTIME = 1800;
 $currentTime = getdate();
 $currentTime = $currentTime['0'];
 
+//setup database connection
+require "../lib/connectDB.php";
+setTable("node");
+
 //Create menu and style, sanitize form input 
 include "../lib/style.php";
 include "../lib/menu.php";
@@ -51,10 +55,6 @@ if (!isset($_POST['email'])) {
     <?
     die();
 }
-
-//setup database connection
-require "../lib/connectDB.php";
-setTable("node");
 
 //include javascript to close the tip box
 ?>
