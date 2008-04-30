@@ -67,6 +67,10 @@ table {
         padding-bottom: 0px;
         padding-left: 0px;
 }
+table#edit_net {
+		padding-left: 10%;
+		padding-right: 10%;
+}
 
 td
 {
