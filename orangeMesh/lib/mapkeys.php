@@ -47,4 +47,6 @@ else if ($host == "open-mesh.com")
 	echo '<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAOblURTDowPDJJzfEXmiWIBTZjxrB_pn9jGmMh-RwF7AKb9MO5BSCsu6kbvCWascCDdDG4x87WRQixA" type="text/javascript"></script>'."\n" ;
 else if ($host == $myAddress)
 	echo '<script src="http://maps.google.com/maps?file=api&v=2&key='.$myKey.'" type="text/javascript"></script>'."\n" ;  
+else
+	die('<div class=error>This OrangeMesh server does not have a Google Map key, which is needed to display maps. Contact the administrator, or see the owner\'s manual for more information.</div>');
 ?>
