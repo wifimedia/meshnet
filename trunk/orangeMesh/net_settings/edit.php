@@ -123,7 +123,7 @@ if(mysqli_num_rows($result)==0) echo "<div class=error>There are no nodes associ
 ?>
 <h1><?echo $display_name ?></h1>
 <form method="POST" action="c_edit.php" name="editNetwork">
-<table align="left" cellpadding="4" cellspacing="0" border=0>
+<table id="edit_net" align="left" cellpadding="4" cellspacing="0" border=0>
 	<tr><td> </td></tr><tr><td colspan=2><h2>Network Account Settings</h2></td></tr>
 	<tr>
 		<td>Network Name</td>
