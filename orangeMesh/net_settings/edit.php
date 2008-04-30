@@ -78,14 +78,17 @@ unset($_SESSION['updated']);
 		document.getElementById("lan_block").style.display="";
 		document.getElementById("ap1_isolate").style.display="";
 		document.getElementById("ap2_isolate").style.display="";
-		document.getElementById("migration").style.display="";
+		document.getElementById("enable_migration").style.display="";
+		document.getElementById("migrate").style.display="";
+
   	}
   	function hideAdvanced(){
 		document.getElementById("root_pwd").style.display="none";
 		document.getElementById("lan_block").style.display="none";
 		document.getElementById("ap1_isolate").style.display="none";
 		document.getElementById("ap2_isolate").style.display="none";
-		document.getElementById("migration").style.display="none";
+		document.getElementById("enable_migration").style.display="none";
+		document.getElementById("migrate").style.display="none";
   	}
   	</script>
 </head>
@@ -152,11 +155,6 @@ if(mysqli_num_rows($result)==0) echo "<div class=error>There are no nodes associ
 		<td>Additional Notification Emails</td>
 		<td><input name="email2" value=<?echo $email2?>></td>
 		<td><div class="comment">Separate multiple email addresses with spaces. Gateway outages will be sent on the hour, repeater outages will be sent daily.</div></td>
-	</tr>
-	<tr>
-		<td>Enable/Disable/Configure notifications...</td>
-		<td>Coming soon!</td>
-		<td><div class="comment">Enable or disable status notifications for this network.</div></td>
 	</tr>
 	<tr>
 		<td colspan=2><h2>Access Point 1 (Public)</h2></td>
@@ -250,10 +248,14 @@ if(mysqli_num_rows($result)==0) echo "<div class=error>There are no nodes associ
   		<td><input <?echo isChecked($ap2_isolate) ?> name="ap2_isolate" value=1 type="checkbox"></td>
   		<td><div class="comment">Check this box to prevent your AP#2 users from being able to access each other's computers.</div></td>
   	</tr>
-  	<tr id="migration">
-  		<td>Migration</td>
-  		<td><a href="../migration/export.php">Migrate network to another Orangemesh Server</a><input <?echo isChecked($migration_enable) ?>name="migration_enable" value="1" type="checkbox"></td>
-		<td><div class="comment">Will revert to off in one hour)</div></td>
+  	<tr id="enable_migration">
+  		<td>Enable Migration</td>
+  		<td><input <?echo isChecked($migration_enable) ?>name="migration_enable" value="1" type="checkbox"></td>
+		<td><div class="comment">Allow remote servers to send network data (settings and nodes) to this network account. Turn this off if you are not in the process of moving your network from one server to another!</div></td>
+	</tr>
+	<tr id="migrate">
+		<td colspan=2><a href="../migration/export.php">Migrate this network to another Orangemesh Server</a></td>
+		<td><div class="comment">Send this network's settings and associated nodes to another network account on a remote server.</div></td>	
 	</tr>
 	<tr>
 		<td colspan=3 align=center><input name="submit" value="Save Settings" type="submit"></td>
