@@ -37,8 +37,10 @@ $updated = $_SESSION['updated'];
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <title>Status Map for "<?php echo $net_name; ?>"</title>
-<?php include("../lib/mapkeys.php"); 
-	include "../lib/style.php";?>
+<?
+include "../lib/style.php";
+include "../lib/mapkeys.php";
+?>
 <script type="text/javascript" src="../lib/map.js"></script>  
 <script type="text/javascript">
 <!--[CDATA[
