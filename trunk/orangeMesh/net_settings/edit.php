@@ -90,8 +90,6 @@ unset($_SESSION['updated']);
   	</script>
 </head>
 <?
-//setup the menu
-include '../lib/menu.php';
 
 ////include dojo framework and styles
 //include '../lib/dojo.php';
@@ -115,6 +113,9 @@ function isChecked($field){
 
 <body onload=hideAdvanced();Nifty("div.comment");>
 <?
+//setup the menu
+include '../lib/menu.php';
+
 if ($updated=='true') echo "<div class=success>Network successfully updated!</div>";
 $query = "SELECT * FROM node WHERE netid='".$netid."'";
 $result = mysqli_query($conn,$query);

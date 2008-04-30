@@ -39,8 +39,6 @@ if (!isset($_SESSION['netid']))
 	header("Location: ../entry/select.php");
 
 include "../lib/style.php";
-include "../lib/menu.php";
-
 //include javascript to close the tip box
 ?>
 <head>
@@ -49,8 +47,13 @@ include "../lib/menu.php";
 		document.getElementById("tip").style.display="none";
 	}
 </script>
+<!-- Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column. -->
+<script src='../lib/sorttable.js'></script>
+
 </head>
+<body onload=Nifty("div.note");>
 <?
+include "../lib/menu.php";
 
 //setup database connection
 require "../lib/connectDB.php";
@@ -80,9 +83,6 @@ if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associa
 $node_fields = array("Node Name" => "name","Description" => "description","Uptime" => "uptime",
   "Quality" => "gw-qual","Hops" => "hops","Down kb" => "kbdown","Up kb" => "kbup","Users" =>"users","Max Users" => "usershi",
   "Last Checkin" => "time","MAC" => "mac");
-
-//Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
-echo "<script src='../lib/sorttable.js'></script>";
 
 echo "<table class='sortable' border='1'>";
 
@@ -123,6 +123,5 @@ echo "</table>";
 //Set up NiftyCorners
 ?>
 <br>
-<body onload=Nifty("div.note");> <!-- Not valid HTML, but NiftyCorners needs this here to work for some reason... -->
 </body>
 

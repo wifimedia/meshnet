@@ -19,42 +19,6 @@ margin:10 auto;
 background-color: transparent;
 }
 
-
-div#container{height:400px;width:800px;margin:0 auto 10px;padding:10px 10px 10px 10px;text-align:left;background:#FFFFFF}
-div#content{position:relative;float:left;display:inline;width:780px;margin:0px 0px 0px 0px}
-
-ul#intro,ul#intro li{list-style-type:none;margin:0;padding:0}
-ul#intro{width:100%;overflow:hidden;margin-bottom:20px}
-ul#intro li{float:left;width:380px;margin-right: 10px; padding:10px 0px 10px 00px}
-li#mission{background: #aaccff;}
-li#services{background: #99bbee }
-ul#intro li#more{margin-right:0;background: #88aadd }
-ul#intro a{text-decoration:none;text-decoration:underline;color: #FFF}
-
-ul#intro p,ul#intro h3{margin:0;padding: 0 10px}
-ul#intro h3{text-transform:uppercase;padding-bottom:3px;color: #FFF}
-
-div#content h2{margin: 10px 0;color: #007BC4; border-bottom: 1px dotted #bbbbbb;}
-div#content td{font-size:80%;}
-div.date{float:left;width: 4em;padding: 5px 0;background: #F1DDC4;color:#B0001E;
-    text-align:center;margin: 0 0px 0px 0;font-size: 80%;line-height:0.9}
-div.date span{display:block;font-size: 150%;font-weight:bold}
-
-div.comments div{background: #DAE6FE;margin-bottom:10px}
-div.comments p{font-size:90%;padding: 10px;margin:0}
-div.comments div.odd{background:#FFFF80}
-
-div#side{float:right;display:inline;width: 180px;background:#F3FF40; margin:0 10px 10px 0}
-
-div#side p{margin:5px 0 10px;padding: 0 10px}
-div#side div{margin: 0 0 10px;padding: 10px 0}
-
-div#side table{font-size:80%}
-
-div#footer{clear:both;width:760px;margin:10px 0px 0px 0px;padding: 10px 0;
-    background: #FFF;color: #FFF;text-align:center}
-div#footer p{margin:0}
-
 div#menu ul
 {
 padding: .2em 0;
@@ -74,7 +38,7 @@ display: inline;
 
 div#menu li#left
 {
-padding: 5em 0;
+padding: .2em 0;
 border-left: 1px solid #fff;
 }
 
@@ -127,7 +91,7 @@ div.note {
 		padding: 10px;
 	    margin-left: auto;
         margin-right: auto;
-        width:50%;
+        width: 50%;
 }
 
 /* update text (ex, updated network settings) */
