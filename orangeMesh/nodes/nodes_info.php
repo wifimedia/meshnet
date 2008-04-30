@@ -29,12 +29,12 @@
 session_start();
 ?>
 <head>
-<script>
+<script language="javascript" type="text/javascript">
 	function close(){
 		document.getElementById("tip").style.display="none";
 	}
 </script>
-</head>
+<script src='../lib/sorttable.js'></script>
 <?
 //check if we have a network selected, if not redirect to select page
 if (!isset($_SESSION['netid'])) 
@@ -42,6 +42,9 @@ if (!isset($_SESSION['netid']))
 
 include "../lib/style.php";
 ?>
+</head>
+<body onload=Nifty("div.comment#tip");>
+
 <?
 include "../lib/menu.php";
 
@@ -67,12 +70,13 @@ $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associated with this network yet. You might want to <a href=\"../nodes/addnode.php\">add some</a>.</div>");
 
 
+
 //Table columns, in format Display Name => DB field name.
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
 $node_fields = array("Node Name" => "name","MAC" => "mac","Description" => "description","Owner Name" => "owner_name","Owner Email" => "owner_email","Owner Phone" => "owner_phone","Owner Address" => "owner_address","Activation Status" => "approval_status");
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
-echo "<script src='../lib/sorttable.js'></script>";
+echo "";
 
 echo "<table class='sortable' border='1'>";
 
@@ -87,11 +91,12 @@ echo "</tr>";
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     if ($row["approval_status"] == "A" ||     //show only activated, pending or deactivated nodes
         $row["approval_status"] == "P" || 
-        $row["approval_status"] == "D") {        
+        $row["approval_status"] == "D") {       
+        echo "<tr>\n"; 
         foreach($node_fields as $key => $value) {
-            echo "<td>";
+            echo "<td>\n";
             if ($value=="name") {
-               echo "<a href=node_info.php?mac=" . $row["mac"] . ">" . $row[$value] . "</a>";                      
+               echo '<a href="node_info.php?mac=' . $row["mac"] . '">' . $row[$value] . '</a>';                      
             }
             elseif ($value=="approval_status") {    //Translate approval flags into English
                 switch ($row[$value]) {
@@ -103,9 +108,9 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             else {
                 echo $row[$value];
             }
-            echo "</td>";
+            echo "</td>\n";
         }
-        echo "</tr>";
+        echo "</tr>\n";
     }
 }
 echo "</table>";
@@ -113,6 +118,5 @@ echo "</table>";
 //Display NiftyCorners effects
 ?>
 <br>
-<body onload=Nifty("div.note");> <!-- This is not valid HTML but NiftyCorners won't work without putting this here. -->
 </body>
 
