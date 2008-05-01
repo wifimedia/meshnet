@@ -2,7 +2,7 @@
 /* Name: view.php
  * Purpose: master view for network settings.
  * Written By: Shaddi Hasan, Mac Mollison
- * Last Modified: April 27, 2008
+ * Last Modified: May 1, 2008
  *
  * (c) 2008 Orange Networking.
  *  
@@ -106,6 +106,9 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             echo "<td>";
             if ($value=="name" && $row["gateway_bit"]==1) {
                 echo "<b>" . $row[$value] . "</b>";                      
+            }
+            elseif ($value=="hops" && $row["gateway_bit"]==1) {
+                echo "0";                      
             }
             elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
                 echo floor(100 * ($row[$value] / 255)) . "%";
