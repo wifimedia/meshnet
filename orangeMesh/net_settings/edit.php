@@ -140,7 +140,7 @@ if(mysqli_num_rows($result)==0) echo "<div class=error>There are no nodes associ
 	</tr>
 	<tr>
 		<td></td>
-		<td><a href="changePass.php?netid=$netid" target="_blank">Change Password</a></td>
+		<td><a href="password.php">Change Password</a></td>
 		<td><div class="comment">Administrator password for this network.</div></td>
 	</tr>
 	<tr>
@@ -187,11 +187,13 @@ if(mysqli_num_rows($result)==0) echo "<div class=error>There are no nodes associ
 	<tr>
 		<td colspan=2><h2>Splash Page</h2></td>
 	</tr>
+<!-- This feature is not implemented, since ROBIN is undergoing some major changes with how the captive portal is handled.
 	<tr>
 		<td></td>
   		<td>Enable<input name="splash_enable" <?echo isChecked($splash_enable) ?>value=1 type="checkbox"> Configure Splash Page (coming soon...)</td>
   		<td><div class="comment">The splash page is a page users will see first and must click an "enter" link to use the network.</div></td>
   	</tr>
+-->
   	<tr>
   		<td>Splash Redirect URL</td>
   		<td><input name="splash_redirect_url" value=<?echo $splash_redirect_url?>></td>

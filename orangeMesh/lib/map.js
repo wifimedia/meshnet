@@ -30,7 +30,7 @@ var macs = new Array();
 	//
 	function addNode(form)
 	{
-		if(form.form_name.value=="basicEdit"){
+		if(form.form_name.value=="basicEdit" || "addNode"){
 			if(form.user_type.value=="user"){
 				var text;
 				if(form.node_name.value=="" || form.mac.value==""){

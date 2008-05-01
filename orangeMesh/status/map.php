@@ -76,7 +76,8 @@ include "../lib/mapkeys.php";
 		Nifty("div.note");
 
 <?php
-include("../lib/connectDB.php");
+require "../lib/connectDB.php";
+include "../lib/toolbox.php";
 
 //
 // Get our markers from database and add to the map viewport
@@ -149,7 +150,7 @@ NO_NODES;
 		$gateway=$row["gateway"];
 		$gw_qual=$row["gw-qual"];
 		$users=$row["users"];
-		$time=$row["epoch_time"];
+		$time=$row["time"];
 		$kbdown=$row["kbdown"];
 		$kbup=$row["kbup"];
 		$hops=$row["hops"];
@@ -168,22 +169,10 @@ NO_NODES;
 		if (!strlen($gw_qual)) $gw_qual = 0;
 		
 		//get time since last checkin and prettify it
-		$up = time() - $time;
-		$ctime = time();
-	
-		$days  = (int)($up / 86400);
-		$hours = (int)(($up - ($days * 86400)) / 3600);
-		$mins  = (int)(($up - ($days * 86400) - ($hours * 3600)) / 60);
-		$secs  = (int)(($up - ($days * 86400) - ($hours * 3600) - ($mins * 60)));
-	
-		if ($days)
-			$LastCheckin = "$days Days, $hours Hours, $mins Minutes";
-		else if ($hours)
-			$LastCheckin = "$hours Hours, $mins Minutes";
-		else if ($mins)
-			$LastCheckin = "$mins Minutes, $secs Seconds";
-		else
-			$LastCheckin = "$secs Seconds";
+		$ctime = getdate();
+		$ctime = $ctime[0];
+		$up = $ctime-strtotime($time);
+		$LastCheckin = humantime($time);
 	
 		$draggable = false;
 
@@ -199,12 +188,16 @@ if($utype=="admin"){
 if($is_gateway=="1"){$hops="0 (gateway)";}
 
 $html_string .='<tr>'.
+				'<td>Last Checkin:</td>'.
+				'<td>'.$LastCheckin.'</a></td>'.
+			'</tr>'.
+			'<tr>'.
 				'<td>Users:</td>'.
 				'<td>'.$users.'</a></td>'.
 			'</tr>'.
 			'<tr>'.
-				'<td>Down/Up (bytes):</td>'.
-				'<td>'.$kbdown.' / '.$kbup.'</td>'.
+				'<td>Down/Up (kb):</td>'.
+				'<td>'.round($kbdown/1000,1).' / '.round($kbup/1000,1).'</td>'.
 			'</tr>'.
 			'<tr>'.
 				'<td>Hops:</td>'.
