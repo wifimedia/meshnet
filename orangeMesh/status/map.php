@@ -25,7 +25,7 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 session_start();
-if ($_SESSION['user_type']!='admin') 
+if (!isset($_SESSION['user_type'])) 
 	header("Location: ../entry/select.php");
 
 
