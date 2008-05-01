@@ -100,7 +100,7 @@ function humantime($time){
 	$mins  = (int)(($up - ($days * 86400) - ($hours * 3600)) / 60);
 	$secs  = (int)(($up - ($days * 86400) - ($hours * 3600) - ($mins * 60)));
 
-	if($days>14000)
+	if($days>=14000)
 		return "Never checked in.";
 		
 	if ($days)
