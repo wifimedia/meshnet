@@ -12,7 +12,8 @@
 -- By: Shaddi Hasan
 -- Revised: March 28, 2008
 -- By: Mac Mollison
---
+-- Revised: April 30, 2008
+-- By: Mac Mollison
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -70,10 +71,10 @@ CREATE TABLE IF NOT EXISTS `network` (
 
 CREATE TABLE IF NOT EXISTS `node` (
 
--- Fields updated automatically by the database; available for dashboard if they are needed.
+-- Generic fields 
 
 `id` int(11) NOT NULL auto_increment,
-`time` timestamp NOT NULL default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Time of last update; automatically updated by MySQL',
+`time` varchar(20) NOT NULL COMMENT 'Time of last checkin',
 
 -- Fields used in the front end; ignored by checkin-batman
 

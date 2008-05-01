@@ -55,7 +55,8 @@ $netid = $row['netid'];
 $update = "UPDATE node SET ";
 foreach($robin_vars as $key => $value) $update .= "`" . $key . "`='" . $value . "', ";
 
-//Add the derivative ROBIN vars to the update string
+//Add the time and derivative ROBIN vars to the update string
+$update .= "`time`=CURRENT_TIMESTAMP, ";
 if ($memlow == '' || $memlow > $robin_vars["memfree"]) $update .= "`memlow`='" . $robin_vars['memfree'] . "', "; 
 if ($usershi < $robin_vars["users"]) $update .= "`usershi`='" . $robin_vars['users'] . "', ";
 if (in_array($robin_vars["gateway"],split(";",$robin_vars["nbs"]))) $update .= "`gateway_bit`=0, "; else $update .= "`gateway_bit`=1, ";    //If $gateway is in $nbs array, the gateway is a neighbor (i.e. another node), which means this node itself is not a gateway. (For actual gateway nodes, the 'gateway' is the router.)
