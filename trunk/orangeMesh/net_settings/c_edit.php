@@ -25,8 +25,9 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
 
+//Start session, do includes
+session_start();
 include '../lib/toolbox.php';
 
 //setup db connection
@@ -54,6 +55,7 @@ foreach ($network_fields as $f){
 	$temp=$f." = "."'".$_POST[$f]."'";
 	$result[] = $temp;
 }
+
 //turn result array into result string
 $result = implode(", ",$result);
 
@@ -63,9 +65,8 @@ $query = "UPDATE ".$dbTable." SET ".$result." WHERE id='".$id."'";
 //execute query
 mysqli_query($conn,$query) or die("Error executing query: ".mysqli_error($conn));
 
-mysqli_close($conn);
-
 //if we got here, everything went ok
+mysqli_close($conn);
 $_SESSION["updated"] = 'true';
 echo '<HTML><HEAD><META HTTP-EQUIV="refresh" CONTENT="0; URL=edit.php"></HEAD></HTML>';
 ?>

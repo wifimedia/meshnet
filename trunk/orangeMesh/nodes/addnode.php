@@ -24,14 +24,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
-session_start();
 
+//Set up session, get session variables
+session_start();
 $utype = $_SESSION['user_type'];
 $netid = $_SESSION['netid'];
 $net_name = $_SESSION['net_name'];
 $updated = $_SESSION['updated'];
 
-// a lot of the following is from Mike; forgive me if the code is unclear.
+// A lot of the following is from Mike; forgive me if the code is unclear.
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -123,9 +124,7 @@ include "../lib/mapkeys.php";
 include("../lib/connectDB.php");
 include "../lib/toolbox.php";
 
-//
 // Get our markers from database and add to the map viewport
-//
 {
 
 	$query="SELECT net_location FROM network WHERE id='$netid'";
@@ -169,9 +168,7 @@ NO_NODES;
 	$minY=360;
 	$maxY=-360;
 	
-	//
 	// Plot our nodes
-	//
 	while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) 
 	{
 		$approval_status=$row["approval_status"];
@@ -192,9 +189,7 @@ NO_NODES;
 		$users=$row["users"];
 		$time=$row["time"];
 		
-		//
 		// Calculate min, max latitude, longitude for center and zoom later
-		//
 		if ($latitude < $minX) $minX = $latitude;
 		if ($latitude > $maxX) $maxX = $latitude;
 		if ($longitude < $minY) $minY = $longitude;
@@ -219,9 +214,7 @@ NO_NODES;
 			break;
 		}
 		
-//
 // Create the Marker
-//
 $html = addslashes('<form name="basicEdit" method="POST">'.
 			'<h3>Basic Information</h3>'.
 				'<table id="node">'.
@@ -329,9 +322,7 @@ END;
 
 mysqli_close($conn);
 
-//
 // We're done, so center and zoom the map
-//
 echo <<<END
 	
 		myCenterAndZoom(map, $minX, $maxX, $minY, $maxY, "$node_loc");

@@ -25,17 +25,16 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Setup session and db connection
 session_start();
-
-//setup db connection
 require '../lib/connectDB.php';
 setTable("node");
 
-//sanitize input info
+//Sanitize input info
 include '../lib/toolbox.php';
 sanitizeAll();
 
-//generate string of values to update in dashboard
+//Generate string of values to update in dashboard
 foreach ($node_fields as $f){
 	//if the originating form didn't sent a value for this field, skip it
 	if(!isset($_POST[$f])){continue;}
@@ -44,18 +43,18 @@ foreach ($node_fields as $f){
 	$temp=$f." = "."'".$_POST[$f]."'";
 	$result[] = $temp;
 }
-//turn result array into result string
+
+//Turn result array into result string
 $result = implode(", ",$result);
 
-//create query string using result string
+//Create query string using result string
 $query = "UPDATE ".$dbTable." SET ".$result." WHERE mac='" . $_POST["mac"] . "'";
 
-//execute query
+//Execute query
 mysqli_query($conn,$query) or die("Error executing query: ".mysqli_error($conn));
-
 mysqli_close($conn);
 
-//if we got here, everything went ok
+//If we got here, everything went ok
 $_SESSION["updated"] = 'true';
 echo '<HTML><HEAD><META HTTP-EQUIV="refresh" CONTENT="0; URL=nodes_info.php"></HEAD></HTML>';
 ?>

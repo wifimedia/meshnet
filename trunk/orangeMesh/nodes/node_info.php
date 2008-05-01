@@ -25,37 +25,38 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Start session
 session_start();
 
-//check if we have a network selected, if not redirect to select page
+//Check if we have a network selected, if not redirect to select page
 if (!isset($_SESSION['netid'])) 
     header("Location: ../entry/select.php");
 
+//Do includes
 include "../lib/style.php";
-
 ?>
 <body onload=Nifty("div.comment");>
 <?
 include "../lib/menu.php";
 
-//setup database connection
+//Setup database connection
 require "../lib/connectDB.php";
 setTable("node");
 
-//display the title of the page
+//Display the title of the page
 $result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
 $resArray = mysqli_fetch_assoc($result);
 if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
 else {$display_name = $resArray['display_name'];}
 echo "<h2>Edit Node Information for " . $_GET["mac"] . "</h2>";
 
-//get nodes that match MAC address from GET string
+//Get nodes that match MAC address from GET string
 $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"] . " AND mac='" . $_GET['mac'] . "'";
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)==0) die("<div class=error>We could not find that node.</a></div>");
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
 
-//set up variables needed to display current activation status properly
+//Set up variables needed to display current activation status properly
 if ($row["approval_status"] == A) {
     $selected_flag_letter = "A";
     $selected_flag = "Activated";

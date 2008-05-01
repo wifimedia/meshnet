@@ -29,30 +29,33 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+//Includes, other setup
 require '../lib/connectDB.php';
 include '../lib/toolbox.php';
 setTable('network');
 sanitizeAll();
 
-//do checking to make sure we can actually do the import
+//Do checking to make sure we can actually do the import
 $net_name = $_POST['net_name'];
 $query = 'SELECT * FROM '.$dbTable.' WHERE net_name="'.$net_name.'"';
 $result = mysqli_query($conn,$query);
 
-//check if the network account exists on this server.
+//Check if the network account exists on this server.
 if(mysqli_num_rows($result)<1){
 	die('ERROR: There is no matching network on this server. Please create the network, then try exporting again.');
 }
 $resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-//check if the network allows migration
+//Check if the network allows migration
 if($resArray['migration_enable']==0){
 	die('ERROR: The network you are exporting does not have migration enabled on this server. Enable migration, then try again.');
 }
 
-//get the local network id
+//Get the local network id
 $netid = $resArray['id'];
 
+//Do the import
 if($_POST['migration_phase']=='network'){
 	setTable('network');
 	
@@ -201,10 +204,5 @@ else if($_POST['migration_phase']=='node'){
 		
 		insert('node',$fields,$values);
 	}
-	
-	
 }
-
-
-
 ?>

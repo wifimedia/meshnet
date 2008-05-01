@@ -25,6 +25,7 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Start session
 session_start();
 
 //Set how long a node can be down before it's name turns red (in seconds)
@@ -34,7 +35,7 @@ $OK_DOWNTIME = 1800;
 $currentTime = getdate();
 $currentTime = $currentTime['0'];
 
-//setup database connection
+//Setup database connection
 require "../lib/connectDB.php";
 setTable("node");
 
@@ -44,7 +45,7 @@ include "../lib/menu.php";
 include "../lib/toolbox.php";
 sanitizeAll();
 
-//check if we have an email selected, if not ask them for one.
+//Check if we have an email selected, if not ask them for one.
 if (!isset($_POST['email'])) {
     ?>
     Please enter your email address.
@@ -56,7 +57,7 @@ if (!isset($_POST['email'])) {
     die();
 }
 
-//include javascript to close the tip box
+//Include javascript to close the tip box
 ?>
 <head>
 <script>
@@ -67,7 +68,7 @@ if (!isset($_POST['email'])) {
 </head>
 <?
 
-//display the title of the page and tip box
+//Display the title of the page and tip box
 $result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
 $resArray = mysqli_fetch_assoc($result);
 if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
@@ -81,7 +82,7 @@ echo <<<TITLE
 <a href="javascript:close()">hide</a></div>
 TITLE;
 
-//get nodes that match email address from database
+//Get nodes that match email address from database
 $query = "SELECT * FROM node WHERE owner_email='" . $_POST["email"]. "' AND netid='" . $_SESSION["netid"] . "'";
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associated with this email address.</div>");

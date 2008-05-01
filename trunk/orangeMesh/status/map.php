@@ -1,5 +1,5 @@
 <?php
-/* Name: addnode.php
+/* Name: map.php
  * Purpose: map to add node to network
  * Written By: Mike Burmeister-Brown, Shaddi Hasan
  * Last Modified: April 12, 2008
@@ -24,17 +24,17 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+//Setup session
 session_start();
 if (!isset($_SESSION['user_type'])) 
 	header("Location: ../entry/select.php");
-
-
 $utype = $_SESSION['user_type'];
 $netid = $_SESSION['netid'];
 $net_name = $_SESSION['net_name'];
 $updated = $_SESSION['updated'];
 
-// a lot of the following is from Mike; forgive me if the code is unclear.
+// A lot of the following is from Mike; forgive me if the code is unclear.
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -82,9 +82,7 @@ include "../lib/mapkeys.php";
 require "../lib/connectDB.php";
 include "../lib/toolbox.php";
 
-//
 // Get our markers from database and add to the map viewport
-//
 {
 
 	$query="SELECT net_location FROM network WHERE id='$netid'";
@@ -128,9 +126,7 @@ NO_NODES;
 	$minY=360;
 	$maxY=-360;
 	
-	//
 	// Plot our nodes
-	//
 	while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) 
 	{
 		$approval_status=$row["approval_status"];
@@ -161,9 +157,7 @@ NO_NODES;
 		$batman=$row["batman"];
 		$is_gateway=$row["gateway_bit"];
 		
-		//
 		// Calculate min, max latitude, longitude for center and zoom later
-		//
 		if ($latitude < $minX) $minX = $latitude;
 		if ($latitude > $maxX) $maxX = $latitude;
 		if ($longitude < $minY) $minY = $longitude;
@@ -171,7 +165,7 @@ NO_NODES;
 		
 		if (!strlen($gw_qual)) $gw_qual = 0;
 		
-		//get time since last checkin and prettify it
+		//Get time since last checkin and prettify it
 		$ctime = getdate();
 		$ctime = $ctime[0];
 		$up = $ctime-strtotime($time);
@@ -180,9 +174,7 @@ NO_NODES;
 		$draggable = false;
 
 		
-//
 // Create the Marker
-//
 $html_string = '<h3>Node Status: '.$name.'</h3>'.'<table class="infoWindow">';
 if($utype=="admin"){
 	$html_string .='<tr>'.'<td>Description:</td>'.'<td>'.$description.'</td>'.'</tr>';
@@ -254,9 +246,7 @@ END;
 
 mysqli_close($conn);
 
-//
 // We're done, so center and zoom the map
-//
 echo <<<END
 	
 		myCenterAndZoom(map, $minX, $maxX, $minY, $maxY, "$node_loc");

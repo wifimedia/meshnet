@@ -25,6 +25,7 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Setup session
 session_start();
 
 //Set how long a node can be down before it's name turns red (in seconds)
@@ -34,12 +35,12 @@ $OK_DOWNTIME = 1800;
 $currentTime = getdate();
 $currentTime = $currentTime['0'];
 
-//check if we have a network selected, if not redirect to select page
+//Check if we have a network selected, if not redirect to select page
 if (!isset($_SESSION['netid'])) 
 	header("Location: ../entry/select.php");
 
+//Includes
 include "../lib/style.php";
-//include javascript to close the tip box
 ?>
 <head>
 <script>
@@ -49,19 +50,15 @@ include "../lib/style.php";
 </script>
 <!-- Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column. -->
 <script src='../lib/sorttable.js'></script>
-
 </head>
 <body onload=Nifty("div.note");>
 <?
 include "../lib/menu.php";
-
-//setup database connection
 require "../lib/connectDB.php";
 setTable("node");
-
 include '../lib/toolbox.php';
 
-//display the title of the page
+//Display the title of the page
 $result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
 $resArray = mysqli_fetch_assoc($result);
 if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
@@ -74,7 +71,7 @@ echo <<<TITLE
 <a href="javascript:close()">hide</a></div>
 TITLE;
 
-//get nodes that match network id from database
+//Get nodes that match network id from database
 $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"];
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associated with this network yet. You might want to <a href=\"../nodes/addnode.php\">add some</a>.</div>");
@@ -131,7 +128,7 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 }
 echo "</table>";
 
-//Set up NiftyCorners
+//Finish our HTML needed for NiftyCorners
 ?>
 <br>
 </body>
