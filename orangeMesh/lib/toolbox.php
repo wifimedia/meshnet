@@ -102,6 +102,8 @@ function humantime($time){
 
 	if($days>=14000)
 		return "Never checked in.";
+	if($days>50)
+		return "More than 50 days ago.";
 		
 	if ($days)
 		$humantime = "$days Days, $hours Hours, $mins Minutes";
