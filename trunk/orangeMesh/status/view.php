@@ -59,6 +59,8 @@ include "../lib/menu.php";
 require "../lib/connectDB.php";
 setTable("node");
 
+include '../lib/toolbox.php';
+
 //display the title of the page
 $result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
 $resArray = mysqli_fetch_assoc($result);
@@ -107,11 +109,17 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             if ($value=="name" && $row["gateway_bit"]==1) {
                 echo "<b>" . $row[$value] . "</b>";                      
             }
+            elseif ($value=="kbdown" || $value=="kbup") {
+            	echo round($row[$value]/1000,1);
+            }
             elseif ($value=="hops" && $row["gateway_bit"]==1) {
                 echo "0";                      
             }
             elseif ($value=="gw-qual") {    //Convert rank from x {x | 0 < x < 255} to %
                 echo floor(100 * ($row[$value] / 255)) . "%";
+            }
+            elseif ($value=="time"){
+            	echo humantime($row[$value]);
             }
             else {
                 echo $row[$value];
