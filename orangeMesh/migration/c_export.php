@@ -24,10 +24,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
-session_start();
 
+//Start session, do includes
+session_start();
 include '../lib/menu.php';
 
+//Get POST variables
 $net_name = $_SESSION['net_name'];
 $netid = $_SESSION['netid'];
 $host = $_POST['host'];
@@ -35,13 +37,12 @@ $path = $_POST['path']."/migration/import.php";
 if(isset($_POST['new_name'])){
 	$net_name = $_POST['new_name'];
 }
-	
 if(strlen($host)==0){$host = "localhost";}
 
-/* set whether this server is "orangemesh" or "open-mesh"
- * note: if you're not using the default orangemesh database structure, you'll only 
- * be able to import to servers that are able to interpret your database fields and
- * convert them to their own. It's best to leave everything alone.
+//Set whether this server is "orangemesh" or "open-mesh"
+//note: if you're not using the default orangemesh database structure, you'll only 
+//be able to import to servers that are able to interpret your database fields and
+//convert them to their own. It's best to leave everything alone.
  */
 $structure = "orangemesh";
 

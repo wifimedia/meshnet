@@ -25,8 +25,9 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+//Start session
 session_start();
+
 ?>
 <head>
 <script language="javascript" type="text/javascript">
@@ -36,40 +37,37 @@ session_start();
 </script>
 <script src='../lib/sorttable.js'></script>
 <?
-//check if we have a network selected, if not redirect to select page
+
+//Check if we have a network selected, if not redirect to select page
 if (!isset($_SESSION['netid'])) 
 	header("Location: ../entry/select.php");
 
+//Includes
 include "../lib/style.php";
 ?>
 </head>
 <body onload=Nifty("div.comment#tip");>
-
 <?
 include "../lib/menu.php";
 
-//setup database connection
+//Setup database connection
 require "../lib/connectDB.php";
 setTable("node");
 
-//display the title of the page
+//Display the title of the page
 $result = mysqli_query($conn,"SELECT * FROM network WHERE id=".$_SESSION['netid']);
 $resArray = mysqli_fetch_assoc($result);
 if($resArray['display_name']=="") {$display_name = $resArray['net_name'];}
 else {$display_name = $resArray['display_name'];}
-
 ?>
 <h2>Node Information List for <?echo $display_name;?></h2>
 <div class="note" id="tip">You can edit node information by clicking on the node's name. <a href="javascript:close()">hide</a></div>
-
 <?
 
-//get nodes that match network id from database
+//Get nodes that match network id from database
 $query = "SELECT * FROM node WHERE netid=" . $_SESSION["netid"];
 $result = mysqli_query($conn,$query);
 if(mysqli_num_rows($result)==0) die("<div class=error>There are no nodes associated with this network yet. You might want to <a href=\"../nodes/addnode.php\">add some</a>.</div>");
-
-
 
 //Table columns, in format Display Name => DB field name.
 //You can choose whatever order you like... and these are not all the options... any DB field is game.
@@ -77,7 +75,6 @@ $node_fields = array("Node Name" => "name","MAC" => "mac","Description" => "desc
 
 //Set up the table (HTML output) - the Javascript causes it to be sortable by clicking the top of a column.
 echo "";
-
 echo "<table class='sortable' border='1'>";
 
 //Output the top row of the table (display names)

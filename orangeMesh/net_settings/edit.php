@@ -24,21 +24,23 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+//Make sure person is logged in
 session_start();
 if ($_SESSION['user_type']!='admin') 
 	header("Location: ../entry/login.php?rd=net_settings/edit");
 
-//set up database connection
+//Set up database connection
 require '../lib/connectDB.php';
 setTable('network');
 
-//select the network from the database and get the values
+//Select the network from the database and get the values
 $netid = $_SESSION["netid"];
 $query = "SELECT * FROM ".$dbTable." WHERE id='".$netid."'";
 $result = mysqli_query($conn,$query);
 $resArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-//get all the current values from the database
+//Get all the current values from the database
 $net_name = $resArray['net_name'];
 $display_name = $resArray['display_name'];
 $email1 = $resArray['email1'];
@@ -61,7 +63,7 @@ $ap1_isolate = $resArray['ap1_isolate'];
 $ap2_isolate = $resArray['ap2_isolate'];
 $migration_enable = $resArray['migration_enable'];
 
-//check if the user just updated the network
+//Check if the user just updated the network
 $updated = $_SESSION['updated'];
 unset($_SESSION['updated']);
 ?>
@@ -94,18 +96,7 @@ unset($_SESSION['updated']);
 </head>
 <?
 
-////include dojo framework and styles
-//include '../lib/dojo.php';
-////dojo requires
-//echo <<< REQUIRES
-//	<script type = "text/javascript">
-//		dojo.require("dojo.parser");
-//		dojo.require("dijit.TitlePane");
-//	</script>
-//REQUIRES;
-
 //determines the value of a boolean in the db
-//probably should be located in a different file.
 function isChecked($field){
 	if ($field==0)
 		return "";

@@ -3,7 +3,6 @@
  * Purpose: form to add migration info.
  * Written By: Shaddi Hasan
  * Last Modified: April 5, 2008
- * TODO: allow users to set a new name for their network on the remote server.
  * 
  * (c) 2008 Orange Networking.
  *  
@@ -26,7 +25,9 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Includes
 include '../lib/menu.php';
+
 ?>
 <html>
 <head>

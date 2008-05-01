@@ -25,11 +25,12 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Make sure the person is logged in
 session_start();
-
 if(!isset($_SESSION['netid'])){
 	header("Refresh: 0 url=../entry/login.php");
 }
+
 //get the toolbox
 include '../lib/toolbox.php';
 		
@@ -38,7 +39,6 @@ require '../lib/connectDB.php';
 setTable('network');
 sanitizeAll();
 
-$password = md5($_POST["old_pass"]);
 
 
 //first check that the passwords entered matched
@@ -50,6 +50,7 @@ if($_POST["new_pass"]!=$_POST["confirm_pass"]){
 }
 
 //check to see if the user entered the correct current password
+$password = md5($_POST["old_pass"]);
 $query = "SELECT * FROM ".$dbTable." WHERE id='".$_SESSION['netid']."' AND password='".$password."'";
 $result = mysqli_query($conn,$query);
 $num = mysqli_num_rows($result);
