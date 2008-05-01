@@ -90,4 +90,25 @@ function is_mac($mac){
 		return false;
 	}
 }
+function humantime($time){
+	$ctime = getdate();
+	$ctime = $ctime[0];
+	$up = $ctime-strtotime($time);
+
+	$days  = (int)($up / 86400);
+	$hours = (int)(($up - ($days * 86400)) / 3600);
+	$mins  = (int)(($up - ($days * 86400) - ($hours * 3600)) / 60);
+	$secs  = (int)(($up - ($days * 86400) - ($hours * 3600) - ($mins * 60)));
+
+	if ($days)
+		$humantime = "$days Days, $hours Hours, $mins Minutes";
+	else if ($hours)
+		$humantime = "$hours Hours, $mins Minutes";
+	else if ($mins)
+		$humantime = "$mins Minutes, $secs Seconds";
+	else
+		$humantime = "$secs Seconds";
+		
+	return $humantime;
+}
 ?>

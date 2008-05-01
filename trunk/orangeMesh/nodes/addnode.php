@@ -121,6 +121,7 @@ include "../lib/mapkeys.php";
 
 <?php
 include("../lib/connectDB.php");
+include "../lib/toolbox.php";
 
 //
 // Get our markers from database and add to the map viewport
@@ -204,20 +205,7 @@ NO_NODES;
 		$ctime = getdate();
 		$ctime = $ctime[0];
 		$up = $ctime-strtotime($time);
-	
-		$days  = (int)($up / 86400);
-		$hours = (int)(($up - ($days * 86400)) / 3600);
-		$mins  = (int)(($up - ($days * 86400) - ($hours * 3600)) / 60);
-		$secs  = (int)(($up - ($days * 86400) - ($hours * 3600) - ($mins * 60)));
-	
-		if ($days)
-			$LastCheckin = "$days Days, $hours Hours, $mins Minutes";
-		else if ($hours)
-			$LastCheckin = "$hours Hours, $mins Minutes";
-		else if ($mins)
-			$LastCheckin = "$mins Minutes, $secs Seconds";
-		else
-			$LastCheckin = "$secs Seconds";
+		$LastCheckin = humantime($time);
 	
 		switch($utype){
 		case 'admin':
@@ -234,33 +222,41 @@ NO_NODES;
 //
 // Create the Marker
 //
-
 $html = addslashes('<form name="basicEdit" method="POST">'.
 			'<h3>Basic Information</h3>'.
-				'<table width="310"  border="0" cellpadding="0" cellspacing="0" id="node">'.
+				'<table id="node">'.
 				'<tr>'.
 				  '<td class="style1">Name:</td>'.
 				  '<td><input type="text" size="32" name="node_name" value="'.$name.'"></td>'.
-				'</tr><tr>'.
+				'</tr>'.
+				'<tr>'.
 				  '<td><span class="style1">MAC:</span><span class="style2">&nbsp;&nbsp;</span></td>'.
 				  '<td><input type="text" size="32" name="mac" value="'.$mac.'" readonly></td>'.
-				'</tr><tr>' .
+				'</tr>'.
+				'<tr>' .
 				  '<td><span class="style1">Description:</td>' .
 				  '<td><input type="text" size="32"  name="description" value="' . $description . '"></td>' .
-				'</tr><tr>' .
+				'</tr>'.
+				'<tr>' .
 				  '<td><span class="style1">Latitude:</span></td>' .
 				  '<td><input type="text" size="32"  name="latitude" value="' . $latitude . '" readonly></td>' .
-				'</tr><tr>' .
+				'</tr>'.
+				'<tr>' .
 				  '<td><span class="style1">Longitude:&nbsp;</span></td>' .
 				  '<td><input type="text" size="32"  name="longitude" value="' . $longitude . '" readonly></td>' .
-				'</tr><tr></tr><td>&nbsp;</td><tr>' .
+				'</tr>'.
+				'<tr>' .
 				  '<td><input type="hidden" name="net_name" value="' . $net_name . '"></td>' .
 				  '<td><input type="hidden" name="user_type" value="' . $utype . '"></td>' .
 				  '<td><input type="hidden" name="form_name" value="basicEdit"></td>'.
-	      	'<tr><td><input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
-  	    		'&nbsp;<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)"></td></tr>' .
-				'<tr><td>&nbsp;</td></tr>' .
-				'</tr></table></form>');
+				'</tr>' .
+		      	'<tr>' .
+					'<td>'.
+						'<input type="submit" name="submit" value="Update" onClick="addNode(this.form)">' .
+	  	    			'<input type="button" name="Delete" value="Delete" onClick="deleteNode(this.form)">'.
+					'</td>' .
+				'</tr>' .
+				'</table></form>');
 
 $owner = addslashes('<form name="ownerEdit" method="POST">'.
 			'<h3>Node Owner Information</h3>'.
@@ -292,15 +288,40 @@ $owner = addslashes('<form name="ownerEdit" method="POST">'.
   	    	'</tr>' .
 			'</table></form>');
 
+$html_string = '<h3>Node Info: '.$name.'</h3>'.'<table class="infoWindow">'.
+			'<tr>'.
+				'<td>Node Owner:</td>'.
+				'<td>'.$owner_name.'</td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>Owner Email:</td>'.
+				'<td>'.$owner_email.'</td>'.
+			'</tr>'.
+			'<tr>' .
+				'<td colspan=2><i>Owner phone number and address hidden.</i></td>'.
+			'</tr>'.
+			'<tr>'.
+				'<td>Last Checkin:</td>'.
+				'<td>'.$LastCheckin.'</td>'.
+			'</tr>'.
+			'</table>';
+$status = addslashes($html_string);
+
 echo <<<END
  		
 	point = new GPoint($longitude, $latitude);
 	var marker = new nodeMarker(map, "$net_name", point, "$name", "$notes", "$mac", "$gateway", "$gw_metric", "$up", "$draggable", "$users");	
-	marker.addTab("Basic Info","$html");
-	marker.addTab("Owner Info","$owner");	
+END;
+	if($utype=='admin'){
+		echo 'marker.addTab("Basic Info","'.$html.'");';
+		echo 'marker.addTab("Basic Info","'.$owner.'");';
+	} else {
+		echo 'marker.addTab("Status","'.$status.'");';
+	}
+		
+echo <<<END
 	marker.addListeners();
 	map.addOverlay(marker.get());
-	
 END;
 	
 	}
