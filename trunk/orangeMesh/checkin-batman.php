@@ -40,12 +40,12 @@ if ($robin_vars["mac"] == '') die("No MAC address.");
 
 //If we don't have a DB row for this MAC address, create one.
 //While we're at it, get the memlow, usershi, and netid variables to use later.
-
 $query = sprintf("SELECT memlow, usershi, netid FROM node WHERE mac='%s'",$robin_vars["mac"]);
 $result = mysqli_query($conn,$query);
 if (mysqli_num_rows($result) == 0) {
     $query = sprintf("INSERT INTO node (mac) VALUES ('%s')",$robin_vars["mac"]);
-    mysqli_query($query);          }
+    mysqli_query($query);
+}
 $row = mysqli_fetch_array($result);
 $memlow = $row['memlow'];
 $usershi = $row['usershi'];
@@ -59,7 +59,8 @@ foreach($robin_vars as $key => $value) $update .= "`" . $key . "`='" . $value . 
 $update .= "`time`=CURRENT_TIMESTAMP, ";
 if ($memlow == '' || $memlow > $robin_vars["memfree"]) $update .= "`memlow`='" . $robin_vars['memfree'] . "', "; 
 if ($usershi < $robin_vars["users"]) $update .= "`usershi`='" . $robin_vars['users'] . "', ";
-if (in_array($robin_vars["gateway"],split(";",$robin_vars["nbs"]))) $update .= "`gateway_bit`=0, "; else $update .= "`gateway_bit`=1, ";    //If $gateway is in $nbs array, the gateway is a neighbor (i.e. another node), which means this node itself is not a gateway. (For actual gateway nodes, the 'gateway' is the router.)
+if (in_array($robin_vars["gateway"],split(";",$robin_vars["nbs"]))) $update .= "`gateway_bit`=0, "; 
+else $update .= "`gateway_bit`=1, ";    //If $gateway is in $nbs array, the gateway is a neighbor (i.e. another node), which means this node itself is not a gateway. (For actual gateway nodes, the 'gateway' is the router.)
 
 //Cap off the update string and make the update
 $update = rtrim($update, ", ");
@@ -71,7 +72,9 @@ $query = sprintf("SELECT * FROM network WHERE id='%s'",$netid);
 $result = mysqli_query($conn,$query);
 if (mysqli_num_rows($result) == 0) die("No such network");
 $row = mysqli_fetch_array($result);
-$fields = array("ap1_essid","ap1_key","ap2_essid","ap2_key","ap1_isolate","ap2_isolate","ap2_enable","node_pwd","download_limit","upload_limit","throttling_enable","lan_block","splash_redirect_url","splash_idle_timeout","splash_force_timeout","test_firmware_enable","splash_enable");
+$fields = array("ap1_essid","ap1_key","ap2_essid","ap2_key","ap1_isolate","ap2_isolate","ap2_enable",
+  "node_pwd","download_limit","upload_limit","throttling_enable","lan_block","splash_redirect_url",
+  "splash_idle_timeout","splash_force_timeout","test_firmware_enable","splash_enable");
 foreach ($fields as $field) $$field = $row[$field];
 
 //Create any other special strings needed for the response
@@ -84,49 +87,7 @@ else $authenticate_immediately = 1;
 if ( strlen($ap1_key) >= 8) $ap_psk = 1; 
 else $ap_psk = 0;
 
-
-//My old sample response which I have abandoned trying to use...
-//Just keep around for reference to the variables, it is useful for now.
-//Display the response
-#echo <<<RESPONSE
-##@#config wireless
-#public.ssid $ap1_essid
-#public.key $ap1_key
-#private.ssid $ap2_essid
-#private.key $ap2_key
-##@#config mesh
-#Myap.up $ap2_enable
-#ap.psk 0
-##@#config management
-#enable.base $base
-#enable.rootpwd $node_pwd
-##@#config iprules
-#AP1_bridge $ap1_isolate
-#AP2_bridge $ap2_isolate
-#LAN_BLOCK $lan_block
-##@#config nodog
-#TrafficControl $throttling_enable
-#DownloadLimit $download_limit
-#UploadLimit $upload_limit
-#ClientIdleTimeout $splash_idle_timeout
-#ClientForceTimeout $splash_force_timeout
-#AuthenticateImmediately $authenticate_immediately
-#$splash_redirect_url_string
-#
-#RESPONSE;
-
-//Antonio's sample response, modified with our DB variables.
-//I don't know what effect changing the network name has. So why bother?
-//I don't know what defessid does, so leaving it at 0.
-//We don't have an option to change ap.up
-//Not guaranteed to work if you change ap1_isolate, ap2_isolate or lan_block to values other than 1.
-//backend.update, backend.server and backend.ssl left at Antonio's defaults.
-//FirewallRuleSet left at Antonio's defaults
-//GatewayName changed from antonio test to orange test - I don't know what this does.
-//RedirectURL may break if (currently) if no RedirectURL is given, because Mike's code emits the entry in that case.
-//Leaving #bogus as is. - what is this?
-//Not messing with nodogsplash stuff.
-
+//Output response to node. This comes from Antonio's sample, with some bug fixes.
 echo <<< RESPONSE
 #@#config node
 general.net orange
@@ -190,4 +151,4 @@ image http://www.open-mesh.com/users/anselmi/images/antonio.GIF
 image http://www.open-mesh.com/users/anselmi/images/open-mesh-small.png
 
 RESPONSE;
-?>
+

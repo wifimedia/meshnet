@@ -53,19 +53,16 @@ function insert($table,$fields,$values){
 	mysqli_query($conn,$query) or die("Error executing query: ".mysqli_error($conn));
 }
 
-//get the values we ask for from post
-//TODO: sanitize. provide an error result if the input is not good.
+//Get the values we ask for from post
 function getValuesFromPOST($fields){
 	foreach ($fields as $f){
-		//echo $f.": ";
 		$val = $_POST[$f];
-		//echo $val."<br>";
 		$values[]=$_POST[$f];
 	}
 	return $values;
 }
 
-//sanitize a string
+//Sanitize a string
 //I think this is best used in controllers, to check their own input. We don't
 //want someone to be able to mess stuff up by calling a controller script.
 function sanitize($string){

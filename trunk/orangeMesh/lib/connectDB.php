@@ -26,29 +26,30 @@
  * 
  */
 
-//Database Configuration Options
+//Welcome to OrangeMesh! If you are trying to configure your server, just look at the next section.
+//After that, you can ignore the stuff in this file!
+
+//Database configuration options
 $dbHost = "localhost";
 $dbUser = "orangemesh";
 $dbPass = "default";	//be sure to change this!
 $dbName = "orangemesh";
 
-
+//Create global dbTable variable
 $dbTable;
 
-$network_fields = array('id','net_name','display_name','password','email1','email2',
-				'net_location','ap1_essid','ap1_key','ap2_enable','ap2_essid',
-				'ap2_key','node_pwd','splash_enable','splash_redirect_url',
-				'splash_idle_timeout','splash_force_timeout','throttling_enable',
-				'download_limit','upload_limit','network_clients','network_bytes',
-				'access_control_list','lan_block','ap1_isolate','ap2_isolate',
-				'test_firmware_enable','migration_enable');
+//Create arrays of DB fields
+$network_fields = array('id','net_name','display_name','password','email1','email2', 'net_location','ap1_essid',
+  'ap1_key','ap2_enable','ap2_essid','ap2_key','node_pwd','splash_enable','splash_redirect_url',
+  'splash_idle_timeout','splash_force_timeout','throttling_enable','download_limit','upload_limit',
+  'network_clients','network_bytes','access_control_list','lan_block','ap1_isolate','ap2_isolate',
+  'test_firmware_enable','migration_enable');
 
-$node_fields = array('id','netid','name','description','ip','mac','latitude',
-				'longitude','gateway','gateway_bit','uptime','robin','batman','memfree','memlow','time',
-				'nbs','gw-qual','routes','users','usershi',
-				'kbdown','kbup','owner_name','owner_email','owner_phone',
-				'owner_address','approval_status','hops','rank');
+$node_fields = array('id','netid','name','description','ip','mac','latitude','longitude','gateway',
+  'gateway_bit','uptime','robin','batman','memfree','memlow','time','nbs','gw-qual','routes','users','usershi',
+  'kbdown','kbup','owner_name','owner_email','owner_phone','owner_address','approval_status','hops','rank');
 
+//setTable function
 function setTable($table){
 	global $dbTable;
 	$dbTable = $table;
