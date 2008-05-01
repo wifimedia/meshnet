@@ -1,8 +1,8 @@
 <?php
 /* Name: menu.php
  * Purpose: main menu for dashboard.
- * Written By: Shaddi Hasan, Mike Burmeister-Brown
- * Last Modified: April 6, 2008
+ * Written By: Shaddi Hasan, Mike Burmeister-Brown, Mac Mollison
+ * Last Modified: April 30, 2008
  * 
  * Variable Summary
  * Globals: on_index
@@ -30,15 +30,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+//Start session
 session_start();
 
-//get the user type
+//Get the user type
 $utype = $_SESSION['user_type'];
 
-//determine if we're on the index page
-//this is important in determining file paths
+//Determine if we're on the index page - used to determine file paths.
 $on_index = (boolean)strpos($_SERVER['PHP_SELF'],'index.php');
-//echo (boolean)$on_index;
 
 //decide what menu to display
 switch($utype){
@@ -53,8 +53,7 @@ switch($utype){
 		break;
 }
 
-//NOTE: be careful you don't use the id "map" for any of these elements... that's reserved for the google map.
-//generate and display the admin menu
+//Generate and display the admin menu
 function showAdminMenu(){
 	global $on_index;
 	echo 'You are logged in to the "'.$_SESSION['net_name'].'" network.';
@@ -73,7 +72,7 @@ function showAdminMenu(){
 	<?
 }
 
-//generate and display the user menu
+//Generate and display the user menu
 function showUserMenu(){
 	global $on_index;
 	echo 'You are viewing the "'.$_SESSION['net_name'].'" network.';
@@ -90,7 +89,7 @@ function showUserMenu(){
 	<?
 }
 
-//generate and display the default (no login) menu
+//Generate and display the default (no login) menu
 function showDefaultMenu(){
 	global $on_index;
 	echo 'Login to manage a network, or select a network to view its status.';
