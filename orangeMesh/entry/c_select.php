@@ -45,7 +45,7 @@ if(mysqli_num_rows($result)>=1){
 	//set the user type to 'user'
 	$_SESSION['user_type'] = 'user';
 	$_SESSION['error'] = false;
-	header('location: ../status/view.php');
+	header('location: ../status/map.php');
 }
 
 //otherwise there was no matching network

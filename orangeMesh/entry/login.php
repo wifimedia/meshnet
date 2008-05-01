@@ -57,7 +57,7 @@ if(isset($_POST["submit"])){
     	$_SESSION['netid'] = $resArray['id'];
    		$_SESSION['user_type'] = 'admin';
    		$_SESSION['net_name'] = $net_name;
-    	echo "<meta http-equiv=\"Refresh\" content=\"0;url=../$rd_page.php\">"; 
+    	echo "<meta http-equiv=\"Refresh\" content=\"0;url=../status/map.php\">"; 
     	
 	} else 
 	{

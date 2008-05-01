@@ -62,10 +62,10 @@ function showAdminMenu(){
 	?>
 	<div id="menu">
 	<ul id="nav">
-	<li id="left"><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Network Settings</a></li>
-	<li><a href="<?if(!$on_index){echo '../';}?>status/map.php">Node Map</a></li>
+	<li id="left"><a href="<?if(!$on_index){echo '../';}?>status/map.php">Node Map</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>status/view.php">Node Status List</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>nodes/nodes_info.php">Node Info List</a></li>
+	<li><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Network Settings</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>nodes/addnode.php">Add/Edit Nodes</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>entry/logout.php">Logout</a></li>
 	</ul>
@@ -102,8 +102,8 @@ function showDefaultMenu(){
 	<ul id="nav">
 	<li id="left" class="first"><a href="<?if(!$on_index){echo '../';}?>index.php">Home</a></li>
 	<li><a href="<?if(!$on_index){echo '../';}?>entry/create.php">Create Network</a></li>
-	<li><a href="<?if(!$on_index){echo '../';}?>net_settings/edit.php">Manage Network</a></li>
-	<li><a href="<?if(!$on_index){echo '../';}?>status/view.php">View Network</a></li>
+	<li><a href="<?if(!$on_index){echo '../';}?>entry/login.php">Manage Network</a></li>
+	<li><a href="<?if(!$on_index){echo '../';}?>entry/select.php">View Network</a></li>
 	</ul>
 	</div>
 	<?

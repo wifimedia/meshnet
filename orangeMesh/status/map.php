@@ -25,6 +25,9 @@
  * along with OrangeMesh.  If not, see <http://www.gnu.org/licenses/>.
  */
 session_start();
+if ($_SESSION['user_type']!='admin') 
+	header("Location: ../entry/select.php");
+
 
 $utype = $_SESSION['user_type'];
 $netid = $_SESSION['netid'];
