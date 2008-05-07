@@ -43,7 +43,7 @@ if(strlen($host)==0){$host = "localhost";}
 //note: if you're not using the default orangemesh database structure, you'll only 
 //be able to import to servers that are able to interpret your database fields and
 //convert them to their own. It's best to leave everything alone.
- */
+
 $structure = "orangemesh";
 
 //clear out post array
